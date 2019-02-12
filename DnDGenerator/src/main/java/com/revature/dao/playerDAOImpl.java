@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.revature.utilities.DAOUtilities;
-
 public class playerDAOImpl implements playerDAO {
 
 	private static playerDAOImpl playerDAO = null;
@@ -23,7 +21,7 @@ public class playerDAOImpl implements playerDAO {
 	
 	//---------------------------------------------------------------
 	public String login(String username, String password) {
-		try(Connection conn = DAOUtilities.getConnection()){
+		try(Connection conn = ConnectionHandler.getConnection()){
 			String sql = "SELECT * FROM PLAYER WHERE USERNAME = ? AND USER_PASSWORD = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, username);
