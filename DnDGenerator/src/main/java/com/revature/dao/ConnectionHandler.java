@@ -41,7 +41,7 @@ public class ConnectionHandler implements AutoCloseable {
 		String connectionUsername;
         String connectionPassword;
         String url;
-		try (BufferedReader reader = new BufferedReader(new FileReader(Thread.currentThread().getContextClassLoader().getResource("connections.properties").getPath()))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader(Thread.currentThread().getContextClassLoader().getResource(PROPERTIES_FILENAME).getPath()))) {
 			connectionUsername = reader.readLine();
 	        connectionPassword = reader.readLine();
 	        url = reader.readLine();
