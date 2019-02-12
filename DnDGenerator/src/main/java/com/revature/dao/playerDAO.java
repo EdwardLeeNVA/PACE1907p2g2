@@ -17,7 +17,7 @@ public class PlayerDao {
 	}
 	
 	public int login(String username, String password) throws SQLException {
-		PreparedStatement statement = PlayerDaoStatements.getInstance().insertUser(username, password);
+		PreparedStatement statement = PlayerDaoStatements.getInstance().selectUserId(username, password);
 		ResultSet results = statement.executeQuery();
 		results.next();
 		return results.getInt(COL_USR_ID);
