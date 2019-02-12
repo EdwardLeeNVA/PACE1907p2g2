@@ -33,7 +33,7 @@ public class playerDAOImpl implements playerDAO {
 			System.out.println(rs.getString("USERNAME"));
 			return rs.getString("USERNAME");
 		}catch(Exception e) {
-			return e.getLocalizedMessage();
+			return e.getMessage();
 		}
 	}
 
