@@ -7,13 +7,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionHandler implements AutoCloseable {
+class ConnectionHandler implements AutoCloseable {
 	
 	private static final String PROPERTIES_FILENAME = "connections.properties";
 	
 	private static ConnectionHandler instance = new ConnectionHandler();
 	
-	public static ConnectionHandler getInstance() {
+	static ConnectionHandler getInstance() {
 		return instance;
 	}
 	
@@ -26,7 +26,7 @@ public class ConnectionHandler implements AutoCloseable {
 		}
 	}
 	
-	public static synchronized Connection getConnection() {
+	synchronized Connection getConnection() {
 		try {
 			if ((connection == null) || connection.isClosed()) {
 				connection = initConnection();
@@ -49,4 +49,6 @@ public class ConnectionHandler implements AutoCloseable {
 		DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
 		return DriverManager.getConnection(url, connectionUsername, connectionPassword);
 	}
+	
+	private ConnectionHandler() { }
 }
