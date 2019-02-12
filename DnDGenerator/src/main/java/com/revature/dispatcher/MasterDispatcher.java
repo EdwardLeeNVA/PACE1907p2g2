@@ -15,7 +15,9 @@ public class MasterDispatcher {
 		System.out.println("In Dispatcher" + request.getRequestURI());
 		if(request.getRequestURI().contains("Login")){
 			System.out.println("in the Login part of the dispatcher");
-			return pService.attemptLogin("EDLEE", "33BFD2FCED3E6E050F32170D9C318F32");
+			response.getWriter().write(pService.attemptLogin("EDLEE", "33BFD2FCED3E6E050F32170D9C318F32"));
+			
+			return "String";
 		}
 		return null;
 	}
