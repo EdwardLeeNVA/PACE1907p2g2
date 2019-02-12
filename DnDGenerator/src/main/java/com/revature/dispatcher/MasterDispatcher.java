@@ -9,7 +9,7 @@ public class MasterDispatcher {
 	private MasterDispatcher() {}
 
 	public static Object process(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		System.out.println(request.getRequestURI());
+		System.out.println("In Dispatcher" + request.getRequestURI());
 		return null;
 	}
 }
