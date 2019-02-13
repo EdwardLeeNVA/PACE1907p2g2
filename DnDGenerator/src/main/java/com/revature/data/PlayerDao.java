@@ -17,6 +17,11 @@ public class PlayerDao {
 		return instance;
 	}
 	
+	public void createUser(String username, String password) throws SQLException {
+		CallableStatement statement = statementMethods().createUser(username, password);
+		statement.execute();
+	}
+	
 	public int login(String username, String password) throws SQLException {
 		CallableStatement statement = statementMethods().logIn(username, password);
 		statement.execute();
