@@ -25,3 +25,5 @@ hs_err_pid*
 *test/
 *logs/
 *connections.properties
+*.classpath
+*.project
