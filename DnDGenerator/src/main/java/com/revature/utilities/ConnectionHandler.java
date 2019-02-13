@@ -1,4 +1,4 @@
-package com.revature.data;
+package com.revature.utilities;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,13 +7,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-class ConnectionHandler implements AutoCloseable {
+public class ConnectionHandler implements AutoCloseable {
 	
 	private static final String PROPERTIES_FILENAME = "connections.properties";
 	
 	private static ConnectionHandler instance = new ConnectionHandler();
 	
-	static ConnectionHandler getInstance() {
+	public static ConnectionHandler getInstance() {
 		return instance;
 	}
 	
@@ -26,7 +26,7 @@ class ConnectionHandler implements AutoCloseable {
 		}
 	}
 	
-	synchronized Connection getConnection() {
+	public synchronized Connection getConnection() {
 		try {
 			if ((connection == null) || connection.isClosed()) {
 				connection = initConnection();
