@@ -1,7 +1,5 @@
 package com.revature.dnd_generator.utilities;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -43,13 +41,10 @@ public class ConnectionHandler implements AutoCloseable {
 	}
 	
 	private static Connection initConnection() throws SQLException, IOException {
-		String connectionUsername;
-        String connectionPassword;
-        String url;
-		connectionUsername = System.getenv(USERNAME_LOCATION);
-	    connectionPassword = System.getenv(PASSWORD_LOCATION);
-	    url = System.getenv(URL_LOCATION);
-        log.info("ConnectionHandler: URL: " + url+", USERNAME: " + connectionUsername + ", PASSWORD: " +connectionPassword);	    
+		String connectionUsername = System.getenv(USERNAME_LOCATION);
+        String connectionPassword = System.getenv(PASSWORD_LOCATION);
+        String url = System.getenv(URL_LOCATION);
+        log.info("ConnectionHandler: URL: " + url + ", USERNAME: " + connectionUsername + ", PASSWORD: " + connectionPassword);	    
 		DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
 		return DriverManager.getConnection(url, connectionUsername, connectionPassword);
 	}
