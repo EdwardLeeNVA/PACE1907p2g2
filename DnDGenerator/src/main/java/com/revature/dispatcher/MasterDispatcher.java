@@ -46,7 +46,7 @@ public class MasterDispatcher {
 			response.setContentType("application/json");
 			String jsonInString = mapper.writeValueAsString(returned);
 			//response.getWriter().write(jsonInString);
-			response.getWriter().write(System.getenv("ConnectionUsername"));//might need the $
+			response.getWriter().write(System.getenv("$ConnectionUsername"));//might need the $
 			return response;
 		}
 		return null;
