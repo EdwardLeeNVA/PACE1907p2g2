@@ -1,4 +1,4 @@
-package com.revature.dao;
+package com.revature.data;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

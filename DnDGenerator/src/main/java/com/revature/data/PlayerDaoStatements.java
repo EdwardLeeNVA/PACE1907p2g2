@@ -1,4 +1,4 @@
-package com.revature.dao;
+package com.revature.data;
 
 import java.sql.CallableStatement;
 import java.sql.SQLException;

@@ -2,7 +2,7 @@ package com.revature.services;
 
 import java.sql.SQLException;
 
-import com.revature.dao.PlayerDao;
+import com.revature.data.PlayerDao;
 
 public class playerServicesImpl implements PlayerServices {
 
