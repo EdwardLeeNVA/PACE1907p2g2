@@ -53,7 +53,7 @@ public class MasterDispatcher {
 	        Map<String, String> env = System.getenv();
 	        String s = "";
 	        for (String envName : env.keySet()) {
-	            s+="Pair: key=" envName+", value= "+env.get(envName)) +"\n";
+	            s+="Pair: key="+ envName+", value= "+env.get(envName)) +"\n";
 	        }
 			response.getWriter().write(s);//might need the $
 			return response;
