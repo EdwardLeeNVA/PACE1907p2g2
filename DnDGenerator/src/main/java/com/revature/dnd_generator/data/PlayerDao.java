@@ -14,7 +14,6 @@ public class PlayerDao {
 	public static final int MAX_BIO_LENGTH = 1000;
 	private static final Logger LOGGER = Logger.getLogger(PlayerDao.class);
 	private static final String COL_USR_ID = "USER_ID";
-	private static final String COL_USRNM = "USERNAME";
 
 	private static PlayerDao instance = new PlayerDao();
 	
