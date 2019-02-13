@@ -2,13 +2,28 @@ package com.revature.data;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.SQLException;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 class PlayerDaoTest {
+	
+	private PlayerDao dao;
+	
+	@BeforeAll
+	void setUpBeforeClass() {
+		dao = PlayerDao.getInstance();
+	}
 
 	@Test
 	void testLogin() {
-		fail("Not yet implemented"); // TODO
+		try {
+			int result = dao.login("EDLEE", "PASSWORD");
+			System.out.print(result);
+		} catch (SQLException e) {
+			fail(e);
+		}
 	}
 
 }

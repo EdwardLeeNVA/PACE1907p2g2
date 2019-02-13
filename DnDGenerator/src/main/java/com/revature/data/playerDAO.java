@@ -8,8 +8,8 @@ public class PlayerDao {
 	
 	public static final int MAX_NAME_LENGTH = 30;
 	public static final int MAX_BIO_LENGTH = 1000;
-	static final String COL_USR_ID = "USER_ID";
-	static final String COL_USRNM = "USERNAME";
+	//private static final String COL_USR_ID = "USER_ID";
+	private static final String COL_USRNM = "USERNAME";
 
 	private static PlayerDao instance = new PlayerDao();
 	
