@@ -17,12 +17,22 @@ class PlayerDaoTest {
 	}
 
 	@Test
-	void testLogin() {
+	void testLogIn() {
 		try {
-			int result = dao.login("EDLEE", "PASSWORD");
+			int result = dao.logIn("EDLEE", "PASSWORD");
 			System.out.print(result);
 		} catch (SQLException e) {
 			fail(e);
+		}
+	}
+	
+	@Test
+	void testCreateUser() {
+		try {
+			dao.createUser("EDLEE", "PASSWORD");
+			System.out.print("User created.");
+		} catch (SQLException e) {
+			System.err.println(e);
 		}
 	}
 
