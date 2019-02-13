@@ -22,7 +22,7 @@ public class PlayerDao {
 		statement.execute();
 	}
 	
-	public int login(String username, String password) throws SQLException {
+	public int logIn(String username, String password) throws SQLException {
 		CallableStatement statement = statementMethods().logIn(username, password);
 		statement.execute();
 		ResultSet results = (ResultSet) statement.getObject(1);

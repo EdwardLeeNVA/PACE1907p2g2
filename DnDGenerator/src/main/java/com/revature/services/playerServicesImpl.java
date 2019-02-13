@@ -9,7 +9,7 @@ public class playerServicesImpl implements PlayerServices {
 	@Override
 	public String attemptLogin(String username, String password) {
 		try {
-			PlayerDao.getInstance().login(username, password);
+			PlayerDao.getInstance().logIn(username, password);
 			return username;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
