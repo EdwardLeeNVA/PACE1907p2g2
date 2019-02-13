@@ -2,7 +2,7 @@ package com.revature.dnd_generator.services;
 
 import com.revature.dnd_generator.data.PlayerDao;
 import com.revature.dnd_generator.model.Player;
-public class playerServicesImpl implements PlayerServices {
+public class PlayerServicesImpl implements PlayerServices {
 
 	@Override
 	public Player attemptLogin(String username, String password) {

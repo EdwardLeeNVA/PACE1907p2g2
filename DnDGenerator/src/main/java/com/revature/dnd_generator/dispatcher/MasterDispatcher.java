@@ -7,14 +7,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dnd_generator.model.Player;
 import com.revature.dnd_generator.services.PlayerServices;
-import com.revature.dnd_generator.services.playerServicesImpl;
+import com.revature.dnd_generator.services.PlayerServicesImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class MasterDispatcher {
 	private MasterDispatcher() {}
-	private static final PlayerServices pService = new playerServicesImpl();
+	private static final PlayerServices pService = new PlayerServicesImpl();
 	static ObjectMapper mapper = new ObjectMapper();
 	public static Object process(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		System.out.println("In Dispatcher" + request.getRequestURI());
