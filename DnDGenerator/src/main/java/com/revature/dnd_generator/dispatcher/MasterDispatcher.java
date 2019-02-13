@@ -52,7 +52,6 @@ public class MasterDispatcher {
 			response.getWriter().write(jsonInString);
 
 			return response; 
-			//ConnectionURL ConnectionUsername ConnectionPassword
 		}
 		return null;
 	}
