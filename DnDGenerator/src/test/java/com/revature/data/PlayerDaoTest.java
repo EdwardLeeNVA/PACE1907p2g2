@@ -1,11 +1,11 @@
 package com.revature.data;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.sql.SQLException;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import com.revature.exceptions.IncorrectLoginException;
 
 class PlayerDaoTest {
 	
@@ -21,19 +21,15 @@ class PlayerDaoTest {
 		try {
 			int result = dao.logIn("EDLEE", "PASSWORD");
 			System.out.print(result);
-		} catch (SQLException e) {
+		} catch (IncorrectLoginException e) {
 			fail(e);
 		}
 	}
 	
 	@Test
 	void testCreateUser() {
-		try {
-			dao.createUser("EDLEE", "PASSWORD");
-			System.out.print("User created.");
-		} catch (SQLException e) {
-			System.err.println(e);
-		}
+		dao.createUser("EDLEE", "PASSWORD");
+		System.out.print("User created.");
 	}
 
 }

@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 public class PlayerDao {
 	
-	
 	public static final int MAX_NAME_LENGTH = 30;
 	public static final int MAX_BIO_LENGTH = 1000;
 	private static final Logger LOGGER = Logger.getLogger(PlayerDao.class);
