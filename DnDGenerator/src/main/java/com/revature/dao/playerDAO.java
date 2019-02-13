@@ -1,5 +1,6 @@
 package com.revature.dao;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +10,7 @@ public class PlayerDao {
 	public static final int MAX_NAME_LENGTH = 30;
 	public static final int MAX_BIO_LENGTH = 1000;
 	static final String COL_USR_ID = "USER_ID";
+	static final String COL_USRNM = "USERNAME";
 
 	private static PlayerDao instance = new PlayerDao();
 	
@@ -17,23 +19,15 @@ public class PlayerDao {
 	}
 	
 	public int login(String username, String password) throws SQLException {
-		int userId = selectUserId(username);
-		compareUserPassword(userId, password);
-		return userId;
+		CallableStatement statement = statementMethods().logIn(username, password);
+		statement.execute();
+		ResultSet results = (ResultSet) statement.getObject(1);
+		results.next();
+		return results.getInt(COL_USRNM);
 	}
 	
-	private int selectUserId(String username) throws SQLException {
-		PreparedStatement statement = PlayerDaoStatements.getInstance().selectUserId(username);
-		ResultSet results = statement.executeQuery();
-		results.next();
-		return results.getInt(COL_USR_ID);
-	}
-	
-	private Object compareUserPassword(int userId, String password) throws SQLException {
-		PreparedStatement statement = PlayerDaoStatements.getInstance().compareUserPassword(userId, password);
-		ResultSet results = statement.executeQuery();
-		results.next();
-		return results.getObject(1);
+	private PlayerDaoStatements statementMethods() {
+		return PlayerDaoStatements.getInstance();
 	}
 	
 	private PlayerDao() { }

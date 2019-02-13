@@ -1,7 +1,9 @@
 package com.revature.dao;
 
-import java.sql.PreparedStatement;
+import java.sql.CallableStatement;
 import java.sql.SQLException;
+
+import oracle.jdbc.OracleTypes;
 
 class PlayerDaoStatements extends Dao {
 	
@@ -10,16 +12,13 @@ class PlayerDaoStatements extends Dao {
 	static PlayerDaoStatements getInstance() {
 		return instance;
 	}
-
-	PreparedStatement selectUserId(String username) throws SQLException {
-		String sql = "SELECT " + PlayerDao.COL_USR_ID + " FROM PLAYER WHERE USERNAME = ?";
-		PreparedStatement statement = getConnection().prepareStatement(sql);
-		statement.setString(1, username);
-		return statement;
-	}
 	
-	PreparedStatement compareUserPassword(int userId, String password) throws SQLException {
-		throw new UnsupportedOperationException();
+	CallableStatement logIn(String username, String password) throws SQLException {
+		CallableStatement stmt = getConnection().prepareCall("{CALL LOGIN(?, ?, ?)}");
+		stmt.setString(1, username);
+		stmt.setString(2, password);
+		stmt.registerOutParameter(3, OracleTypes.CURSOR);
+		return stmt;
 	}
 	
 	private PlayerDaoStatements() { }
