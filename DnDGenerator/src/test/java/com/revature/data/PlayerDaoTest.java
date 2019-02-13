@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 
 class PlayerDaoTest {
 	
-	private PlayerDao dao;
+	private static PlayerDao dao;
 	
 	@BeforeAll
-	void setUpBeforeClass() {
+	static void setUpBeforeClass() {
 		dao = PlayerDao.getInstance();
 	}
 
