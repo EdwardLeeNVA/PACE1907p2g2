@@ -1,6 +1,8 @@
 package com.revature.dnd_generator.dispatcher;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -8,6 +10,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dnd_generator.model.Player;
 import com.revature.dnd_generator.services.PlayerServices;
 import com.revature.dnd_generator.services.PlayerServicesImpl;
+
+import oracle.net.aso.e;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,8 +50,9 @@ public class MasterDispatcher {
 			response.setContentType("application/json");
 			String jsonInString = mapper.writeValueAsString(returned);
 			response.getWriter().write(jsonInString);
-			
-			return response;
+
+			return response; 
+			//ConnectionURL ConnectionUsername ConnectionPassword
 		}
 		return null;
 	}

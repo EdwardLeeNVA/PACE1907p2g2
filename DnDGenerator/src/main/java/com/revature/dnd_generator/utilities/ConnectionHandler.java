@@ -7,12 +7,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 public class ConnectionHandler implements AutoCloseable {
 	
-	private static final String PROPERTIES_FILENAME = "connections.properties";
-	
+	private static final String USERNAME_LOCATION = "ConnectionUsername";
+	private static final String PASSWORD_LOCATION = "ConnectionPassword";
+	private static final String URL_LOCATION = "ConnectionURL";
 	private static ConnectionHandler instance = new ConnectionHandler();
-	
+	final static Logger log = LogManager.getLogger(ConnectionHandler.class);
+
 	public static ConnectionHandler getInstance() {
 		return instance;
 	}
@@ -41,11 +46,10 @@ public class ConnectionHandler implements AutoCloseable {
 		String connectionUsername;
         String connectionPassword;
         String url;
-		try (BufferedReader reader = new BufferedReader(new FileReader(Thread.currentThread().getContextClassLoader().getResource(PROPERTIES_FILENAME).getPath()))) {
-			connectionUsername = reader.readLine();
-	        connectionPassword = reader.readLine();
-	        url = reader.readLine();
-		}
+		connectionUsername = System.getenv("ConnectionUsername");
+	    connectionPassword = System.getenv("ConnectionPassword");
+	    url = System.getenv("ConnectionURL");
+        log.info("ConnectionHandler: URL: " + url+", USERNAME: " + connectionUsername + ", PASSWORD: " +connectionPassword);	    
 		DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
 		return DriverManager.getConnection(url, connectionUsername, connectionPassword);
 	}
