@@ -1,19 +1,23 @@
 package com.revature.dnd_generator.services;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.revature.dnd_generator.data.PlayerDao;
-<<<<<<< HEAD
-=======
 import com.revature.dnd_generator.exceptions.IncorrectLoginException;
->>>>>>> master
 import com.revature.dnd_generator.model.Player;
 public class PlayerServicesImpl implements PlayerServices {
 
+	private static final Logger LOGGER = LogManager.getLogger(PlayerServicesImpl.class);
+	
 	@Override
 	public Player attemptLogin(String username, String password) {
 		try {
-			return PlayerDao.getInstance().logIn(username, password);
-		}catch(IncorrectLoginException ile ){
-			return new Player(); //void player so the front end can understand there was an error
+			int userId = PlayerDao.getInstance().logIn(username, password);
+			return new Player(username, userId);
+		} catch(IncorrectLoginException e ){
+			LOGGER.error(e.getMessage(), e);
+			return new Player();
 		}
 	}
 	

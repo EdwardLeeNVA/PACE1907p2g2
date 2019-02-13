@@ -31,7 +31,7 @@ public class PlayerDao {
 		}
 	}
 	
-	public int logIn(String username, String password) {
+	public int logIn(String username, String password) throws IncorrectLoginException {
 		int userId = 0;
 		boolean successful = true;
 		try {
