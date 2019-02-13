@@ -55,7 +55,7 @@ public class MasterDispatcher {
 	        for (String envName : env.keySet()) {
 	            s+="Pair: key="+ envName + ", value= " +env.get(envName) + "\n";
 	        }*/
-			response.getWriter().write(System.getenv("ConnectionURL"));//might need the $
+			response.getWriter().write(System.getenv("ConnectionUsername"));//might need the $
 			return response; 
 			//ConnectionURL ConnectionUsername ConnectionPassword
 		}
