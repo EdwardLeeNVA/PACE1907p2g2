@@ -50,14 +50,12 @@ public class MasterDispatcher {
 			response.setContentType("application/json");
 			String jsonInString = mapper.writeValueAsString(returned);
 			//response.getWriter().write(jsonInString);
-			Map<String,String> s = System.getenv();
-			Iterator<e> it = s.entrySet().iterator();
-			string s2="";
-			while(it.hasNext()) {
-				Map.Entry pair =(Map.Entry) it.next();
-				s2 ="Pair = "+pair.getKey()+", " + pair.getValue()+"\n";
-			}
-			response.getWriter().write(s2);//might need the $
+	        Map<String, String> env = System.getenv();
+	        String s = "";
+	        for (String envName : env.keySet()) {
+	            s+="Pair: key=" envName+", value= "+env.get(envName)) +"\n";
+	        }
+			response.getWriter().write(s);//might need the $
 			return response;
 		}
 		return null;
