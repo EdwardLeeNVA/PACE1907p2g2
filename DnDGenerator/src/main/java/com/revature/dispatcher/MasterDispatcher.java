@@ -49,13 +49,8 @@ public class MasterDispatcher {
 			//write response
 			response.setContentType("application/json");
 			String jsonInString = mapper.writeValueAsString(returned);
-			//response.getWriter().write(jsonInString);
-	        //Map<String, String> env = System.getenv();
-	        /*String s = "";
-	        for (String envName : env.keySet()) {
-	            s+="Pair: key="+ envName + ", value= " +env.get(envName) + "\n";
-	        }*/
-			response.getWriter().write(System.getenv("ConnectionUsername"));//might need the $
+			response.getWriter().write(jsonInString);
+
 			return response; 
 			//ConnectionURL ConnectionUsername ConnectionPassword
 		}
