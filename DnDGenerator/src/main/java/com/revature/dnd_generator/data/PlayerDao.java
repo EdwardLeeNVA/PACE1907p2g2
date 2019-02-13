@@ -38,8 +38,9 @@ public class PlayerDao {
 			CallableStatement statement = statementMethods().logIn(username, password);
 			statement.execute();
 			ResultSet results = (ResultSet) statement.getObject(3);
-
-			p =new Player( results.getString(COL_USRNM), results.getInt(COL_USR_ID));
+			if(results.next()) {
+				p =new Player( results.getString(COL_USRNM), results.getInt(COL_USR_ID));
+			}
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
