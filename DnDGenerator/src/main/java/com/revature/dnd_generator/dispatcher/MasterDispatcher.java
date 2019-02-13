@@ -1,4 +1,4 @@
-package com.revature.dispatcher;
+package com.revature.dnd_generator.dispatcher;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -7,9 +7,9 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.model.player;
-import com.revature.services.PlayerServices;
-import com.revature.services.playerServicesImpl;
+import com.revature.dnd_generator.model.Player;
+import com.revature.dnd_generator.services.PlayerServices;
+import com.revature.dnd_generator.services.PlayerServicesImpl;
 
 import oracle.net.aso.e;
 
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class MasterDispatcher {
 	private MasterDispatcher() {}
-	private static final PlayerServices pService = new playerServicesImpl();
+	private static final PlayerServices pService = new PlayerServicesImpl();
 	static ObjectMapper mapper = new ObjectMapper();
 	public static Object process(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		System.out.println("In Dispatcher" + request.getRequestURI());
@@ -28,8 +28,8 @@ public class MasterDispatcher {
 			//get parameters
 			//username, password
 				//from a jackson object
-			player input = null;
-            player returned = null;
+			Player input = null;
+            Player returned = null;
 			/*if(request.getHeader("Content-Type").equals("application/json")){
                 try{
                     input = mapper.readValue(request.getReader(), player.class);
@@ -52,7 +52,6 @@ public class MasterDispatcher {
 			response.getWriter().write(jsonInString);
 
 			return response; 
-			//ConnectionURL ConnectionUsername ConnectionPassword
 		}
 		return null;
 	}

@@ -1,13 +1,13 @@
-package com.revature.model;
+package com.revature.dnd_generator.model;
 
-public class player {
+public class Player {
 	String username;
 	String password;
 	int id;
-	public player() {
+	public Player() {
 		super();
 	}
-	public player(String s, int id) {
+	public Player(String s, int id) {
 		this.setUsername(s);
 		this.setId(id);
 	}

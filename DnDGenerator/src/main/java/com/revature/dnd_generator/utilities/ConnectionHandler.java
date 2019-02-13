@@ -1,4 +1,4 @@
-package com.revature.utilities;
+package com.revature.dnd_generator.utilities;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

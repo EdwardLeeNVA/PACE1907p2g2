@@ -1,7 +1,7 @@
-package com.revature.servlet;
+package com.revature.dnd_generator.servlet;
 
 import java.io.IOException;
-import com.revature.dispatcher.MasterDispatcher;
+import com.revature.dnd_generator.dispatcher.MasterDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
