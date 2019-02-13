@@ -9,8 +9,9 @@ import java.sql.SQLException;
 
 public class ConnectionHandler implements AutoCloseable {
 	
-	private static final String PROPERTIES_FILENAME = "connections.properties";
-	
+	private static final String USERNAME_LOCATION = "ConnectionUsername";
+	private static final String PASSWORD_LOCATION = "ConnectionPassword";
+	private static final String URL_LOCATION = "ConnectionURL";
 	private static ConnectionHandler instance = new ConnectionHandler();
 	
 	public static ConnectionHandler getInstance() {
@@ -41,11 +42,9 @@ public class ConnectionHandler implements AutoCloseable {
 		String connectionUsername;
         String connectionPassword;
         String url;
-		try (BufferedReader reader = new BufferedReader(new FileReader(Thread.currentThread().getContextClassLoader().getResource(PROPERTIES_FILENAME).getPath()))) {
-			connectionUsername = reader.readLine();
-	        connectionPassword = reader.readLine();
-	        url = reader.readLine();
-		}
+		connectionUsername = System.getenv(USERNAME_LOCATION);
+	    connectionPassword = System.getenv(PASSWORD_LOCATION);
+	    url = System.getenv(URL_LOCATION);
 		DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
 		return DriverManager.getConnection(url, connectionUsername, connectionPassword);
 	}
