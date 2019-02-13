@@ -1,14 +1,14 @@
 package com.revature.dnd_generator.model;
 
-public class character {
+public class Character {
 	String name, race, cClass, bio;
 	String jsonProficencies;
 	
 	
-	public character() {
+	public Character() {
 		super();
 	}	
-	public character(String name, String race, String cClass, String bio, String jsonProficencies) {
+	public Character(String name, String race, String cClass, String bio, String jsonProficencies) {
 		super();
 		this.name = name;
 		this.race = race;

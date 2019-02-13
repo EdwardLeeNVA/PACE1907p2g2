@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.dnd_generator.model.player;
+import com.revature.dnd_generator.model.Player;
 import com.revature.dnd_generator.services.PlayerServices;
 import com.revature.dnd_generator.services.playerServicesImpl;
 
@@ -24,8 +24,8 @@ public class MasterDispatcher {
 			//get parameters
 			//username, password
 				//from a jackson object
-			player input = null;
-            player returned = null;
+			Player input = null;
+            Player returned = null;
 			/*if(request.getHeader("Content-Type").equals("application/json")){
                 try{
                     input = mapper.readValue(request.getReader(), player.class);
