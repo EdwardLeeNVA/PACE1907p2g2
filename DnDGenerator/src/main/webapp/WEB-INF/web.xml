@@ -6,7 +6,7 @@
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
 	<servlet-name>FrontController</servlet-name>
-  	<servlet-class>com.revature.servlet.FrontController</servlet-class>
+  	<servlet-class>com.revature.dnd_generator.servlet.FrontController</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>FrontController</servlet-name>
