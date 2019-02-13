@@ -46,9 +46,9 @@ public class ConnectionHandler implements AutoCloseable {
 		String connectionUsername;
         String connectionPassword;
         String url;
-		connectionUsername = System.getenv("ConnectionUsername");
-	    connectionPassword = System.getenv("ConnectionPassword");
-	    url = System.getenv("ConnectionURL");
+		connectionUsername = System.getenv(USERNAME_LOCATION);
+	    connectionPassword = System.getenv(PASSWORD_LOCATION);
+	    url = System.getenv(URL_LOCATION);
         log.info("ConnectionHandler: URL: " + url+", USERNAME: " + connectionUsername + ", PASSWORD: " +connectionPassword);	    
 		DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
 		return DriverManager.getConnection(url, connectionUsername, connectionPassword);
