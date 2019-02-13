@@ -17,10 +17,23 @@ public class PlayerDao {
 	}
 	
 	public int login(String username, String password) throws SQLException {
-		PreparedStatement statement = PlayerDaoStatements.getInstance().selectUserId(username, password);
+		int userId = selectUserId(username);
+		compareUserPassword(userId, password);
+		return userId;
+	}
+	
+	private int selectUserId(String username) throws SQLException {
+		PreparedStatement statement = PlayerDaoStatements.getInstance().selectUserId(username);
 		ResultSet results = statement.executeQuery();
 		results.next();
 		return results.getInt(COL_USR_ID);
+	}
+	
+	private Object compareUserPassword(int userId, String password) throws SQLException {
+		PreparedStatement statement = PlayerDaoStatements.getInstance().compareUserPassword(userId, password);
+		ResultSet results = statement.executeQuery();
+		results.next();
+		return results.getObject(1);
 	}
 	
 	private PlayerDao() { }

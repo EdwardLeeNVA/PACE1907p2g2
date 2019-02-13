@@ -18,11 +18,8 @@ class PlayerDaoStatements extends Dao {
 		return statement;
 	}
 	
-	PreparedStatement selectUserPassword(int userId) throws SQLException {
-		String sql = "SELECT USER_PASSWORD FROM PLAYER WHERE " + PlayerDao.COL_USR_ID + " = ?";
-		PreparedStatement statement = getConnection().prepareStatement(sql);
-		statement.setInt(1, userId);
-		return statement;
+	PreparedStatement compareUserPassword(int userId, String password) throws SQLException {
+		throw new UnsupportedOperationException();
 	}
 	
 	private PlayerDaoStatements() { }
