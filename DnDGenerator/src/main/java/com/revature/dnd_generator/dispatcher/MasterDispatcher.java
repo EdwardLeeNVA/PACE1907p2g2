@@ -1,13 +1,13 @@
-package com.revature.dispatcher;
+package com.revature.dnd_generator.dispatcher;
 
 import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.model.player;
-import com.revature.services.PlayerServices;
-import com.revature.services.playerServicesImpl;
+import com.revature.dnd_generator.model.player;
+import com.revature.dnd_generator.services.PlayerServices;
+import com.revature.dnd_generator.services.playerServicesImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

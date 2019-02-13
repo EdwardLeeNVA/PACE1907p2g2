@@ -1,4 +1,4 @@
-package com.revature.model;
+package com.revature.dnd_generator.model;
 
 public class character {
 	String name, race, cClass, bio;

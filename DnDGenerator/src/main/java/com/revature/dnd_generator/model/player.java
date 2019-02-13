@@ -1,4 +1,4 @@
-package com.revature.model;
+package com.revature.dnd_generator.model;
 
 public class player {
 	String username;

@@ -7,6 +7,8 @@ import java.sql.Connection;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import com.revature.dnd_generator.utilities.ConnectionHandler;
+
 class ConnectionHandlerTest {
 	
 	private static ConnectionHandler handler;

@@ -1,8 +1,8 @@
-package com.revature.data;
+package com.revature.dnd_generator.data;
 
 import java.sql.Connection;
 
-import com.revature.utilities.ConnectionHandler;
+import com.revature.dnd_generator.utilities.ConnectionHandler;
 
 public class Dao {
 	

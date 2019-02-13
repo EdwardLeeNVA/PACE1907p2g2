@@ -1,9 +1,12 @@
-package com.revature.data;
+package com.revature.dnd_generator.data;
 
-import java.sql.*;
-import com.revature.exceptions.*;
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
+
+import com.revature.dnd_generator.exceptions.IncorrectLoginException;
 
 public class PlayerDao {
 	

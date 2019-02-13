@@ -1,4 +1,4 @@
-package com.revature.data;
+package com.revature.dnd_generator.data;
 
 import java.sql.CallableStatement;
 import java.sql.SQLException;

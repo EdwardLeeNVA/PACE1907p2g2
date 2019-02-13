@@ -1,4 +1,4 @@
-package com.revature.exceptions;
+package com.revature.dnd_generator.exceptions;
 
 public class IncorrectLoginException extends IllegalArgumentException {
 

@@ -5,7 +5,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.revature.exceptions.IncorrectLoginException;
+import com.revature.dnd_generator.data.PlayerDao;
+import com.revature.dnd_generator.exceptions.IncorrectLoginException;
 
 class PlayerDaoTest {
 	
