@@ -1,4 +1,4 @@
-package com.revature.utilities;
+package com.revature.dnd_generator.utilities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
