@@ -1,6 +1,6 @@
 package com.revature.dnd_generator.model;
 
-public class Character {
+public class DndCharacter {
 	
 	private String name = null;
 	private String race = null;
@@ -8,7 +8,7 @@ public class Character {
 	private String bio = null;
 	private String jsonProficencies = null;
 	
-	public Character() {
+	public DndCharacter() {
 	}	
 
 	public String getName() {
