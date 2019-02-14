@@ -1,21 +1,16 @@
 package com.revature.dnd_generator.model;
 
-public class Character {
-	String name, race, cClass, bio;
-	String jsonProficencies;
+public class DndCharacter {
 	
+	private String name = null;
+	private String race = null;
+	private String dndClass = null;
+	private String bio = null;
+	private String jsonProficencies = null;
 	
-	public Character() {
-		super();
+	public DndCharacter() {
 	}	
-	public Character(String name, String race, String cClass, String bio, String jsonProficencies) {
-		super();
-		this.name = name;
-		this.race = race;
-		this.cClass = cClass;
-		this.bio = bio;
-		this.jsonProficencies = jsonProficencies;
-	}
+
 	public String getName() {
 		return name;
 	}
@@ -28,11 +23,11 @@ public class Character {
 	public void setRace(String race) {
 		this.race = race;
 	}
-	public String getcClass() {
-		return cClass;
+	public String getDndClass() {
+		return dndClass;
 	}
-	public void setcClass(String cClass) {
-		this.cClass = cClass;
+	public void setDndClass(String dndClass) {
+		this.dndClass = dndClass;
 	}
 	public String getBio() {
 		return bio;

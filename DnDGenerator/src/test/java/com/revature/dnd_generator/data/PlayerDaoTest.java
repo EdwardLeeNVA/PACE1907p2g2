@@ -28,8 +28,8 @@ class PlayerDaoTest {
 	}
 	
 	@Test
-	void testCreateUser() {
-		dao.createUser("EDLEE", "PASSWORD");
+	void testInsertUser() {
+		dao.insertUser("EDLEE", "PASSWORD");
 		System.out.print("Attempted user creation.");
 	}
 

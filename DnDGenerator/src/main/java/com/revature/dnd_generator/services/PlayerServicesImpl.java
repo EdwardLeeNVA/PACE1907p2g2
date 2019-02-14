@@ -25,6 +25,6 @@ public class PlayerServicesImpl implements PlayerServices {
 	}
 	
 	public void createPlayer(String username, String password) {
-		PlayerDao.getInstance().createUser(username, password);
+		PlayerDao.getInstance().insertUser(username, password);
 	}
 }

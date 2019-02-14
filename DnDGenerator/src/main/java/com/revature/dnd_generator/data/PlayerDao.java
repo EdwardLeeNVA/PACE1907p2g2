@@ -21,9 +21,9 @@ public class PlayerDao {
 		return instance;
 	}
 	
-	public void createUser(String username, String password) {
+	public void insertUser(String username, String password) {
 		try {
-			CallableStatement statement = statementMethods().createUser(username, password);
+			CallableStatement statement = statementMethods().insertUser(username, password);
 			statement.execute();
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
@@ -31,24 +31,18 @@ public class PlayerDao {
 	}
 	
 	public int logIn(String username, String password) throws IncorrectLoginException {
-		int userId = 0;
-		boolean successful = true;
 		try {
 			CallableStatement statement = statementMethods().logIn(username, password);
 			statement.execute();
 			ResultSet results = (ResultSet) statement.getObject(3);
 			if(!results.next()) {
-				successful = false;
+				throw new IncorrectLoginException();
 			}
-			userId = results.getInt(COL_USR_ID);
+			return results.getInt(COL_USR_ID);
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
-			successful = false;
+			throw new IncorrectLoginException(e);
 		}
-		if (!successful) {
-			throw new IncorrectLoginException();
-		}
-		return userId;
 	}
 	
 	private PlayerDaoStatements statementMethods() {
