@@ -21,10 +21,22 @@
 	            <configuration>
 	                <source>1.8</source>
 	                <target>1.8</target>
+			<excludes>
+	                    <exclude>DnDAngular/**</exclude>
+	                </excludes>
 	            </configuration>
 	        </plugin>
 	        <!-- These lines will exclude the the Angular application from compiling during a build. Set the YOUR_ANGULAR_PROJECT_NAME to your Angular project's name -->
-
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-war-plugin</artifactId>
+	            <version>3.2.2</version>
+	            <configuration>
+	                <excludes>
+	                    <exclude>DnDAngular/**</exclude>
+	                </excludes>
+	            </configuration>
+	        </plugin>
 	        <!-- These lines will automatically install dependencies and perform a build of your Angular projects when the Maven project is built. Like, say, when Jenkins does it's automatic Maven build after a push to GitHub. Set the YOUR_ANGULAR_PROJECT_NAME to your Angular project's name and set the YOUR_MAVEN_PROJECT_NAME to your Maven project's name -->
 	        <plugin>
 	            <groupId>org.codehaus.mojo</groupId>
