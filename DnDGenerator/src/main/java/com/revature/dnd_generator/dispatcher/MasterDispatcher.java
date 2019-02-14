@@ -34,25 +34,27 @@ public class MasterDispatcher {
             Player returned = null;
             LOGGER.info(request.toString());// idk if this will work, could just return the hash/ mem location
 			LOGGER.info(request.getContentType());
-            /*if(request.getHeader("Content-Type").equals("application/json")){
+			LOGGER.info(request.getReader().readLine());
+            if(request.getHeader("Content-Type").equals("application/json")){
                 try{
-                    input = mapper.readValue(request.getReader(), player.class);
+                    input = mapper.readValue(request.getReader(), Player.class);
+                    LOGGER.info("loging service inputted object: "+input);
                     returned = pService.attemptLogin(input.getUsername(), input.getPassword());
                 } catch (JsonParseException e){
-                    //log.error("Master Dispatcher Login Error: JsonParse error in login", e);
+                    LOGGER.error("Master Dispatcher Login Error: JsonParse error in login", e);
                     return "Error in parse";
                 } catch (JsonMappingException e){
-                    //log.error("Master Dispatcher Login Error: JsonMapping error in login", e);
+                    LOGGER.error("Master Dispatcher Login Error: JsonMapping error in login", e);
                     return "Error in mapping";
                 } catch (IOException e){
-                    //log.error("Master Dispatcher Login Error: IOException in login", e);
+                    LOGGER.error("Master Dispatcher Login Error: IOException in login", e);
                     return "IO error";
                 }
-            }*/
-            returned = pService.attemptLogin("EDLEE", "PASSWORD");
+            }
 			//write response
 			response.setContentType("application/json");
 			String jsonInString = mapper.writeValueAsString(returned);
+			LOGGER.info("LOGIN OBJECT RETURNED: as JSON STRING:  "+jsonInString);
 			response.getWriter().write(jsonInString);
 
 			return response; 
