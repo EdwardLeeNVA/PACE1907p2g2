@@ -21,9 +21,9 @@ public class PlayerDao {
 		return instance;
 	}
 	
-	public void createUser(String username, String password) {
+	public void insertUser(String username, String password) {
 		try {
-			CallableStatement statement = statementMethods().createUser(username, password);
+			CallableStatement statement = statementMethods().insertUser(username, password);
 			statement.execute();
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
