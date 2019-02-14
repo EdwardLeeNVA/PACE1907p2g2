@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
  user: User = {
     username: '',
     password: '',
-    user_id: 0
+    id: 0
   }
 
   // Used for active session User
