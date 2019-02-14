@@ -21,9 +21,6 @@
 	            <configuration>
 	                <source>1.8</source>
 	                <target>1.8</target>
-	                    <excludes>
-	                    <exclude>DnDAngular/**</exclude>
-	                </excludes>
 	            </configuration>
 	        </plugin>
 	        <!-- These lines will exclude the the Angular application from compiling during a build. Set the YOUR_ANGULAR_PROJECT_NAME to your Angular project's name -->
