@@ -1,3 +1,51 @@
-<p>
-  create-character works!
-</p>
+<div class="row">
+  <div class="col-md-4 offset-md-4 text-center">
+    <p class="h4">{{character.c_name}}, {{character.c_class}} {{character.c_race}}</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <div class="input-group input-group-lg">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Name</span>
+      </div>
+      <input type="text" class="form-control" required [(ngModel)]="character.c_name" name="c_name">
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <div class="input-group input-group-lg">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Class</span>
+      </div>
+      <input type="text" class="form-control" [value]="character.c_class" disabled>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <div class="input-group input-group-lg">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Race</span>
+      </div>
+      <input type="text" class="form-control" [value]="character.c_race" disabled>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <div class="input-group input-group-lg">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Biography</span>
+      </div>
+      <textarea type="text" class="form-control" [(ngModel)]="character.c_bio" name="c_bio" rows="3" maxlength="1000"></textarea>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 offset-md-4 text-center">
+    <button class="btn btn-primary" (click)="generateCharacter()">Generate Random Character</button>
+  </div>
+</div>
+
