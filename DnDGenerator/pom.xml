@@ -7,10 +7,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>DnDGenerator Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	<properties>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-	</properties>
 	<build>
 	    <plugins>
 	        <!-- These lines will set your Java version to 1.8 for you -->

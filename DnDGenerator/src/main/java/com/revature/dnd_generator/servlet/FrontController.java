@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.revature.dnd_generator.dispatcher.MasterDispatcher;
+
 public class FrontController extends HttpServlet{
 	private static final long serialVersionUID = 4826138980180601133L;
 	

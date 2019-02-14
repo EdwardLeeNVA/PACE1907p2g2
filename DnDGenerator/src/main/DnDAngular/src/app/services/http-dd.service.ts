@@ -24,7 +24,7 @@ export class HttpDdService {
 
   //Returns Observable for Login component to process
   verifyLogin(login: User): Observable<User>{
-    const loginPath: string = this.dbURL + 'Generator/Login';
+    const loginPath: string = this.dbURL + 'DnDGenerator/Generator/Login';
     return this.http.post<User>(loginPath, login, this.httpJSON);
   }
 }

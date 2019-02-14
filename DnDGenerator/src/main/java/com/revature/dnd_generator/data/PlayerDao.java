@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 import com.revature.dnd_generator.exceptions.IncorrectLoginException;
-import com.revature.dnd_generator.model.Player;
 
 public class PlayerDao {
 	
@@ -15,7 +14,6 @@ public class PlayerDao {
 	public static final int MAX_BIO_LENGTH = 1000;
 	private static final Logger LOGGER = Logger.getLogger(PlayerDao.class);
 	private static final String COL_USR_ID = "USER_ID";
-	private static final String COL_USRNM = "USERNAME";
 
 	private static PlayerDao instance = new PlayerDao();
 	
@@ -32,22 +30,25 @@ public class PlayerDao {
 		}
 	}
 	
-	public Player logIn(String username, String password) throws IncorrectLoginException {
-		Player p = null;
+	public int logIn(String username, String password) throws IncorrectLoginException {
+		int userId = 0;
+		boolean successful = true;
 		try {
 			CallableStatement statement = statementMethods().logIn(username, password);
 			statement.execute();
 			ResultSet results = (ResultSet) statement.getObject(3);
-			if(results.next()) {
-				p =new Player( results.getString(COL_USRNM), results.getInt(COL_USR_ID));
+			if(!results.next()) {
+				successful = false;
 			}
+			userId = results.getInt(COL_USR_ID);
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
+			successful = false;
 		}
-		if(p == null) {
+		if (!successful) {
 			throw new IncorrectLoginException();
 		}
-			return p;
+		return userId;
 	}
 	
 	private PlayerDaoStatements statementMethods() {
