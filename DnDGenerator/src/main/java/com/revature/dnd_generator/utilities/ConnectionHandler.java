@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import com.revature.dnd_generator.exceptions.ConnectionFailedException;
+
 public class ConnectionHandler implements AutoCloseable {
 	
 	private static final String USERNAME_LOCATION = "ConnectionUsername";
@@ -36,7 +38,7 @@ public class ConnectionHandler implements AutoCloseable {
 			}
 			return connection;
 		} catch (SQLException | IOException e) {
-			throw new RuntimeException(e);
+			throw new ConnectionFailedException(e);
 		}
 	}
 	
