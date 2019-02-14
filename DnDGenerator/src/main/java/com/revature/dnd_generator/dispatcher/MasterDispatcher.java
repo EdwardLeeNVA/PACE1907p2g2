@@ -32,10 +32,8 @@ public class MasterDispatcher {
 				//from a jackson object
 			Player input = null;
             Player returned = null;
-            LOGGER.info(request.toString());// idk if this will work, could just return the hash/ mem location
-			LOGGER.info(request.getContentType());
-			LOGGER.info(request.getReader().readLine());
-            if(request.getHeader("Content-Type").equals("application/json")){
+		LOGGER.info(request.getContentType());
+	if(request.getHeader("Content-Type").equals("application/json")){
                 try{
                     input = mapper.readValue(request.getReader(), Player.class);
                     LOGGER.info("loging service inputted object: "+input);
