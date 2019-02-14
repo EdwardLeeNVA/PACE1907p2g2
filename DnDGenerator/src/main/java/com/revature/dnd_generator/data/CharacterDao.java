@@ -30,27 +30,40 @@ public class CharacterDao {
 		}
 	}
 	
-	public void selectOwnedCharacter(int id) {
-		
-	}
-	
-	private DndCharacter selectCharacterCommon(CallableStatement statement) {
+	public DndCharacter selectOwnedCharacter(int id) {
 		try {
-			ResultSet results = (ResultSet) statement.getObject(2);
-			if (!results.next()) {
-				return null;
-			}
-			int id = results.getInt(COL_CHAR_ID);
-			String name = results.getString(COL_CHAR_NAME);
-			String race = results.getString(COL_CHAR_RACE);
-			String characterClass = results.getString(COL_CHAR_CLASS);
-			String proficiencies = results.getString(COL_CHAR_PROF);
-			String biography = results.getString(COL_CHAR_BIO);
-			return DndCharacterFactory.create(name, race, characterClass, biography, proficiencies);
+			CallableStatement statement = statementMethods().selectOwnedCharacter(id);
+			statement.execute();
+			return selectCharacterCommon(statement);
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
+		}
+		return null;
+	}
+	
+	public DndCharacter selectCharacter(int id) {
+		try {
+			CallableStatement statement = statementMethods().selectCharacter(id);
+			statement.execute();
+			return selectCharacterCommon(statement);
+		} catch (SQLException e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+		return null;
+	}
+	
+	private DndCharacter selectCharacterCommon(CallableStatement statement) throws SQLException {
+		ResultSet results = (ResultSet) statement.getObject(2);
+		if (!results.next()) {
 			return null;
 		}
+		int id = results.getInt(COL_CHAR_ID);
+		String name = results.getString(COL_CHAR_NAME);
+		String race = results.getString(COL_CHAR_RACE);
+		String characterClass = results.getString(COL_CHAR_CLASS);
+		String proficiencies = results.getString(COL_CHAR_PROF);
+		String biography = results.getString(COL_CHAR_BIO);
+		return DndCharacterFactory.create(name, race, characterClass, biography, proficiencies);
 	}
 
 	private CharacterDaoStatements statementMethods() {
