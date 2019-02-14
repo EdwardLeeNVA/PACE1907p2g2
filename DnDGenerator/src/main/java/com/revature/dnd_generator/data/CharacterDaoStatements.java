@@ -13,18 +13,32 @@ class CharacterDaoStatements extends Dao {
 		return instance;
 	}
 	
-	CallableStatement insertCharacter(String username, String password) throws SQLException {
-		CallableStatement stmt = getConnection().prepareCall("CALL CREATE_USER(?, ?)");
-		stmt.setString(1, username);
-		stmt.setString(2, password);
+	CallableStatement insertCharacter(int id, String name, String race, String dndClass, String proficiency1, String proficiency2, String proficiency3, String proficiency4, String raceProficiency) throws SQLException {
+		CallableStatement stmt = getConnection().prepareCall("CALL CREATECHARACTER(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		stmt.setInt(1, id);
+		stmt.setString(2, name);
+		stmt.setString(3, race);
+		stmt.setString(4, dndClass);
+		stmt.setString(5, proficiency1);
+		stmt.setString(6, proficiency2);
+		stmt.setString(7, proficiency3);
+		stmt.setString(8, proficiency4);
+		stmt.setString(9, raceProficiency);
+		stmt.registerOutParameter(10, OracleTypes.CURSOR);
 		return stmt;
 	}
 	
-	CallableStatement logIn(String username, String password) throws SQLException {
-		CallableStatement stmt = getConnection().prepareCall("CALL LOGIN(?, ?, ?)");
-		stmt.setString(1, username);
-		stmt.setString(2, password);
-		stmt.registerOutParameter(3, OracleTypes.CURSOR);
+	CallableStatement selectOwnedCharacter(int id) throws SQLException {
+		CallableStatement stmt = getConnection().prepareCall("CALL GETOWNEDCHARACTER(?, ?)");
+		stmt.setInt(1, id);
+		stmt.registerOutParameter(2, OracleTypes.CURSOR);
+		return stmt;
+	}
+	
+	CallableStatement selectCharacter(int id) throws SQLException {
+		CallableStatement stmt = getConnection().prepareCall("CALL GETCHARACTER(?, ?)");
+		stmt.setInt(1, id);
+		stmt.registerOutParameter(2, OracleTypes.CURSOR);
 		return stmt;
 	}
 	
