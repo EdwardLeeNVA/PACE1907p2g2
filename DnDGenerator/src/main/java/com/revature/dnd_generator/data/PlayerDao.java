@@ -1,6 +1,7 @@
 package com.revature.dnd_generator.data;
 
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -22,8 +23,8 @@ public class PlayerDao extends Dao {
 	}
 	
 	public void insertUser(String username, String password) {
-		try {
-			CallableStatement statement = statementMethods().insertUser(getConnection(), username, password);
+		try (Connection c = getConnection()) {
+			CallableStatement statement = statementMethods().insertUser(c, username, password);
 			statement.execute();
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
@@ -31,8 +32,8 @@ public class PlayerDao extends Dao {
 	}
 	
 	public int logIn(String username, String password) throws IncorrectLoginException {
-		try {
-			CallableStatement statement = statementMethods().logIn(getConnection(), username, password);
+		try (Connection c = getConnection()) {
+			CallableStatement statement = statementMethods().logIn(c, username, password);
 			statement.execute();
 			ResultSet results = (ResultSet) statement.getObject(3);
 			if(!results.next()) {

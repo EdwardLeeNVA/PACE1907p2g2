@@ -1,6 +1,7 @@
 package com.revature.dnd_generator.data;
 
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -26,8 +27,8 @@ public class CharacterDao extends Dao {
 
 	public void insertCharacter(String name, String race, String dndClass, String proficiency1, String proficiency2,
 			String proficiency3, String proficiency4, String raceProficiency) {
-		try {
-			CallableStatement statement = statementMethods().insertCharacter(getConnection(), name, race, dndClass, proficiency1,
+		try (Connection c = getConnection()) {
+			CallableStatement statement = statementMethods().insertCharacter(c, name, race, dndClass, proficiency1,
 					proficiency2, proficiency3, proficiency4, raceProficiency);
 			statement.execute();
 		} catch (SQLException e) {
@@ -36,8 +37,8 @@ public class CharacterDao extends Dao {
 	}
 	
 	public DndCharacter selectOwnedCharacter(int id) {
-		try {
-			CallableStatement statement = statementMethods().selectOwnedCharacter(getConnection(), id);
+		try (Connection c = getConnection()) {
+			CallableStatement statement = statementMethods().selectOwnedCharacter(c, id);
 			statement.execute();
 			return selectCharacterCommon(statement);
 		} catch (SQLException e) {
@@ -47,8 +48,8 @@ public class CharacterDao extends Dao {
 	}
 	
 	public DndCharacter selectCharacter(int id) {
-		try {
-			CallableStatement statement = statementMethods().selectCharacter(getConnection(), id);
+		try (Connection c = getConnection()) {
+			CallableStatement statement = statementMethods().selectCharacter(c, id);
 			statement.execute();
 			return selectCharacterCommon(statement);
 		} catch (SQLException e) {
