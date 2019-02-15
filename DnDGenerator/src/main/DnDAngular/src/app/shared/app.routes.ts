@@ -26,5 +26,9 @@ export const AppRoutes: Route[] = [
   {
     path: "profile",
     component: ProfileComponent
+  },
+  {
+    path: "landing-page",
+    component: LandingComponent
   }
 ];

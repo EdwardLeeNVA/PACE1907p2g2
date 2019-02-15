@@ -21,7 +21,8 @@ export class NavbarComponent implements OnInit {
     this.login.currentLoginUser.subscribe(user => this.currentUser = user);
   }
 
-  highlightNav(){
-    
+  logout(){
+    this.login.updateCurrentUser(null);
+    this.login.updateLoginStatus(false);
   }
 }

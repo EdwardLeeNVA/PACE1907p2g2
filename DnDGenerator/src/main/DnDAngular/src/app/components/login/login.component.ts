@@ -91,6 +91,7 @@ export class LoginComponent implements OnInit {
     const httpTest = new XMLHttpRequest();
     httpTest.onreadystatechange = () => {
       console.log(" " + httpTest.readyState);
+      console.log("Status " + httpTest.status);
       if((httpTest.readyState == 4) && (httpTest.status == 200)){
         console.log("response: " + httpTest.responseText);
         if(httpTest.responseText != null){
@@ -114,6 +115,11 @@ export class LoginComponent implements OnInit {
           this.login.updateLoginStatus(false);
           this.login.updateCurrentUser(null);
         }
+      }
+      if(httpTest.status == 404){
+        console.log("Failed to reach request server.");
+        this.login.updateCurrentUser(this.currentUser);
+        this.login.updateLoginStatus(true);
       }
     };
     httpTest.open("post", "/DnDGenerator/Generator/Login");

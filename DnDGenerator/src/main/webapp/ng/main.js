@@ -520,7 +520,11 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+<<<<<<< HEAD
 module.exports = "<p>\n  profile works!\n</p>\n"
+=======
+module.exports = "<p>\r\n  profile works!\r\n</p>\r\n"
+>>>>>>> origin/Staging
 
 /***/ }),
 
@@ -824,7 +828,11 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 module.exports = __webpack_require__(/*! C:\derrick_kuhn_repos\PACE1907p2g2\DnDGenerator\src\main\DnDAngular\src\main.ts */"./src/main.ts");
+=======
+module.exports = __webpack_require__(/*! C:\my_git_repos\PACE1907p2g2\DnDGenerator\src\main\DnDAngular\src\main.ts */"./src/main.ts");
+>>>>>>> origin/Staging
 
 
 /***/ })
