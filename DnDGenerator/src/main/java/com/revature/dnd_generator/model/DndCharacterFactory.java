@@ -2,13 +2,15 @@ package com.revature.dnd_generator.model;
 
 public class DndCharacterFactory {
 
-	public static DndCharacter create(String name, String race, String dndClass, String bio, String jsonProficencies) {
+	public static DndCharacter create(String name, String race, String dndClass, String prof1, String prof2, String prof3, String prof4) {
 		DndCharacter character = new DndCharacter();
 		character.setName(name);
 		character.setRace(race);
 		character.setDndClass(dndClass);
-		character.setBio(bio);
-		character.setJsonProficencies(jsonProficencies);
+		character.setProf1(prof1);
+		character.setProf2(prof2);
+		character.setProf3(prof3);
+		character.setProf4(prof4);
 		return character;
 	}
 	
