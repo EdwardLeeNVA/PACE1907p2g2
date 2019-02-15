@@ -14,6 +14,7 @@ public class DndCharacterFactory {
 		for (String prof : proficiencies) {
 			proficiencyList.add(prof);
 		}
+		character.setProficiencies(proficiencyList);
 		return character;
 	}
 	
