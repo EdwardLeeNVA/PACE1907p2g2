@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dnd_generator.data.PlayerDao;
+import com.revature.dnd_generator.model.IdUsernamePair;
 import com.revature.dnd_generator.model.Player;
 import com.revature.dnd_generator.services.PlayerServices;
 import com.revature.dnd_generator.services.PlayerServicesImpl;
@@ -31,7 +32,7 @@ public class MasterDispatcher {
 			//username, password
 				//from a jackson object
 			Player input = null;
-            Player returned = null;
+            IdUsernamePair returned = null;
             LOGGER.info(request.getContentType());
 			if(request.getHeader("Content-Type").equals("application/json")){
                 try{
