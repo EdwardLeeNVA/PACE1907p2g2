@@ -62,6 +62,8 @@ public class MasterDispatcher {
 		}else if(request.getRequestURI().contains("Character")) {
 			LOGGER.info("Top of CHARACTER");
 			CharacterDelegate.processer(request, response);
+		}else if(request.getRequestURI().contains("Register")) {
+			LOGGER.info("Registering a new user");
 		}
 		return null;
 	}
