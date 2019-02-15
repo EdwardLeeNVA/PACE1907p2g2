@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 
 import com.revature.dnd_generator.exceptions.ConnectionFailedException;
 
-public class ConnectionHandler implements AutoCloseable {
+public class ConnectionHandler {
 	
 	private static final String USERNAME_LOCATION = "ConnectionUsername";
 	private static final String PASSWORD_LOCATION = "ConnectionPassword";
@@ -22,21 +22,9 @@ public class ConnectionHandler implements AutoCloseable {
 		return instance;
 	}
 	
-	private static Connection connection;
-	
-	@Override
-	public void close() throws Exception {
-		if (connection != null) {
-			connection.close();
-		}
-	}
-	
-	public synchronized Connection getConnection() {
+	public Connection getConnection() {
 		try {
-			if ((connection == null) || connection.isClosed()) {
-				connection = initConnection();
-			}
-			return connection;
+			return initConnection();
 		} catch (SQLException | IOException e) {
 			throw new ConnectionFailedException(e);
 		}
