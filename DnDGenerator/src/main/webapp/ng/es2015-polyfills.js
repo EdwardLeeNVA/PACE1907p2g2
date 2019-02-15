@@ -7006,14 +7006,8 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
 __webpack_require__(/*! C:\derrick_kuhn_repos\PACE1907p2g2\DnDGenerator\src\main\DnDAngular\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\es2015-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es2015-polyfills.js");
 module.exports = __webpack_require__(/*! C:\derrick_kuhn_repos\PACE1907p2g2\DnDGenerator\src\main\DnDAngular\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\es2015-jit-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es2015-jit-polyfills.js");
-=======
-__webpack_require__(/*! C:\my_git_repos\PACE1907p2g2\DnDGenerator\src\main\DnDAngular\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\es2015-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es2015-polyfills.js");
-module.exports = __webpack_require__(/*! C:\my_git_repos\PACE1907p2g2\DnDGenerator\src\main\DnDAngular\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\es2015-jit-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es2015-jit-polyfills.js");
->>>>>>> origin/Staging
-
 
 /***/ })
 
