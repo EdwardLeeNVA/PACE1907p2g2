@@ -70,7 +70,6 @@ public class CharacterDao {
 		String prof2 = results.getString(COL_CHAR_PROF2);
 		String prof3 = results.getString(COL_CHAR_PROF3);
 		String prof4 = results.getString(COL_CHAR_PROF4);
-		String biography = results.getString(COL_CHAR_BIO);
 		return DndCharacterFactory.create(playerId, name, race, characterClass, prof1, prof2, prof3, prof4);
 	}
 
