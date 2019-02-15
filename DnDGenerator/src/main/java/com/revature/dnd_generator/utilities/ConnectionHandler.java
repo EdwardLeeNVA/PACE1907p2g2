@@ -16,7 +16,6 @@ public class ConnectionHandler {
 	private static final String PASSWORD_LOCATION = "ConnectionPassword";
 	private static final String URL_LOCATION = "ConnectionURL";
 	private static ConnectionHandler instance = new ConnectionHandler();
-	final static Logger log = LogManager.getLogger(ConnectionHandler.class);
 
 	public static ConnectionHandler getInstance() {
 		return instance;
@@ -34,7 +33,6 @@ public class ConnectionHandler {
 		String connectionUsername = System.getenv(USERNAME_LOCATION);
         String connectionPassword = System.getenv(PASSWORD_LOCATION);
         String url = System.getenv(URL_LOCATION);
-        log.info("ConnectionHandler: URL: " + url + ", USERNAME: " + connectionUsername + ", PASSWORD: " + connectionPassword);	    
 		DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
 		return DriverManager.getConnection(url, connectionUsername, connectionPassword);
 	}

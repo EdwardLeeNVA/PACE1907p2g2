@@ -1,3 +1,9 @@
+/*
+
+
+Created using: https://angularfirebase.com/lessons/sharing-data-between-angular-components-four-methods/
+ */
+
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import {User} from '../models/user';
@@ -24,6 +30,4 @@ export class LoginService {
   }
 }
 
-/*
-Created using: https://angularfirebase.com/lessons/sharing-data-between-angular-components-four-methods/
- */
+
