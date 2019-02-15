@@ -1,8 +1,12 @@
 export class Character {
-  c_id: number;
-  c_name: string;
-  c_race: string;
-  c_class: string;
-  c_proficiency: string;
-  c_bio: string;
+  id: number;
+  player_id: number;
+  name: string;
+  race: string;
+  dndClass: string;
+  prof_1: string;
+  prof_2: string;
+  prof_3: string;
+  prof_4: string;
+  rprof: string;
 }

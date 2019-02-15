@@ -1,4 +1,15 @@
 <div class="row">
+  <div class="col-md-4 offset-md-4 text-center">
+    <p class="h2">DnD Character Creator</p>
+    <p class="h5">Login or register to access character creator.</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 offset-md-4 text-center">
+    <p class="h6" *ngIf="feedback">{{f}}</p>
+  </div>
+</div>
+<div class="row">
   <div class="col-md-4 offset-md-4">
     <div class="input-group input-group-lg">
       <div class="input-group-prepend">
@@ -12,7 +23,7 @@
   <div class="col-md-4 offset-md-4">
     <div class="input-group input-group-lg">
       <div class="input-group-prepend">
-        <span class="input-group-text">Password  </span>
+        <span class="input-group-text">Password</span>
       </div>
       <input type="password" class="form-control" required [(ngModel)]="user.password" name="password" placeholder="Enter password...">
     </div>
@@ -20,10 +31,10 @@
 </div>
 <div class="row">
   <div class="col-md-4 offset-md-4 text-center">
-    <button type="submit" class="btn btn-success" (click)="submitLogin()">Login</button>
+    <button type="submit" class="btn btn-primary" (click)="registerUser()">Register new Account</button>
+    <button type="submit" class="btn btn-success" (click)="submitLogin()">Click here to Login</button>
   </div>
 </div>
-<div *ngIf="loginStatus">
-  <p>Logged in.</p>
+<div>
   <p>{{ user | json }}</p>
 </div>

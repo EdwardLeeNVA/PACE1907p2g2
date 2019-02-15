@@ -13,12 +13,16 @@ export class CreateCharacterComponent implements OnInit {
   ngOnInit() {
   }
   character: Character = {
-    c_id: 0,
-    c_name: 'Default',
-    c_race: 'Dwarf',
-    c_class: 'Lumberjack',
-    c_proficiency: '',
-    c_bio: 'Nunchuck master'
+    id: 0,
+    player_id: 0,
+    name: 'Default',
+    race: 'Dwarf',
+    dndClass: 'Lumberjack',
+    prof_1: '',
+    prof_2: '',
+    prof_3: '',
+    prof_4: '',
+    rprof: 'Nunchuck master'
   };
 
   public raceURL: string = "http://dnd5eapi.co/api/races/";
@@ -37,7 +41,7 @@ export class CreateCharacterComponent implements OnInit {
       if((getClass.readyState == 4) && (getClass.status == 200)){
         const resp = JSON.parse(getClass.responseText);
         const index = Math.random() * resp.length;
-        this.character.c_class = resp[index].name;
+        this.character.dndClass = resp[index].name;
       }
     };
     getClass.open("get", "http://dnd5eapi.co/api/classes/");
@@ -49,7 +53,7 @@ export class CreateCharacterComponent implements OnInit {
     getRandomName.onreadystatechange = () => {
       if((getRandomName.readyState == 4) && (getRandomName.status == 200)){
         const resp = JSON.parse(getRandomName.responseText);
-        this.character.c_name = resp.name;
+        this.character.name = resp.name;
       }
     };
     getRandomName.open("get", this.nameURL);
@@ -62,7 +66,7 @@ export class CreateCharacterComponent implements OnInit {
       if((getRace.readyState == 4) && (getRace.status == 200)){
         const resp = JSON.parse(getRace.responseText);
         const index = Math.random() * resp.length;
-        this.character.c_race = resp[index].name;
+        this.character.race = resp[index].name;
       }
     };
     getRace.open("get", this.raceURL);
