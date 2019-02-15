@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import com.revature.dnd_generator.model.DndCharacter;
 import com.revature.dnd_generator.model.DndCharacterFactory;
 
-public class CharacterDao {
+public class CharacterDao extends Dao {
 
 	private static final Logger LOGGER = Logger.getLogger(CharacterDao.class);
 	private static final String COL_CHAR_ID = "ID";
@@ -27,7 +27,7 @@ public class CharacterDao {
 	public void insertCharacter(String name, String race, String dndClass, String proficiency1, String proficiency2,
 			String proficiency3, String proficiency4, String raceProficiency) {
 		try {
-			CallableStatement statement = statementMethods().insertCharacter(name, race, dndClass, proficiency1,
+			CallableStatement statement = statementMethods().insertCharacter(getConnection(), name, race, dndClass, proficiency1,
 					proficiency2, proficiency3, proficiency4, raceProficiency);
 			statement.execute();
 		} catch (SQLException e) {
@@ -37,7 +37,7 @@ public class CharacterDao {
 	
 	public DndCharacter selectOwnedCharacter(int id) {
 		try {
-			CallableStatement statement = statementMethods().selectOwnedCharacter(id);
+			CallableStatement statement = statementMethods().selectOwnedCharacter(getConnection(), id);
 			statement.execute();
 			return selectCharacterCommon(statement);
 		} catch (SQLException e) {
@@ -48,7 +48,7 @@ public class CharacterDao {
 	
 	public DndCharacter selectCharacter(int id) {
 		try {
-			CallableStatement statement = statementMethods().selectCharacter(id);
+			CallableStatement statement = statementMethods().selectCharacter(getConnection(), id);
 			statement.execute();
 			return selectCharacterCommon(statement);
 		} catch (SQLException e) {

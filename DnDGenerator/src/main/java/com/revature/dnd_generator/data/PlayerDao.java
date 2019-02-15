@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.revature.dnd_generator.exceptions.IncorrectLoginException;
 
-public class PlayerDao {
+public class PlayerDao extends Dao {
 	
 	public static final int MAX_NAME_LENGTH = 30;
 	public static final int MAX_BIO_LENGTH = 1000;
@@ -23,7 +23,7 @@ public class PlayerDao {
 	
 	public void insertUser(String username, String password) {
 		try {
-			CallableStatement statement = statementMethods().insertUser(username, password);
+			CallableStatement statement = statementMethods().insertUser(getConnection(), username, password);
 			statement.execute();
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
@@ -32,7 +32,7 @@ public class PlayerDao {
 	
 	public int logIn(String username, String password) throws IncorrectLoginException {
 		try {
-			CallableStatement statement = statementMethods().logIn(username, password);
+			CallableStatement statement = statementMethods().logIn(getConnection(), username, password);
 			statement.execute();
 			ResultSet results = (ResultSet) statement.getObject(3);
 			if(!results.next()) {

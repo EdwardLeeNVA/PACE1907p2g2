@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import oracle.jdbc.OracleTypes;
 
-class PlayerDaoStatements extends Dao {
+class PlayerDaoStatements {
 	
 	private static PlayerDaoStatements instance = new PlayerDaoStatements();
 	
@@ -14,23 +14,19 @@ class PlayerDaoStatements extends Dao {
 		return instance;
 	}
 	
-	CallableStatement insertUser(String username, String password) throws SQLException {
-		try (Connection c = getConnection()) {
-			CallableStatement stmt = c.prepareCall("CALL CREATE_USER(?, ?)");
-			stmt.setString(1, username);
-			stmt.setString(2, password);
-			return stmt;
-		}
+	CallableStatement insertUser(Connection connection, String username, String password) throws SQLException {
+		CallableStatement stmt = connection.prepareCall("CALL CREATE_USER(?, ?)");
+		stmt.setString(1, username);
+		stmt.setString(2, password);
+		return stmt;
 	}
 	
-	CallableStatement logIn(String username, String password) throws SQLException {
-		try (Connection c = getConnection()) {
-			CallableStatement stmt = c.prepareCall("CALL LOGIN(?, ?, ?)");
-			stmt.setString(1, username);
-			stmt.setString(2, password);
-			stmt.registerOutParameter(3, OracleTypes.CURSOR);
-			return stmt;
-		}
+	CallableStatement logIn(Connection connection, String username, String password) throws SQLException {
+		CallableStatement stmt = connection.prepareCall("CALL LOGIN(?, ?, ?)");
+		stmt.setString(1, username);
+		stmt.setString(2, password);
+		stmt.registerOutParameter(3, OracleTypes.CURSOR);
+		return stmt;
 	}
 	
 	private PlayerDaoStatements() { }
