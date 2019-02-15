@@ -3,6 +3,7 @@ package com.revature.dnd_generator.model;
 public class DndCharacter {
 	
 	private int id = 0; //I did 0 since it can't be assigned null, and the sequence doesn't generate 0s feel free to change this if you know a better practice
+	private int playerId = 0;
 	private String name = null;
 	private String race = null;
 	private String dndClass = null;
@@ -14,6 +15,14 @@ public class DndCharacter {
 	public DndCharacter() {
 	}	
 
+	public int getPlayerId() {
+		return playerId;
+	}
+	
+	public void setPlayerId(int playerId) {
+		this.playerId = playerId;
+	}
+	
 	public String getName() {
 		return name;
 	}
