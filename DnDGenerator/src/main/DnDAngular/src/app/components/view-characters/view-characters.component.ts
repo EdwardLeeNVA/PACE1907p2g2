@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Character} from '../../models/character';
 
 @Component({
   selector: 'app-view-characters',
@@ -11,5 +12,7 @@ export class ViewCharactersComponent implements OnInit {
 
   ngOnInit() {
   }
+
+
 
 }

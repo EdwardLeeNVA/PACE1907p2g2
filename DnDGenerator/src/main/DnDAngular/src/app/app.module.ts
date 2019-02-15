@@ -11,8 +11,9 @@ import {HttpDdService} from './services/http-dd.service';
 import { LoginComponent } from './components/login/login.component';
 import { CreateCharacterComponent } from './components/create-character/create-character.component';
 import { ViewCharactersComponent } from './components/view-characters/view-characters.component';
-import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { AppRoutes } from './shared/app.routes';
+import { LandingComponent } from './components/landing/landing.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { AppRoutes } from './shared/app.routes';
     LoginComponent,
     CreateCharacterComponent,
     ViewCharactersComponent,
-    LandingPageComponent
+    LandingComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
