@@ -21,7 +21,7 @@
 	            <configuration>
 	                <source>1.8</source>
 	                <target>1.8</target>
-			<excludes>
+					<excludes>
 	                    <exclude>DnDAngular/**</exclude>
 	                </excludes>
 	            </configuration>

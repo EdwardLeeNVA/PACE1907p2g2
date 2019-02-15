@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="dnd_generator:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>dnd_generator</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="dnd_generator-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="dnd_generator:war exploded" />
+    </root>
+  </artifact>
+</component>

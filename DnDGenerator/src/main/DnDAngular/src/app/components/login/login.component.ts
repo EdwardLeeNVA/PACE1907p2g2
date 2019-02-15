@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
 
   }
 
-  submitLogin(){
+  /*submitLogin(){
     this.currentUser = null;
     console.log("User sent to back-end "+this.user);
     this.http.verifyLogin(this.user).subscribe(
@@ -62,9 +62,9 @@ export class LoginComponent implements OnInit {
         this.failedLogin();
       }
     }
-  }
+  }*/
 
-  registerUser(){
+  /*registerUser(){
     this.currentUser = null;
     console.log("User sent to register " + this.user);
     this.http.registerUser(this.user).subscribe(
@@ -82,10 +82,10 @@ export class LoginComponent implements OnInit {
         this.failedRegister();
       }
     }
-  }
+  }*/
 
 
-  /*submitLogin(): void{
+  submitLogin(): void{
     this.currentUser = null;
     const msg = JSON.stringify(this.user);
     const httpTest = new XMLHttpRequest();
@@ -99,26 +99,62 @@ export class LoginComponent implements OnInit {
           this.currentUser = {
             username: resp.username,
             password: resp.password,
-            id: resp.user_id
+            id: resp.id
           }
-          if(this.currentUser != null) {
+          if(this.currentUser.username != '') {
+            this.login.updateCurrentUser(this.currentUser);
             this.login.updateLoginStatus(true);
+          } else {
+            this.failedLogin();
+            console.log("Login failed.");
           }
         } else {
           console.log("Login failed.");
+          this.failedLogin();
           this.login.updateLoginStatus(false);
           this.login.updateCurrentUser(null);
         }
       }
     };
-    httpTest.open("post", "/Generator/Login");
+    httpTest.open("post", "/DnDGenerator/Generator/Login");
     httpTest.setRequestHeader("Content-Type", "application/json");
     httpTest.send(msg);
+  }
 
-    if(this.currentUser != null) {
-      this.loginStatus = true;
-      this.login.updateLoginStatus(true);
-    }
-  }*/
+  registerUser(){
+    this.currentUser = null;
+    const msg = JSON.stringify(this.user);
+    const httpTest = new XMLHttpRequest();
+    httpTest.onreadystatechange = () => {
+      console.log(" " + httpTest.readyState);
+      if((httpTest.readyState == 4) && (httpTest.status == 200)){
+        console.log("response: " + httpTest.responseText);
+        if(httpTest.responseText != null){
+          const resp = JSON.parse(httpTest.responseText);
+          console.log("Login successful");
+          this.currentUser = {
+            username: resp.username,
+            password: resp.password,
+            id: resp.id
+          }
+          if(this.currentUser.username != '') {
+            this.login.updateCurrentUser(this.currentUser);
+            this.login.updateLoginStatus(true);
+          } else {
+            this.failedLogin();
+            console.log("Login failed.");
+          }
+        } else {
+          console.log("Login failed.");
+          this.failedLogin();
+          this.login.updateLoginStatus(false);
+          this.login.updateCurrentUser(null);
+        }
+      }
+    };
+    httpTest.open("post", "/DnDGenerator/Generator/Register");
+    httpTest.setRequestHeader("Content-Type", "application/json");
+    httpTest.send(msg);
+  }
 }
 
