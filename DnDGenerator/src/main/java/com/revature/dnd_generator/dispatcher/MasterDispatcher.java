@@ -23,7 +23,7 @@ public class MasterDispatcher {
 	private static final PlayerServices pService = new PlayerServicesImpl();
 	static ObjectMapper mapper = new ObjectMapper();
 	public static Object process(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		System.out.println("In Dispatcher" + request.getRequestURI());
+		LOGGER.info("In Dispatcher, PATH: " + request.getRequestURI());
 		if(request.getRequestURI().contains("Login")){
 			LOGGER.info("Starting the login portion of the dispatcher");
 			
@@ -32,8 +32,8 @@ public class MasterDispatcher {
 				//from a jackson object
 			Player input = null;
             Player returned = null;
-		LOGGER.info(request.getContentType());
-	if(request.getHeader("Content-Type").equals("application/json")){
+            LOGGER.info(request.getContentType());
+			if(request.getHeader("Content-Type").equals("application/json")){
                 try{
                     input = mapper.readValue(request.getReader(), Player.class);
                     LOGGER.info("loging service inputted object: "+input);
@@ -49,6 +49,9 @@ public class MasterDispatcher {
                     return "IO error";
                 }
             }
+			if(returned.getId()!=0) {
+				request.getSession().setAttribute("playerID", returned.getId());
+			}
 			//write response
 			response.setContentType("application/json");
 			String jsonInString = mapper.writeValueAsString(returned);
@@ -56,6 +59,9 @@ public class MasterDispatcher {
 			response.getWriter().write(jsonInString);
 
 			return response; 
+		}else if(request.getRequestURI().contains("Character")) {
+			LOGGER.info("Top of CHARACTER");
+			CharacterDelegate.processer(request, response);
 		}
 		return null;
 	}
