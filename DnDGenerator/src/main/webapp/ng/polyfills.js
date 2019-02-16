@@ -5784,14 +5784,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
 __webpack_require__(/*! C:\derrick_kuhn_repos\PACE1907p2g2\DnDGenerator\src\main\DnDAngular\src\polyfills.ts */"./src/polyfills.ts");
 module.exports = __webpack_require__(/*! C:\derrick_kuhn_repos\PACE1907p2g2\DnDGenerator\src\main\DnDAngular\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\jit-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
-=======
-__webpack_require__(/*! C:\my_git_repos\PACE1907p2g2\DnDGenerator\src\main\DnDAngular\src\polyfills.ts */"./src/polyfills.ts");
-module.exports = __webpack_require__(/*! C:\my_git_repos\PACE1907p2g2\DnDGenerator\src\main\DnDAngular\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\jit-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
->>>>>>> origin/Staging
-
 
 /***/ })
 
