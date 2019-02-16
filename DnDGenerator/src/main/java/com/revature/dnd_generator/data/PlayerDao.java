@@ -36,7 +36,7 @@ public class PlayerDao extends Dao {
 		try (Connection c = getConnection()) {
 			CallableStatement statement = statementMethods().logIn(c, username, password);
 			statement.execute();
-			return statement.getInt(COL_USR_ID);
+			return statement.getInt(1);
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
 			throw new IncorrectLoginException(e);
