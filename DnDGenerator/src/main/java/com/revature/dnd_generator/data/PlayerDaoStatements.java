@@ -25,7 +25,7 @@ class PlayerDaoStatements {
 		CallableStatement stmt = connection.prepareCall("CALL LOGIN(?, ?, ?)");
 		stmt.setString(1, username);
 		stmt.setString(2, password);
-		stmt.registerOutParameter(3, OracleTypes.CURSOR);
+		stmt.registerOutParameter(3, OracleTypes.NUMBER);
 		return stmt;
 	}
 	
