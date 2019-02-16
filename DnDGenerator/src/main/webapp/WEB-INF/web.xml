@@ -4,6 +4,9 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <welcome-file-list>
+   	<welcome-file>/ng/index.html</welcome-file>
+  </welcome-file-list>
   <servlet>
 	<servlet-name>FrontController</servlet-name>
   	<servlet-class>com.revature.dnd_generator.servlet.FrontController</servlet-class>
