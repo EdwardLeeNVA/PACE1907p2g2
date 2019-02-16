@@ -2,18 +2,17 @@ package com.revature.dnd_generator.model;
 
 public class PlayerFactory {
 
-	public static Player createUser(String username, String password) {
-		Player player = new Player();
-		player.setUsername(username);
+	public static Player create(int id, String username, String password) {
+		Player player = createNoPassword(id, username);
 		player.setPassword(password);
 		return player;
 	}
 	
-	public static IdUsernamePair createIdUsernamePair(int id, String username) {
-		IdUsernamePair pair = new IdUsernamePair();
-		pair.setId(id);
-		pair.setUsername(username);
-		return pair;
+	public static Player createNoPassword(int id, String username) {
+		Player player = new Player();
+		player.setId(id);
+		player.setUsername(username);
+		return player;
 	}
 	
 	private PlayerFactory() { }
