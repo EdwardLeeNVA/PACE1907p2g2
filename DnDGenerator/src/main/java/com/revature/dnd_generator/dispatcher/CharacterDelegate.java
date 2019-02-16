@@ -9,7 +9,7 @@ public class CharacterDelegate {
 	private CharacterDelegate() {}
 	private static final Logger LOGGER = Logger.getLogger(CharacterDelegate.class);
 
-	public static void processer(HttpServletRequest req, HttpServletResponse resp) {
+	public static Object processer(HttpServletRequest req, HttpServletResponse resp) {
 		//get path length
 		
 		// if it is 3? or 4?
@@ -22,5 +22,6 @@ public class CharacterDelegate {
 		}else {
 			LOGGER.info("Unexpected Path Length" +req.getRequestURI() +" length of "+ path.length );
 		}
+		return "String";
 	}
 }
