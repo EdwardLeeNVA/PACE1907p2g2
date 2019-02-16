@@ -62,7 +62,7 @@ public class MasterDispatcher {
 			CharacterDelegate.processer(request, response);
 		}else if(request.getRequestURI().contains("Register")) {
 			LOGGER.info("Registering a new user");
-            Player input = mapper.readValue(request.getReader(), Player.class);
+			Player input = mapper.readValue(request.getReader(), Player.class);
 			pService.createPlayer(input.getUsername(), input.getPassword());
 		}
 		return null;
