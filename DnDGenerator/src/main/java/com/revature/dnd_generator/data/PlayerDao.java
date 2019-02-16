@@ -2,13 +2,11 @@ package com.revature.dnd_generator.data;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
 import com.revature.dnd_generator.exceptions.IncorrectLoginException;
-import com.revature.dnd_generator.data.Dao;
 
 public class PlayerDao extends Dao {
 	
@@ -36,7 +34,11 @@ public class PlayerDao extends Dao {
 		try (Connection c = getConnection()) {
 			CallableStatement statement = statementMethods().logIn(c, username, password);
 			statement.execute();
-			return statement.getInt(1);
+			int userId = statement.getInt(1);
+			if (userId <= 0) {
+				throw new IncorrectLoginException();
+			}
+			return userId;
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
 			throw new IncorrectLoginException(e);
