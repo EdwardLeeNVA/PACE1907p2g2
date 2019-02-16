@@ -24,7 +24,7 @@ class PlayerDaoStatements {
 	
 	CallableStatement logIn(Connection connection, String username, String password) throws SQLException {
 		CallableStatement stmt = connection.prepareCall("? := LOGIN_FUNC(?, ?)"); //error with the SQL Statement is thrown here.
-		stmt.registerOutParameter(1, Types.INTEGER);// temporarily holding this here since it migh fix it
+		stmt.registerOutParameter(1, OracleTypes.NUMBER);// temporarily holding this here since it migh fix it
 		stmt.setString(2, username);
 		stmt.setString(3, password);
 		return stmt;
