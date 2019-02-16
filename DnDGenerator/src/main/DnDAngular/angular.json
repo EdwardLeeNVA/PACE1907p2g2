@@ -4,7 +4,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "Project2": {
-      "root": "",
+      "root": "DnDGenerator",
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
