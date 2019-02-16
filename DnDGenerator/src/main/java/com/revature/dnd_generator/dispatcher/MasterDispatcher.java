@@ -62,6 +62,12 @@ public class MasterDispatcher {
 			CharacterDelegate.processer(request, response);
 		}else if(request.getRequestURI().contains("Register")) {
 			LOGGER.info("Registering a new user");
+			Player input = mapper.readValue(request.getReader(), Player.class);
+			input = pService.createPlayer(input.getusername(), input.getPassword);
+			response.setContentType("application/json");
+			String jsonInString = mapper.writeValueAsString(input);
+			LOGGER.info("CREATE USER OBJECT RETURNED: as JSON STRING:  "+jsonInString);
+			response.getWriter().write(jsonInString);
 		}
 		return null;
 	}
