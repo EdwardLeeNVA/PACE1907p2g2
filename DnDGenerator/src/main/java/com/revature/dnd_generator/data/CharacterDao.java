@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import com.revature.dnd_generator.model.DndCharacter;
 import com.revature.dnd_generator.model.DndCharacterFactory;
+import com.revature.dnd_generator.data.Dao;
 
 public class CharacterDao extends Dao {
 

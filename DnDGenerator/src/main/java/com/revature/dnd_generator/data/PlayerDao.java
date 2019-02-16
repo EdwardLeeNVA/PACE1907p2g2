@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 import com.revature.dnd_generator.exceptions.IncorrectLoginException;
+import com.revature.dnd_generator.data.Dao;
 
 public class PlayerDao extends Dao {
 	
