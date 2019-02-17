@@ -68,7 +68,7 @@ public class MasterDispatcher {
 			LOGGER.info("Registering a new user");
 			Player input = mapper.readValue(request.getReader(), Player.class);
 			pService.createPlayer(input.getUsername(), input.getPassword());
-		}else if(request.getRequestURI().equals("Classes")) {
+		}else if(request.getRequestURI().contains("Classes")) {
 			LOGGER.info("new class");
 			response.setContentType("application/json");
 			try {
@@ -89,7 +89,7 @@ public class MasterDispatcher {
 			}catch (Exception e) {
 				LOGGER.error(e.getMessage());
 			}
-		}else if(request.getRequestURI().equalsIgnoreCase("Races")) {
+		}else if(request.getRequestURI().contains("Races")) {
 			LOGGER.info("new race");
 			response.setContentType("application/json");
 			try {
