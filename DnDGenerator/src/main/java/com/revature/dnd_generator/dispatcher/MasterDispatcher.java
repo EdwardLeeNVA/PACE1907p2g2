@@ -72,7 +72,7 @@ public class MasterDispatcher {
 			LOGGER.info("Getting a name");
 			response.setContentType("application/json");
 			try {
-				String u = "http://api.namefake.com/";
+				String u = "https://api.namefake.com/";
 				URL url = new URL(u);
 				HttpURLConnection http = (HttpURLConnection) url.openConnection();
 				http.setRequestMethod("GET");
