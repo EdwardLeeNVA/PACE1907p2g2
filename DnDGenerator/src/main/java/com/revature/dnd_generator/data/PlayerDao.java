@@ -8,6 +8,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import org.apache.log4j.Logger;
 
 import com.revature.dnd_generator.exceptions.IncorrectLoginException;
+import com.revature.dnd_generator.exceptions.UserRegistrationFailedException;
 
 public class PlayerDao extends Dao {
 	
@@ -22,7 +23,7 @@ public class PlayerDao extends Dao {
 		return instance;
 	}
 	
-	public void insertUser(String username, String password) {
+	public void insertUser(String username, String password) throws UserRegistrationFailedException {
 		try (Connection c = getConnection()) {
 			CallableStatement statement = statementMethods().insertUser(c, username, password);
 			statement.execute();
@@ -32,6 +33,7 @@ public class PlayerDao extends Dao {
 		}
 		catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
+			throw new UserRegistrationFailedException(e);
 		}
 	}
 	

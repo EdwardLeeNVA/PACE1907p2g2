@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import com.revature.dnd_generator.data.PlayerDao;
 import com.revature.dnd_generator.exceptions.IncorrectLoginException;
+import com.revature.dnd_generator.exceptions.UserRegistrationFailedException;
 
 class PlayerDaoTest {
 	
@@ -29,7 +30,12 @@ class PlayerDaoTest {
 	
 	@Test
 	void testInsertUser() {
-		dao.insertUser("EDLEE", "PASSWORD");
+		try {
+			dao.insertUser("EDLEE", "PASSWORD");
+		} catch (UserRegistrationFailedException e) {
+			// TODO Auto-generated catch block
+			fail(e);
+		}
 		System.out.print("Attempted user creation.");
 	}
 

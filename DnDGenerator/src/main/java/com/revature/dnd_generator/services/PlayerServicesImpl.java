@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 
 import com.revature.dnd_generator.data.PlayerDao;
 import com.revature.dnd_generator.exceptions.IncorrectLoginException;
+import com.revature.dnd_generator.exceptions.UserRegistrationFailedException;
 import com.revature.dnd_generator.model.Player;
 import com.revature.dnd_generator.model.PlayerFactory;
 public class PlayerServicesImpl implements PlayerServices {
@@ -25,6 +26,10 @@ public class PlayerServicesImpl implements PlayerServices {
 	}
 	
 	public void createPlayer(String username, String password) {
-		PlayerDao.getInstance().insertUser(username, password);
+		try {
+			PlayerDao.getInstance().insertUser(username, password);
+		} catch (UserRegistrationFailedException e) {
+			LOGGER.error("Username probably already exists.", e);
+		}
 	}
 }
