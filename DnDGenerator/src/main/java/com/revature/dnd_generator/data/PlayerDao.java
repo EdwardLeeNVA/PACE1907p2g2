@@ -7,6 +7,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 
 import org.apache.log4j.Logger;
 
+import com.revature.dnd_generator.exceptions.ExistingUsernameException;
 import com.revature.dnd_generator.exceptions.IncorrectLoginException;
 import com.revature.dnd_generator.exceptions.UserRegistrationFailedException;
 
@@ -27,12 +28,9 @@ public class PlayerDao extends Dao {
 		try (Connection c = getConnection()) {
 			CallableStatement statement = statementMethods().insertUser(c, username, password);
 			statement.execute();
-		}catch (SQLIntegrityConstraintViolationException sicve ) {
-			//this means their username was likely already taken
-			LOGGER.error("Username Already Exists");
-		}
-		catch (SQLException e) {
-			LOGGER.error(e.getMessage(), e);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			throw new ExistingUsernameException(e);
+		} catch (SQLException e) {
 			throw new UserRegistrationFailedException(e);
 		}
 	}
@@ -47,7 +45,6 @@ public class PlayerDao extends Dao {
 			}
 			return userId;
 		} catch (SQLException e) {
-			LOGGER.error(e.getMessage(), e);
 			throw new IncorrectLoginException(e);
 		}
 	}
