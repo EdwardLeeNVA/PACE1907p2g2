@@ -69,27 +69,7 @@ public class MasterDispatcher {
 			Player input = mapper.readValue(request.getReader(), Player.class);
 			pService.createPlayer(input.getUsername(), input.getPassword());
 		}else if(request.getRequestURI().contains("Classes")) {
-			LOGGER.info("new class");
-			response.setContentType("application/json");
 			ClassDelegate.processClass(request, response);
-			try {
-				String u = "http://dnd5eapi.co/api/classes/";
-				URL url = new URL(u);
-				HttpURLConnection http = (HttpURLConnection) url.openConnection();
-				http.setRequestMethod("GET");
-				BufferedReader in = new BufferedReader (new InputStreamReader(http.getInputStream()) );
-				String inputLine;
-				StringBuffer sb = new StringBuffer();
-				LOGGER.info("Before reading");
-				while((inputLine = in.readLine()) != null) {
-					sb.append(inputLine);
-				}
-				in.close();
-				LOGGER.info("After reading" + sb.toString());
-				response.getWriter().write(sb.toString());
-			}catch (Exception e) {
-				LOGGER.error(e.getMessage());
-			}
 		}else if(request.getRequestURI().contains("Races")) {
 			LOGGER.info("new race");
 			response.setContentType("application/json");

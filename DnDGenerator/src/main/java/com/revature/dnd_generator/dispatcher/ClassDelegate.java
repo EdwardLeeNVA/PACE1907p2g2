@@ -1,5 +1,10 @@
 package com.revature.dnd_generator.dispatcher;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,9 +20,47 @@ public class ClassDelegate {
 		LOGGER.info("Path: " + req.getRequestURI());
 		LOGGER.info("Class Delegate Class length: " + path.length);
 		if(path.length == 4) {
-			LOGGER.info("GETTING ALL THE CLASSES: currently testing attributes: " + req.getSession().getAttribute("playerID"));
+			LOGGER.info("new class");
+			resp.setContentType("application/json");
+			try {
+				String u = "http://dnd5eapi.co/api/classes/";
+				URL url = new URL(u);
+				HttpURLConnection http = (HttpURLConnection) url.openConnection();
+				http.setRequestMethod("GET");
+				BufferedReader in = new BufferedReader (new InputStreamReader(http.getInputStream()) );
+				String inputLine;
+				StringBuilder sb = new StringBuilder();
+				LOGGER.info("Before reading");
+				while((inputLine = in.readLine()) != null) {
+					sb.append(inputLine);
+				}
+				in.close();
+				LOGGER.info("After reading" + sb.toString());
+				resp.getWriter().write(sb.toString());
+			}catch (Exception e) {
+				LOGGER.error(e.getMessage());
+			}
 		}else if(path.length == 5) {//get the requested object
 			LOGGER.info("Getting Specific Class: " + path[5]);
+			try {
+				String u = "http://dnd5eapi.co/api/classes/" + path[5];
+				LOGGER.info("Request url: " + u);
+				URL url = new URL(u);
+				HttpURLConnection http = (HttpURLConnection) url.openConnection();
+				http.setRequestMethod("GET");
+				BufferedReader in = new BufferedReader( new InputStreamReader(http.getInputStream()));
+				String inputLine;
+				StringBuilder sb = new StringBuilder();
+				LOGGER.info("Before Reading");
+				while((inputLine=in.readLine())!= null) {
+					sb.append(inputLine);
+				}
+				in.close();
+				LOGGER.info("AfterClose:\n" + sb.toString());
+				resp.getWriter().write(sb.toString());
+			}catch(Exception e) {
+				LOGGER.error(e.getMessage());
+			}
 		}else {
 			LOGGER.info("Unexpected Path Length" +req.getRequestURI() +" length of "+ path.length );
 		}
