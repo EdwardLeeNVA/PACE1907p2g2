@@ -41,7 +41,7 @@ public class ClassDelegate {
 				LOGGER.error(e.getMessage());
 			}
 		}else if(path.length == 5) {//get the requested object
-			LOGGER.info("Getting Specific Class: " + path[5]);
+			LOGGER.info("Getting Specific Class: " + path[4]);
 			try {
 				String u = "http://dnd5eapi.co/api/classes/" + path[5];
 				LOGGER.info("Request url: " + u);
