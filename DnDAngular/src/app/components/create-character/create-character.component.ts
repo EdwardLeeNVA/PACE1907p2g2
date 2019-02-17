@@ -26,9 +26,9 @@ export class CreateCharacterComponent implements OnInit {
   };
 
   public raceURL: string = "http://dnd5eapi.co/api/races/";
-  public classURL: string = "/DnDGenerator/Classes";
+  public classURL: string = "/DnDGenerator/Generator/Classes";
   public nameURL: string = "https://api.namefake.com/";
-  public servName: string = "/DnDGenerator/Name";
+  public servName: string = "/DnDGenerator/Generator/Name";
 
   generateCharacter(){
     console.log("Generate Character called.");
