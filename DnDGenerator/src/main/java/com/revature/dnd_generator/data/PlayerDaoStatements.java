@@ -3,6 +3,7 @@ package com.revature.dnd_generator.data;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import oracle.jdbc.OracleTypes;
 
@@ -22,7 +23,7 @@ class PlayerDaoStatements {
 	}
 	
 	CallableStatement logIn(Connection connection, String username, String password) throws SQLException {
-		CallableStatement stmt = connection.prepareCall("? = CALL LOGIN_FUNC(?, ?)");
+		CallableStatement stmt = connection.prepareCall("BEGIN ? := LOGIN_FUNC(?,?); END;"); //error with the SQL Statement is thrown here.
 		stmt.registerOutParameter(1, OracleTypes.NUMBER);
 		stmt.setString(2, username);
 		stmt.setString(3, password);

@@ -26,13 +26,13 @@ export class CreateCharacterComponent implements OnInit {
   };
 
   public raceURL: string = "http://dnd5eapi.co/api/races/";
-  public classURL: string = "http://dnd5eapi.co/api/classes/";
+  public classURL: string = "/DnDGenerator/Classes";
   public nameURL: string = "https://api.namefake.com/";
+  public servName: string = "/DnDGenerator/Name";
 
   generateCharacter(){
     this.getClass();
     this.getRandomName();
-    this.getRace();
   }
 
   getClass(){
@@ -44,7 +44,7 @@ export class CreateCharacterComponent implements OnInit {
         this.character.dndClass = resp[index].name;
       }
     };
-    getClass.open("get", "http://dnd5eapi.co/api/classes/");
+    getClass.open("get", this.classURL);
     getClass.send();
   }
 
@@ -56,7 +56,7 @@ export class CreateCharacterComponent implements OnInit {
         this.character.name = resp.name;
       }
     };
-    getRandomName.open("get", this.nameURL);
+    getRandomName.open("get", this.servName);
     getRandomName.send();
   }
 
