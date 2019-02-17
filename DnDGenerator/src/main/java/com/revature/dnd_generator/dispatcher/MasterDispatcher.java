@@ -71,6 +71,7 @@ public class MasterDispatcher {
 		}else if(request.getRequestURI().contains("Classes")) {
 			LOGGER.info("new class");
 			response.setContentType("application/json");
+			ClassDelegate.processClass(request, response);
 			try {
 				String u = "http://dnd5eapi.co/api/classes/";
 				URL url = new URL(u);
