@@ -61,7 +61,11 @@ export class LoginComponent implements OnInit {
       } else {
         this.failedLogin();
       }
-    }
+    } else {
+      console.log("Register failed.");
+      this.failedRegister();
+      this.login.updateLoginStatus(false);
+      this.login.updateCurrentUser(null);
   }*/
 
   /*registerUser(){
@@ -102,7 +106,7 @@ export class LoginComponent implements OnInit {
             password: resp.password,
             id: resp.id
           }
-          if(this.currentUser.username != '') {
+          if(this.currentUser.id > 0) {
             this.login.updateCurrentUser(this.currentUser);
             this.login.updateLoginStatus(true);
           } else {
@@ -137,22 +141,23 @@ export class LoginComponent implements OnInit {
         console.log("response: " + httpTest.responseText);
         if(httpTest.responseText != null){
           const resp = JSON.parse(httpTest.responseText);
-          console.log("Login successful");
+
           this.currentUser = {
             username: resp.username,
             password: resp.password,
             id: resp.id
           }
-          if(this.currentUser.username != '') {
+          if(this.currentUser.id > 0) {
+            console.log("Login successful");
             this.login.updateCurrentUser(this.currentUser);
             this.login.updateLoginStatus(true);
           } else {
-            this.failedLogin();
-            console.log("Login failed.");
+            this.failedRegister();
+            console.log("Register failed.");
           }
         } else {
-          console.log("Login failed.");
-          this.failedLogin();
+          console.log("Register failed.");
+          this.failedRegister();
           this.login.updateLoginStatus(false);
           this.login.updateCurrentUser(null);
         }
