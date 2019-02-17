@@ -14,10 +14,10 @@ public class ClassDelegate {
 		//get all from current user
 		LOGGER.info("Path: " + req.getRequestURI());
 		LOGGER.info("Class Delegate Class length: " + path.length);
-		if(path.length == 5) {
-			LOGGER.info("Fetching all with userid: " +req.getSession().getAttribute("playerID"));
-		}else if(path.length == 6) {//get the requested object
-			LOGGER.info("Getting Specific Character: " + path[5]);
+		if(path.length == 4) {
+			LOGGER.info("GETTING ALL THE CLASSES: currently testing attributes: " + req.getSession().getAttribute("playerID"));
+		}else if(path.length == 5) {//get the requested object
+			LOGGER.info("Getting Specific Class: " + path[5]);
 		}else {
 			LOGGER.info("Unexpected Path Length" +req.getRequestURI() +" length of "+ path.length );
 		}
