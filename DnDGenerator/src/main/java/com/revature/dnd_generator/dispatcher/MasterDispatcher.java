@@ -91,13 +91,11 @@ public class MasterDispatcher {
 			}catch (Exception e) {
 				LOGGER.error(e.getMessage());
 			}
-		}
-			
-			/* if( request.getRequestURI().contains("Name")) {
+		}else if( request.getRequestURI().contains("Name")) {
 			LOGGER.info("Getting a name");
 			response.setContentType("application/json");
 			try {
-				String u = "https://api.namefake.com/";
+				String u = "https://randomuser.me/api/";
 				URL url = new URL(u);
 				HttpURLConnection http = (HttpURLConnection) url.openConnection();
 				http.setRequestMethod("GET");
@@ -113,7 +111,7 @@ public class MasterDispatcher {
 			}catch(Exception e) {
 				LOGGER.error(e.getMessage());
 			}
-		}*/
+		}
 		return null;
 	}
 }
