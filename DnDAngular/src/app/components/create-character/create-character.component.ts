@@ -31,6 +31,7 @@ export class CreateCharacterComponent implements OnInit {
   public servName: string = "/DnDGenerator/Name";
 
   generateCharacter(){
+    console.log("Generate Character called.");
     this.getClass();
     this.getRandomName();
   }
@@ -38,6 +39,7 @@ export class CreateCharacterComponent implements OnInit {
   getClass(){
     const getClass = new XMLHttpRequest();
     getClass.onreadystatechange = () => {
+      console.log("Ready State " + getClass.readyState);
       if((getClass.readyState == 4) && (getClass.status == 200)){
         const resp = JSON.parse(getClass.responseText);
         const index = Math.random() * resp.length;
@@ -51,6 +53,7 @@ export class CreateCharacterComponent implements OnInit {
   getRandomName(){
     const getRandomName = new XMLHttpRequest();
     getRandomName.onreadystatechange = () => {
+      console.log("Ready State " + getRandomName.readyState);
       if((getRandomName.readyState == 4) && (getRandomName.status == 200)){
         const resp = JSON.parse(getRandomName.responseText);
         this.character.name = resp.name;
