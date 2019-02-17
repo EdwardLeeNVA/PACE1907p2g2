@@ -3,6 +3,7 @@ package com.revature.dnd_generator.data;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import org.apache.log4j.Logger;
 
@@ -25,7 +26,11 @@ public class PlayerDao extends Dao {
 		try (Connection c = getConnection()) {
 			CallableStatement statement = statementMethods().insertUser(c, username, password);
 			statement.execute();
-		} catch (SQLException e) {
+		}catch (SQLIntegrityConstraintViolationException sicve ) {
+			//this means their username was likely already taken
+			LOGGER.error("Username Already Exists");
+		}
+		catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
 	}
