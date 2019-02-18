@@ -58,9 +58,7 @@ export class CreateCharacterComponent implements OnInit {
   getClass(){
     const getClass = new XMLHttpRequest();
     getClass.onreadystatechange = () => {
-      console.log("Ready State " + getClass.readyState);
       if((getClass.readyState == 4) && (getClass.status == 200)){
-        console.log(" " + getClass.responseText);
         const resp = JSON.parse(getClass.responseText);
         const index = Math.floor(Math.random() * resp.results.length);
         this.character.dndClass = resp.results[index].name;
