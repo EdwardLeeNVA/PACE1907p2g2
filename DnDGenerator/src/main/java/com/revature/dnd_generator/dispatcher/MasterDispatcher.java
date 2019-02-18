@@ -68,15 +68,37 @@ public class MasterDispatcher {
 			LOGGER.info("Registering a new user");
 			Player input = mapper.readValue(request.getReader(), Player.class);
 			pService.createPlayer(input.getUsername(), input.getPassword());
+		}else if(request.getRequestURI().contains("Classes")) {
+			ClassDelegate.processClass(request, response);
+		}else if(request.getRequestURI().contains("Races")) {
+			LOGGER.info("new race");
+			response.setContentType("application/json");
+			try {
+				String u = "http://dnd5eapi.co/api/races/";
+				URL url = new URL(u);
+				HttpURLConnection http = (HttpURLConnection) url.openConnection();
+				http.setRequestMethod("GET");
+				BufferedReader in = new BufferedReader (new InputStreamReader(http.getInputStream()) );
+				String inputLine;
+				StringBuffer sb = new StringBuffer();
+				LOGGER.info("Before reading");
+				while((inputLine = in.readLine()) != null) {
+					sb.append(inputLine);
+				}
+				in.close();
+				LOGGER.info("After reading" + sb.toString());
+				response.getWriter().write(sb.toString());
+			}catch (Exception e) {
+				LOGGER.error(e.getMessage());
+			}
 		}else if( request.getRequestURI().contains("Name")) {
 			LOGGER.info("Getting a name");
 			response.setContentType("application/json");
 			try {
-				String u = "http://api.namefake.com/";
+				String u = "https://randomuser.me/api/";
 				URL url = new URL(u);
 				HttpURLConnection http = (HttpURLConnection) url.openConnection();
 				http.setRequestMethod("GET");
-				LOGGER.info("opening the URL");
 				BufferedReader in = new BufferedReader (new InputStreamReader(http.getInputStream()) );
 				String inputLine;
 				StringBuffer sb = new StringBuffer();
