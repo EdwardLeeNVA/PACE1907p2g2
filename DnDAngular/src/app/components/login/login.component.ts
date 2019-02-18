@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {HttpDdService} from '../../services/http-dd.service';
 import {User} from '../../models/user';
 import {LoginService} from '../../services/login-service.service';
+import {Router, RouterModule} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -11,14 +12,14 @@ import {LoginService} from '../../services/login-service.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private http: HttpDdService, private login: LoginService) { }
+  constructor(private http: HttpDdService, private login: LoginService, private router: Router) { }
 
   // Used for user input
  user: User = {
     username: '',
     password: '',
     id: 0
-  }
+  };
 
   // Used for active session User
   private currentUser: User;
@@ -31,6 +32,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.login.currentLoginStatus.subscribe(status => this.loginStatus = status);
     this.login.currentLoginUser.subscribe(user => this.currentUser = user);
+
+    if(this.loginStatus){
+      this.router.navigate(['/create-character']);
+    }
   }
 
   failedLogin(){
@@ -41,7 +46,11 @@ export class LoginComponent implements OnInit {
   failedRegister(){
     this.feedbackText = 'Failed to register account with credentials provided, try again.';
     this.feedback = true;
+  }
 
+  successfulRegister(){
+    this.feedbackText = 'Your account was registered.  Log in to access.';
+    this.feedback = true;
   }
 
   /*submitLogin(){
@@ -109,6 +118,7 @@ export class LoginComponent implements OnInit {
           if(this.currentUser.id > 0) {
             this.login.updateCurrentUser(this.currentUser);
             this.login.updateLoginStatus(true);
+            this.router.navigate(['/create-character']);
           } else {
             this.failedLogin();
             console.log("Login failed.");
@@ -124,6 +134,7 @@ export class LoginComponent implements OnInit {
         console.log("Failed to reach request server.");
         this.login.updateCurrentUser(this.currentUser);
         this.login.updateLoginStatus(true);
+        this.router.navigate(['/create-character']);
       }
     };
     httpTest.open("post", "/DnDGenerator/Generator/Login");
@@ -148,9 +159,11 @@ export class LoginComponent implements OnInit {
             id: resp.id
           }
           if(this.currentUser.id > 0) {
-            console.log("Login successful");
+            console.log("Register successful");
+            this.successfulRegister();
             this.login.updateCurrentUser(this.currentUser);
             this.login.updateLoginStatus(true);
+
           } else {
             this.failedRegister();
             console.log("Register failed.");
