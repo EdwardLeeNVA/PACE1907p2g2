@@ -87,13 +87,13 @@ export class CreateCharacterComponent implements OnInit {
             case 2:
               const case2Selections = this.getRandomSelections(resp.proficiency_choices[0].choose, resp.proficiency_choices[0].from.length);
               this.character.prof1 = resp.proficiency_choices[0].from[case2Selections[0]].name;
-              this.character.prof1 = resp.proficiency_choices[0].from[case2Selections[1]].name;
+              this.character.prof2 = resp.proficiency_choices[0].from[case2Selections[1]].name;
               break;
             case 3:
               const case3Selections = this.getRandomSelections(resp.proficiency_choices[0].choose, resp.proficiency_choices[0].from.length);
               this.character.prof1 = resp.proficiency_choices[0].from[case3Selections[0]].name;
-              this.character.prof1 = resp.proficiency_choices[0].from[case3Selections[1]].name;
-              this.character.prof1 = resp.proficiency_choices[0].from[case3Selections[2]].name;
+              this.character.prof2 = resp.proficiency_choices[0].from[case3Selections[1]].name;
+              this.character.prof3 = resp.proficiency_choices[0].from[case3Selections[2]].name;
               break;
             default:
               const case4Selections = this.getRandomSelections(resp.proficiency_choices[0].choose, resp.proficiency_choices[0].from.length);
@@ -151,8 +151,8 @@ export class CreateCharacterComponent implements OnInit {
     getRace.onreadystatechange = () => {
       if((getRace.readyState == 4) && (getRace.status == 200)){
         const resp = JSON.parse(getRace.responseText);
-        const index = Math.floor(Math.random() * resp.length);
-        this.character.race = resp[index].name;
+        const index = Math.floor(Math.random() * resp.results.length);
+        this.character.race = resp.results[index].name;
       }
     };
     getRace.open("get", this.raceURL);
@@ -174,16 +174,16 @@ export class CreateCharacterComponent implements OnInit {
 
   getDisplayProficiencies(){
     this.displayProficiencies = [];
-    if(this.character.prof1 != null || this.character.prof1 != ''){
+    if(this.character.prof1 != null && this.character.prof1 != ''){
       this.displayProficiencies.push(this.character.prof1);
     }
-    if(this.character.prof2 != null || this.character.prof2 != ''){
+    if(this.character.prof2 != null && this.character.prof2 != ''){
       this.displayProficiencies.push(this.character.prof2);
     }
-    if(this.character.prof3 != null || this.character.prof3 != ''){
+    if(this.character.prof3 != null && this.character.prof3 != ''){
       this.displayProficiencies.push(this.character.prof3);
     }
-    if(this.character.prof4 != null || this.character.prof4 != ''){
+    if(this.character.prof4 != null && this.character.prof4 != ''){
       this.displayProficiencies.push(this.character.prof4);
     }
   }
