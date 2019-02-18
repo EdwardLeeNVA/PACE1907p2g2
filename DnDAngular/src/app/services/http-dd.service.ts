@@ -33,8 +33,8 @@ export class HttpDdService {
     return this.http.post<User>(loginPath, login, this.httpJSON);
   }
 
-  registerUser(register: User): Observable<User>{
+  registerUser(register: User): Observable<boolean>{
     const registerPath: string = this.dbURL + 'Generator/Register';
-    return this.http.post<User>(registerPath, register, this.httpJSON);
+    return this.http.post<boolean>(registerPath, register, this.httpJSON);
   }
 }

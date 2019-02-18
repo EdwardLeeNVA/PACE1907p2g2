@@ -68,6 +68,7 @@ export class LoginComponent implements OnInit {
       this.login.updateCurrentUser(user);
       this.login.updateLoginStatus(true);
       this.feedback = false;
+      this.router.navigate(['/create-character']);
     } else {
       this.login.updateLoginStatus(false);
       this.login.updateCurrentUser(null);
