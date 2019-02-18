@@ -38,14 +38,13 @@ export class CreateCharacterComponent implements OnInit {
     prof4: '',
   };
 
-  displayProficiencies: string[];
-  proficiencies: string[];
-  subclasses: string[];
-  hitDie: number;
+  displayProficiencies: string[] = [];
+  proficiencies: string[] = [];
+  subclasses: string[] = [];
+  hitDie: number = 0;
 
-  public raceURL: string = "http://dnd5eapi.co/api/races/";
+  public raceURL: string = "/DnDGenerator/Generator/Races";
   public classURL: string = "/DnDGenerator/Generator/Classes";
-  public nameURL: string = "https://api.namefake.com/";
   public servName: string = "/DnDGenerator/Generator/Name";
 
   generateCharacter(){
@@ -71,10 +70,12 @@ export class CreateCharacterComponent implements OnInit {
 
   getClassInfo(c: string){
     const newURL = this.classURL + '/' + c;
+    console.log("Sent request for class info to: " + newURL);
     const getClassInfo = new XMLHttpRequest();
     getClassInfo.onreadystatechange = () => {
       console.log("Sent request for class info to " + newURL);
       if((getClassInfo.readyState == 4) && (getClassInfo.status == 200)){
+        console.log("Received specific class info: " + getClassInfo.responseText);
         const resp = JSON.parse(getClassInfo.responseText);
         if(c == 'Bard') this.getProficiencyBard(resp);
         else if(c == 'Monk') this.getProficiencyMonk(resp);
