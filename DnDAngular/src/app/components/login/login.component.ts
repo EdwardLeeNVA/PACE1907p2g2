@@ -103,10 +103,7 @@ export class LoginComponent implements OnInit {
     const msg = JSON.stringify(this.user);
     const httpTest = new XMLHttpRequest();
     httpTest.onreadystatechange = () => {
-      console.log(" " + httpTest.readyState);
-      console.log("Status " + httpTest.status);
       if((httpTest.readyState == 4) && (httpTest.status == 200)){
-        console.log("response: " + httpTest.responseText);
         if(httpTest.responseText != null){
           const resp = JSON.parse(httpTest.responseText);
           console.log("Login successful");

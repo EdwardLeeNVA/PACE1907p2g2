@@ -40,7 +40,7 @@ export class CreateCharacterComponent implements OnInit {
     alignment: ''
   };
 
-  alignments: string[] = ['Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'True Neutral', 'Chaotic Neutral', 'Lawful Evil', 'Neutral Evil', 'Chaotic Evil']
+  alignments: string[] = ['Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'True Neutral', 'Chaotic Neutral', 'Lawful Evil', 'Neutral Evil', 'Chaotic Evil'];
   proficiencies: string[] = [];
   subclasses: string[] = [];
   hitDie: number = 0;
@@ -50,8 +50,17 @@ export class CreateCharacterComponent implements OnInit {
   public servName: string = "/DnDGenerator/Generator/Name";
 
   generateCharacter(){
-    console.log("Generate Character called.");
-    this.getClass();
+    this.createCharacterWIP();
+    /*this.getClass();
+    this.getRandomName();
+    this.getRace();
+    this.character.alignment = this.alignments[Math.floor(Math.random() * this.alignments.length)];*/
+  }
+
+  createCharacterWIP(){
+    let response = null;
+    this.character.dndClass = this.cc.getClass();
+    this.getClassInfo(this.character.dndClass);
     this.getRandomName();
     this.getRace();
     this.character.alignment = this.alignments[Math.floor(Math.random() * this.alignments.length)];

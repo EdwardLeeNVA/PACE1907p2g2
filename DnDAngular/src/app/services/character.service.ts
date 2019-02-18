@@ -13,7 +13,10 @@ export class CharacterService {
   public nameURL: string = "https://api.namefake.com/";
   public servName: string = "/DnDGenerator/Generator/Name";
 
-  getClass(){
+  alignments: string[] = ['Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'True Neutral', 'Chaotic Neutral', 'Lawful Evil', 'Neutral Evil', 'Chaotic Evil'];
+
+
+  getClass(): string{
     const getClass = new XMLHttpRequest();
     getClass.onreadystatechange = () => {
       console.log("Ready State " + getClass.readyState);
@@ -28,6 +31,7 @@ export class CharacterService {
     };
     getClass.open("get", this.classURL);
     getClass.send();
+    return null;
   }
 
   getClassInfo(c: string){
