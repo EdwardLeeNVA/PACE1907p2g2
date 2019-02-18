@@ -32,13 +32,15 @@ export class CreateCharacterComponent implements OnInit {
     name: 'Default',
     race: 'Dwarf',
     dndClass: 'Lumberjack',
+    proficiencies: [],
     prof1: '',
     prof2: '',
     prof3: '',
     prof4: '',
+    alignment: ''
   };
 
-  displayProficiencies: string[] = [];
+  alignments: string[] = ['Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'True Neutral', 'Chaotic Neutral', 'Lawful Evil', 'Neutral Evil', 'Chaotic Evil']
   proficiencies: string[] = [];
   subclasses: string[] = [];
   hitDie: number = 0;
@@ -52,6 +54,7 @@ export class CreateCharacterComponent implements OnInit {
     this.getClass();
     this.getRandomName();
     this.getRace();
+    this.character.alignment = this.alignments[Math.floor(Math.random() * this.alignments.length)];
   }
 
   getClass(){
@@ -107,7 +110,7 @@ export class CreateCharacterComponent implements OnInit {
         this.proficiencies = resp.proficiencies;
         this.subclasses = resp.subclasses;
         this.hitDie = resp.hit_die;
-        this.getDisplayProficiencies();
+        this.character.proficiencies = this.getDisplayProficiencies();
       }
     };
     getClassInfo.open("get", newURL);
@@ -139,7 +142,7 @@ export class CreateCharacterComponent implements OnInit {
       console.log("Ready State " + getRandomName.readyState);
       if((getRandomName.readyState == 4) && (getRandomName.status == 200)){
         const resp = JSON.parse(getRandomName.responseText);
-        this.character.name = resp.results.name.first;
+        this.character.name = resp.results[0].name.first;
       }
     };
     getRandomName.open("get", this.servName);
@@ -173,18 +176,19 @@ export class CreateCharacterComponent implements OnInit {
   }
 
   getDisplayProficiencies(){
-    this.displayProficiencies = [];
+    let proficiencies: string[] = [];
     if(this.character.prof1 != null && this.character.prof1 != ''){
-      this.displayProficiencies.push(this.character.prof1);
+      proficiencies.push(this.character.prof1);
     }
     if(this.character.prof2 != null && this.character.prof2 != ''){
-      this.displayProficiencies.push(this.character.prof2);
+      proficiencies.push(this.character.prof2);
     }
     if(this.character.prof3 != null && this.character.prof3 != ''){
-      this.displayProficiencies.push(this.character.prof3);
+      proficiencies.push(this.character.prof3);
     }
     if(this.character.prof4 != null && this.character.prof4 != ''){
-      this.displayProficiencies.push(this.character.prof4);
+      proficiencies.push(this.character.prof4);
     }
+    return proficiencies;
   }
 }
