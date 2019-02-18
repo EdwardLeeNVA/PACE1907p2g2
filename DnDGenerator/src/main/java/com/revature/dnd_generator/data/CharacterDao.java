@@ -33,31 +33,31 @@ public class CharacterDao extends Dao {
 			String name = character.getName();
 			String race = character.getRace();
 			String dndClass = character.getDndClass();
-			List<String> profList = character.getProficiencies();
-			int numProfs = profList.size();
+			String[] profList = character.getProficiencies();
+			int numProfs = profList.length;
 			String prof1;
 			if (numProfs >= 1) {
-				prof1 = profList.get(0);
+				prof1 = profList[0];
 			} else {
 				prof1 = null;
 			}
 			String prof2;
 			if (numProfs >= 2) {
-				prof2 = profList.get(1);
+				prof2 = profList[1];
 			} else {
-				prof2 = profList.get(1);
+				prof2 = profList[1];
 			}
 			String prof3;
 			if (numProfs >= 3) {
-				prof3 = profList.get(2);
+				prof3 = profList[2];
 			} else {
-				prof3 = profList.get(2);
+				prof3 = profList[2];
 			}
 			String prof4;
 			if (numProfs >= 4) {
-				prof4 = profList.get(3);
+				prof4 = profList[3];
 			} else {
-				prof4 = profList.get(3);
+				prof4 = profList[3];
 			}
 			CallableStatement statement = statementMethods().insertCharacter(con, playerId, name, race, dndClass, prof1,
 					prof2, prof3, prof4);

@@ -1,7 +1,5 @@
 package com.revature.dnd_generator.model;
 
-import java.util.List;
-
 public class DndCharacter {
 	
 	public static final int MAX_NUM_PROFS = 4;
@@ -9,7 +7,7 @@ public class DndCharacter {
 	private String name = null;
 	private String race = null;
 	private String dndClass = null;
-	private List<String> proficiencies = null;	
+	private String[] proficiencies = null;	
 	
 	public DndCharacter() {
 	}	
@@ -41,11 +39,11 @@ public class DndCharacter {
 		this.dndClass = dndClass;
 	}
 	
-	public List<String> getProficiencies() {
+	public String[] getProficiencies() {
 		return proficiencies;
 	}
 	
-	public void setProficiencies(List<String> proficiencies) {
+	public void setProficiencies(String[] proficiencies) {
 		this.proficiencies = proficiencies;
 	}
 }
