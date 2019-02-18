@@ -22,8 +22,9 @@ export class CreateCharacterComponent implements OnInit {
     this.login.currentLoginUser.subscribe(user => this.currentUser = user);
     if(!this.activeSession){
       this.router.navigate(['/']);
+    } else {
+      this.generateCharacter();
     }
-    this.generateCharacter();
   }
 
   character: Character = {

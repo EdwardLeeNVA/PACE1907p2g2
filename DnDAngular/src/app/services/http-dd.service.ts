@@ -25,7 +25,7 @@ export class HttpDdService {
     })};
 
   //Root URL for D&D API
-  private ddURL: string = "http://dnd5eapi.co/api/";
+  private ddURL: string = "/DnDGenerator/Generator/";
 
   //Returns Observable for Login component to process
   verifyLogin(login: User): Observable<User>{
