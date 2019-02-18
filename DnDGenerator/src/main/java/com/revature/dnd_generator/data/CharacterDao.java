@@ -4,13 +4,14 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 import com.revature.dnd_generator.model.DndCharacter;
 import com.revature.dnd_generator.model.DndCharacterFactory;
-import com.revature.dnd_generator.data.Dao;
 
 public class CharacterDao extends Dao {
 
@@ -26,6 +27,8 @@ public class CharacterDao extends Dao {
 	private static final String COL_CHAR_PROF3 = "PROF_3";
 	private static final String COL_CHAR_PROF4 = "PROF_4";
 	private static final String COL_CHAR_BIO = "BIO";
+	private static final String COL_CLASS_COUNT = "CLASS_COUNT";
+	private static final String COL_RACE_COUNT = "RACE_COUNT";
 
 	public void insertCharacter(DndCharacter character) {
 		try (Connection con = getConnection()) {
@@ -88,6 +91,14 @@ public class CharacterDao extends Dao {
 		}
 		return null;
 	}
+	
+	public Map<String, Integer> selectClassCount() {
+		return selectCountCommon(CharacterDaoStatements.SELECT_CLASS_COUNT, COL_CHAR_CLASS, COL_CLASS_COUNT);
+	}
+	
+	public Map<String, Integer> selectRaceCount() {
+		return selectCountCommon(CharacterDaoStatements.SELECT_RACE_COUNT, COL_CHAR_RACE, COL_RACE_COUNT);
+	}
 
 	private DndCharacter selectCharacterCommon(CallableStatement statement) throws SQLException {
 		ResultSet results = (ResultSet) statement.getObject(2);
@@ -103,6 +114,22 @@ public class CharacterDao extends Dao {
 		String prof3 = results.getString(COL_CHAR_PROF3);
 		String prof4 = results.getString(COL_CHAR_PROF4);
 		return DndCharacterFactory.create(playerId, name, race, characterClass, prof1, prof2, prof3, prof4);
+	}
+	
+	private Map<String, Integer> selectCountCommon(String query, String keyColumn, String valueColumn) {
+		HashMap<String, Integer> countMap = new HashMap<>();
+		try (Connection c = getConnection()) {
+			Statement statement = c.createStatement();
+			ResultSet results = statement.executeQuery(query);
+			while (results.next()) {
+				String key = results.getString(keyColumn);
+				Integer value = results.getInt(valueColumn);
+				countMap.put(key, value);
+			}
+		} catch (SQLException e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+		return countMap;
 	}
 
 	private CharacterDaoStatements statementMethods() {
