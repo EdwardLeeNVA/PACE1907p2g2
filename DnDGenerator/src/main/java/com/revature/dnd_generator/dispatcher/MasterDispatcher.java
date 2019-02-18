@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Random;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -108,9 +109,13 @@ public class MasterDispatcher {
 				}
 				in.close();
 				LOGGER.info("After reading" + sb.toString());
+				response.getWriter().write(sb.toString());
 			}catch(Exception e) {
 				LOGGER.error(e.getMessage());
 			}
+		}else if( request.getRequestURI().contains("Alignment")) {
+			Random rand = new Random();
+			rand.nextInt(10);
 		}
 		return null;
 	}
