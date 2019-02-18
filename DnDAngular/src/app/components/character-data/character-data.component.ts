@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {Character} from '../../models/character';
 import {LoginService} from "../../services/login-service.service";
 import {Router} from "@angular/router";
 import {User} from "../../models/user";
 
 @Component({
-  selector: 'app-view-characters',
-  templateUrl: './view-characters.component.html',
-  styleUrls: ['./view-characters.component.css']
+  selector: 'app-character-data',
+  templateUrl: './character-data.component.html',
+  styleUrls: ['./character-data.component.css']
 })
-export class ViewCharactersComponent implements OnInit {
+export class CharacterDataComponent implements OnInit {
 
   constructor(private login: LoginService, private router: Router) { }
 
@@ -23,7 +22,5 @@ export class ViewCharactersComponent implements OnInit {
       this.router.navigate(['/']);
     }
   }
-
-
 
 }

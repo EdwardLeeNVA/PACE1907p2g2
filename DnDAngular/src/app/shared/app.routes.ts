@@ -3,7 +3,7 @@ import { CreateCharacterComponent } from '../components/create-character/create-
 import { LoginComponent } from '../components/login/login.component';
 import { ViewCharactersComponent } from '../components/view-characters/view-characters.component';
 import {LandingComponent} from '../components/landing/landing.component';
-import {ProfileComponent} from '../components/profile/profile.component';
+import { CharacterDataComponent } from "../components/character-data/character-data.component";
 
 
 export const AppRoutes: Route[] = [
@@ -24,8 +24,8 @@ export const AppRoutes: Route[] = [
     component: LoginComponent
   },
   {
-    path: "profile",
-    component: ProfileComponent
+    path: "character-data",
+    component: CharacterDataComponent
   },
   {
     path: "landing-page",
