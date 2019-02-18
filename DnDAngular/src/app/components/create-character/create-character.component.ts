@@ -50,17 +50,7 @@ export class CreateCharacterComponent implements OnInit {
   public servName: string = "/DnDGenerator/Generator/Name";
 
   generateCharacter(){
-    this.createCharacterWIP();
-    /*this.getClass();
-    this.getRandomName();
-    this.getRace();
-    this.character.alignment = this.alignments[Math.floor(Math.random() * this.alignments.length)];*/
-  }
-
-  createCharacterWIP(){
-    let response = null;
-    this.character.dndClass = this.cc.getClass();
-    this.getClassInfo(this.character.dndClass);
+    this.getClass();
     this.getRandomName();
     this.getRace();
     this.character.alignment = this.alignments[Math.floor(Math.random() * this.alignments.length)];
