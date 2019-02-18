@@ -73,12 +73,9 @@ export class CreateCharacterComponent implements OnInit {
 
   getClassInfo(c: string){
     const newURL = this.classURL + '/' + c;
-    console.log("Sent request for class info to: " + newURL);
     const getClassInfo = new XMLHttpRequest();
     getClassInfo.onreadystatechange = () => {
-      console.log("Ready State of Class Info: "+getClassInfo.readyState);
         if((getClassInfo.readyState == 4) && (getClassInfo.status == 200)){
-        console.log("Received specific class info: " + getClassInfo.responseText);
         const resp = JSON.parse(getClassInfo.responseText);
         if(c == 'Bard') this.getProficiencyBard(resp);
         else if(c == 'Monk') this.getProficiencyMonk(resp);
@@ -131,7 +128,6 @@ export class CreateCharacterComponent implements OnInit {
       }
       if(addToArray) returnArray.push(potentialValue);
     }
-    console.log("Random indexes: " + returnArray);
     return returnArray;
   }
 
@@ -139,9 +135,11 @@ export class CreateCharacterComponent implements OnInit {
   getRandomName(){
     const getRandomName = new XMLHttpRequest();
     getRandomName.onreadystatechange = () => {
-      console.log("Ready State " + getRandomName.readyState);
+      console.log("Ready State for name " + getRandomName.readyState);
       if((getRandomName.readyState == 4) && (getRandomName.status == 200)){
+        console.log("Name response: " + getRandomName.responseText);
         const resp = JSON.parse(getRandomName.responseText);
+        console.log("Name received: " + resp.results[0].name.first);
         this.character.name = resp.results[0].name.first;
       }
     };
