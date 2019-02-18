@@ -73,8 +73,7 @@ export class CreateCharacterComponent implements OnInit {
     console.log("Sent request for class info to: " + newURL);
     const getClassInfo = new XMLHttpRequest();
     getClassInfo.onreadystatechange = () => {
-      console.log("Sent request for class info to " + newURL);
-      if((getClassInfo.readyState == 4) && (getClassInfo.status == 200)){
+        if((getClassInfo.readyState == 4) && (getClassInfo.status == 200)){
         console.log("Received specific class info: " + getClassInfo.responseText);
         const resp = JSON.parse(getClassInfo.responseText);
         if(c == 'Bard') this.getProficiencyBard(resp);
@@ -126,6 +125,7 @@ export class CreateCharacterComponent implements OnInit {
       }
       if(addToArray) returnArray.push(potentialValue);
     }
+    console.log("Random indexes: " + returnArray);
     return returnArray;
   }
 
