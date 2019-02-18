@@ -26,14 +26,16 @@ public class PlayerServicesImpl implements PlayerServices {
 		}
 	}
 	
-	public void createPlayer(String username, String password) {
+	public boolean createPlayer(String username, String password) {
 		try {
 			PlayerDao.getInstance().insertUser(username, password);
+			return true;
 		} catch (ExistingUsernameException e) {
 			LOGGER.error(e.getMessage(), e);
 			LOGGER.error("Username already exists.");
 		} catch (UserRegistrationFailedException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
+		return false;
 	}
 }
