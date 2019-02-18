@@ -73,6 +73,7 @@ export class CreateCharacterComponent implements OnInit {
     console.log("Sent request for class info to: " + newURL);
     const getClassInfo = new XMLHttpRequest();
     getClassInfo.onreadystatechange = () => {
+      console.log("Ready State of Class Info: "+getClassInfo.readyState);
         if((getClassInfo.readyState == 4) && (getClassInfo.status == 200)){
         console.log("Received specific class info: " + getClassInfo.responseText);
         const resp = JSON.parse(getClassInfo.responseText);
@@ -108,7 +109,9 @@ export class CreateCharacterComponent implements OnInit {
         this.hitDie = resp.hit_die;
         this.getDisplayProficiencies();
       }
-    }
+    };
+    getClassInfo.open("get", newURL);
+    getClassInfo.send();
   }
 
   getRandomSelections(size: number, range: number): number[]{
