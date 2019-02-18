@@ -34,18 +34,17 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-8 offset-md-2">
-    <div class="input-group input-group-lg">
-      <div class="input-group-prepend">
-        <span class="input-group-text">Biography</span>
-      </div>
-      <textarea type="text" class="form-control" [(ngModel)]="character.rprof" name="rprof" rows="3" maxlength="1000"></textarea>
-    </div>
-  </div>
-</div>
-<div class="row">
   <div class="col-md-8 offset-md-2 text-center">
     <button class="btn btn-primary" (click)="generateCharacter()">Generate Random Character</button>
   </div>
 </div>
-
+<div class="row">
+  <div class="col-md-8 offset-md-2 text-center">
+    <p>Lazy bit because of studying/bed.</p>
+    <p>Alignment {{character.alignment}}</p>
+    <p>Hit Die {{hitDie}}</p>
+    <p>Random Proficiencies {{character.proficiencies}}</p>
+    <p>Class Proficiencies {{proficiencies}}</p>
+    <p>Subclasses {{subclasses}}</p>
+  </div>
+</div>

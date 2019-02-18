@@ -8,6 +8,9 @@ import oracle.jdbc.OracleTypes;
 
 class CharacterDaoStatements {
 	
+	public static final String SELECT_CLASS_COUNT = "SELECT * FROM CLASS_COUNT";
+	public static final String SELECT_RACE_COUNT = "SELECT * FROM RACE_COUNT";
+	
 	private static CharacterDaoStatements instance = new CharacterDaoStatements();
 	
 	static CharacterDaoStatements getInstance() {

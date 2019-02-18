@@ -107,6 +107,7 @@ public class MasterDispatcher {
 				while((inputLine = in.readLine()) != null) {
 					sb.append(inputLine);
 				}
+				response.getWriter().write(sb.toString());
 				in.close();
 				LOGGER.info("After reading" + sb.toString());
 				response.getWriter().write(sb.toString());

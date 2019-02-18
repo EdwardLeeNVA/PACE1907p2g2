@@ -1,12 +1,13 @@
 export class Character {
   id: number;
-  player_id: number;
+  playerId: number;
   name: string;
   race: string;
   dndClass: string;
-  prof_1: string;
-  prof_2: string;
-  prof_3: string;
-  prof_4: string;
-  rprof: string;
+  proficiencies: string[];
+  prof1: string;
+  prof2: string;
+  prof3: string;
+  prof4: string;
+  alignment: string;
 }
