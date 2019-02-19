@@ -4,6 +4,7 @@ import {User} from "../../models/user";
 import {LoginService} from "../../services/login-service.service";
 import {Router} from "@angular/router";
 import {CharacterService} from "../../services/character.service";
+import {HttpDdService} from "../../services/http-dd.service";
 
 @Component({
   selector: 'app-create-character',
@@ -12,7 +13,7 @@ import {CharacterService} from "../../services/character.service";
 })
 export class CreateCharacterComponent implements OnInit {
 
-  constructor(private login: LoginService, private router: Router, private cc: CharacterService) { }
+  constructor(private login: LoginService, private router: Router, private cc: CharacterService, private http: HttpDdService) { }
 
   public activeSession: boolean;
   public currentUser: User;
@@ -34,27 +35,43 @@ export class CreateCharacterComponent implements OnInit {
     race: 'Dwarf',
     dndClass: 'Lumberjack',
     proficiencies: [],
-    prof1: '',
-    prof2: '',
-    prof3: '',
-    prof4: '',
     alignment: ''
   };
 
+  characterSaved: boolean = false;
+  failedCharacterSave: boolean = false;
+
   alignments: string[] = ['Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'True Neutral', 'Chaotic Neutral', 'Lawful Evil', 'Neutral Evil', 'Chaotic Evil'];
-  proficiencies: string[] = [];
-  subclasses: string[] = [];
-  hitDie: number = 0;
 
   public raceURL: string = "/DnDGenerator/Generator/Races";
   public classURL: string = "/DnDGenerator/Generator/Classes";
   public servName: string = "/DnDGenerator/Generator/Name";
 
   generateCharacter(){
+    this.characterSaved = false;
+    this.failedCharacterSave = false;
     this.getClass();
     this.getRandomName();
     this.getRace();
     this.character.alignment = this.alignments[Math.floor(Math.random() * this.alignments.length)];
+  }
+
+  saveCharacter(){
+    this.characterSaved = false;
+    this.failedCharacterSave = false;
+    this.http.saveCharacter(this.character).subscribe(
+      bool => this.verifySaveCharacter(bool),
+      error => console.error("Failed to send Save Request"),
+      () => console.log("Register User call completed.")
+    );
+  }
+
+  verifySaveCharacter(bool: boolean){
+    if(bool){
+      this.characterSaved = true;
+    } else {
+      this.failedCharacterSave = true;
+    }
   }
 
   getClass(){
@@ -77,37 +94,12 @@ export class CreateCharacterComponent implements OnInit {
     getClassInfo.onreadystatechange = () => {
         if((getClassInfo.readyState == 4) && (getClassInfo.status == 200)){
         const resp = JSON.parse(getClassInfo.responseText);
-        if(c == 'Bard') this.getProficiencyBard(resp);
-        else if(c == 'Monk') this.getProficiencyMonk(resp);
+        if(c == 'Bard') this.character.proficiencies = this.getProficiencyBard(resp);
+        else if(c == 'Monk') this.character.proficiencies = this.getProficiencyMonk(resp);
         else{
-          switch(resp.proficiency_choices[0].choose){
-            case 1:
-              this.character.prof1 = resp.proficiency_choices[0].from[Math.floor(Math.random() * resp.proficiency_choices[0].choose)].name;
-              break;
-            case 2:
-              const case2Selections = this.getRandomSelections(resp.proficiency_choices[0].choose, resp.proficiency_choices[0].from.length);
-              this.character.prof1 = resp.proficiency_choices[0].from[case2Selections[0]].name;
-              this.character.prof2 = resp.proficiency_choices[0].from[case2Selections[1]].name;
-              break;
-            case 3:
-              const case3Selections = this.getRandomSelections(resp.proficiency_choices[0].choose, resp.proficiency_choices[0].from.length);
-              this.character.prof1 = resp.proficiency_choices[0].from[case3Selections[0]].name;
-              this.character.prof2 = resp.proficiency_choices[0].from[case3Selections[1]].name;
-              this.character.prof3 = resp.proficiency_choices[0].from[case3Selections[2]].name;
-              break;
-            default:
-              const case4Selections = this.getRandomSelections(resp.proficiency_choices[0].choose, resp.proficiency_choices[0].from.length);
-              this.character.prof1 = resp.proficiency_choices[0].from[case4Selections[0]].name;
-              this.character.prof2 = resp.proficiency_choices[0].from[case4Selections[1]].name;
-              this.character.prof3 = resp.proficiency_choices[0].from[case4Selections[2]].name;
-              this.character.prof4 = resp.proficiency_choices[0].from[case4Selections[3]].name;
-              break;
-          }
+          this.character.proficiencies = this.getProficiencyGeneral(resp);
         }
-        this.proficiencies = resp.proficiencies;
-        this.subclasses = resp.subclasses;
-        this.hitDie = resp.hit_die;
-        this.character.proficiencies = this.getDisplayProficiencies();
+        this.getDisplayProficiencies();
       }
     };
     getClassInfo.open("get", newURL);
@@ -160,33 +152,55 @@ export class CreateCharacterComponent implements OnInit {
     getRace.send();
   }
 
+  getProficiencyGeneral(resp){
+    let returnArray: string[] = [];
+    switch(resp.proficiency_choices[0].choose){
+      case 1:
+        returnArray.push(resp.proficiency_choices[0].from[Math.floor(Math.random() * resp.proficiency_choices[0].choose)].name);
+        break;
+      case 2:
+        const case2Selections = this.getRandomSelections(resp.proficiency_choices[0].choose, resp.proficiency_choices[0].from.length);
+        returnArray.push(resp.proficiency_choices[0].from[case2Selections[0]].name);
+        returnArray.push(resp.proficiency_choices[0].from[case2Selections[1]].name);
+        break;
+      case 3:
+        const case3Selections = this.getRandomSelections(resp.proficiency_choices[0].choose, resp.proficiency_choices[0].from.length);
+        returnArray.push(resp.proficiency_choices[0].from[case3Selections[0]].name);
+        returnArray.push(resp.proficiency_choices[0].from[case3Selections[1]].name);
+        returnArray.push(resp.proficiency_choices[0].from[case3Selections[2]].name);
+        break;
+      default:
+        const case4Selections = this.getRandomSelections(resp.proficiency_choices[0].choose, resp.proficiency_choices[0].from.length);
+        returnArray.push(resp.proficiency_choices[0].from[case4Selections[0]].name);
+        returnArray.push(resp.proficiency_choices[0].from[case4Selections[1]].name);
+        returnArray.push(resp.proficiency_choices[0].from[case4Selections[2]].name);
+        returnArray.push(resp.proficiency_choices[0].from[case4Selections[3]].name);
+        break;
+    }
+    return returnArray;
+  }
+
   getProficiencyMonk(resp){
+    let returnArray: string[] = [];
     const case2Selections = this.getRandomSelections(resp.proficiency_choices[2].choose, resp.proficiency_choices[2].from.length);
-    this.character.prof1 = resp.proficiency_choices[2].from[case2Selections[0]].name;
-    this.character.prof2 = resp.proficiency_choices[2].from[case2Selections[1]].name;
+    returnArray.push(resp.proficiency_choices[2].from[case2Selections[0]].name);
+    returnArray.push(resp.proficiency_choices[2].from[case2Selections[1]].name);
+    return returnArray;
   }
 
   getProficiencyBard(resp){
+    let returnArray: string[] = [];
     const case2Selections = this.getRandomSelections(resp.proficiency_choices[0].choose, resp.proficiency_choices[0].from.length);
-    this.character.prof1 = resp.proficiency_choices[0].from[case2Selections[0]].name;
-    this.character.prof2 = resp.proficiency_choices[0].from[case2Selections[1]].name;
-    this.character.prof3 = resp.proficiency_choices[0].from[case2Selections[2]].name;
+    returnArray.push(resp.proficiency_choices[0].from[case2Selections[0]].name);
+    returnArray.push(resp.proficiency_choices[0].from[case2Selections[1]].name);
+    returnArray.push(resp.proficiency_choices[0].from[case2Selections[2]].name);
+    return returnArray;
   }
 
   getDisplayProficiencies(){
-    let proficiencies: string[] = [];
-    if(this.character.prof1 != null && this.character.prof1 != ''){
-      proficiencies.push(this.character.prof1);
+    let count: number = 0;
+    while(count < this.character.proficiencies.length){
+      this.character.proficiencies[count] = this.character.proficiencies[count].substring(7);
     }
-    if(this.character.prof2 != null && this.character.prof2 != ''){
-      proficiencies.push(this.character.prof2);
-    }
-    if(this.character.prof3 != null && this.character.prof3 != ''){
-      proficiencies.push(this.character.prof3);
-    }
-    if(this.character.prof4 != null && this.character.prof4 != ''){
-      proficiencies.push(this.character.prof4);
-    }
-    return proficiencies;
   }
 }

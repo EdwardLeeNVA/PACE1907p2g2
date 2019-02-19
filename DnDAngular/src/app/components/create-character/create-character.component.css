@@ -6,3 +6,11 @@ span{
 input[type="text"]{
   background-color: transparent;
 }
+
+.created-character{
+  color: blue;
+}
+
+.failed-character{
+  color: red;
+}

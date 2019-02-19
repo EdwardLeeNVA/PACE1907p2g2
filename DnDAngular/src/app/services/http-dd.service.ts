@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../models/user';
+import {Character} from "../models/character";
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +37,10 @@ export class HttpDdService {
   registerUser(register: User): Observable<boolean>{
     const registerPath: string = this.dbURL + 'Generator/Register';
     return this.http.post<boolean>(registerPath, register, this.httpJSON);
+  }
+
+  saveCharacter(character: Character): Observable<boolean>{
+    const saveCharacterPath: string = this.ddURL + 'Save';
+    return this.http.post<boolean>(saveCharacterPath, character, this.httpJSON);
   }
 }
