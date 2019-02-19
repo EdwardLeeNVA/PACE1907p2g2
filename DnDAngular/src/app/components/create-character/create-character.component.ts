@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Character} from '../../models/character';
 import {User} from "../../models/user";
-import {LoginService} from "../../services/login-service.service";
+import {AppService} from "../../services/app-service.service";
 import {Router} from "@angular/router";
 import {CharacterService} from "../../services/character.service";
 import {HttpDdService} from "../../services/http-dd.service";
@@ -13,7 +13,7 @@ import {HttpDdService} from "../../services/http-dd.service";
 })
 export class CreateCharacterComponent implements OnInit {
 
-  constructor(private login: LoginService, private router: Router, private cc: CharacterService, private http: HttpDdService) { }
+  constructor(private login: AppService, private router: Router, private cc: CharacterService, private http: HttpDdService) { }
 
   public activeSession: boolean;
   public currentUser: User;
@@ -127,12 +127,11 @@ export class CreateCharacterComponent implements OnInit {
   getRandomName(){
     const getRandomName = new XMLHttpRequest();
     getRandomName.onreadystatechange = () => {
-      console.log("Ready State for name " + getRandomName.readyState);
       if((getRandomName.readyState == 4) && (getRandomName.status == 200)){
-        console.log("Name response: " + getRandomName.responseText);
         const resp = JSON.parse(getRandomName.responseText);
-        console.log("Name received: " + resp.results[0].name.first);
-        this.character.name = resp.results[0].name.first;
+        let name: string = resp.results[0].name.first;
+        name = name.substring(0,1).toUpperCase() + name.substring(1);
+        this.character.name = name;
       }
     };
     getRandomName.open("get", this.servName);

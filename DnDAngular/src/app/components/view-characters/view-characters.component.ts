@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Character} from '../../models/character';
-import {LoginService} from "../../services/login-service.service";
+import {AppService} from "../../services/app-service.service";
 import {Router} from "@angular/router";
 import {User} from "../../models/user";
 
@@ -11,7 +11,7 @@ import {User} from "../../models/user";
 })
 export class ViewCharactersComponent implements OnInit {
 
-  constructor(private login: LoginService, private router: Router) { }
+  constructor(private login: AppService, private router: Router) { }
 
   public activeSession: boolean;
   public currentUser: User;

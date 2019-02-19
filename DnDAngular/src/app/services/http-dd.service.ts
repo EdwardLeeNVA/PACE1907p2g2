@@ -43,4 +43,8 @@ export class HttpDdService {
     const saveCharacterPath: string = this.ddURL + 'Save';
     return this.http.post<boolean>(saveCharacterPath, character, this.httpJSON);
   }
+
+  fetchClass(): string{
+    return 'test';
+  }
 }

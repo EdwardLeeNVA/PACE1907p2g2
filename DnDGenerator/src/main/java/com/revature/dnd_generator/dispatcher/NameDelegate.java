@@ -12,18 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class RaceDelegate implements BaseDelegate{
-	static ObjectMapper mapper = new ObjectMapper();
+public class NameDelegate implements BaseDelegate {
 	private static final Logger LOGGER = Logger.getLogger(MasterDispatcher.class);
-	RaceDelegate(){};
+
 	@Override
 	public void process(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException, IOException {
-		LOGGER.info("new race");
+		LOGGER.info("Getting a name");
 		res.setContentType("application/json");
 		try {
-			String u = "http://dnd5eapi.co/api/races/";
+			String u = "https://randomuser.me/api/";
 			URL url = new URL(u);
 			HttpURLConnection http = (HttpURLConnection) url.openConnection();
 			http.setRequestMethod("GET");
@@ -37,9 +35,9 @@ public class RaceDelegate implements BaseDelegate{
 			in.close();
 			LOGGER.info("After reading" + sb.toString());
 			res.getWriter().write(sb.toString());
-		}catch (Exception e) {
+		}catch(Exception e) {
 			LOGGER.error(e.getMessage());
-		}		
+		}
 	}
-	
+
 }
