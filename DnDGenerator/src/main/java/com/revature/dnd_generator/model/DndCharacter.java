@@ -9,7 +9,7 @@ public class DndCharacter {
 	private String race = null;
 	private String dndClass = null;
 	private String[] proficiencies = null;
-	private Alignment alignment = Alignment.TRUE_NEUTRAL;
+	private String alignment = null;
 	
 	public DndCharacter() {
 	}	
@@ -57,11 +57,11 @@ public class DndCharacter {
 		this.proficiencies = proficiencies;
 	}
 
-	public Alignment getAlignment() {
+	public String getAlignment() {
 		return alignment;
 	}
 
-	public void setAlignment(Alignment alignment) {
+	public void setAlignment(String alignment) {
 		this.alignment = alignment;
 	}
 }

@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 
 import com.revature.dnd_generator.model.DndCharacter;
 import com.revature.dnd_generator.model.DndCharacterFactory;
+import com.revature.dnd_generator.utilities.EnumMaps;
 
 public class CharacterDao extends Dao {
 
@@ -24,6 +25,7 @@ public class CharacterDao extends Dao {
 	private static final String COL_CHAR_RACE = "RACE";
 	private static final String COL_CHAR_CLASS = "CLASS";
 	private static final String COL_CHAR_PROF = "PROFICIENCIES";
+	private static final String COL_CHAR_ALN = "ALIGNMENT";
 	private static final String COL_CHAR_PROF1 = "PROF_1";
 	private static final String COL_CHAR_PROF2 = "PROF_2";
 	private static final String COL_CHAR_PROF3 = "PROF_3";
@@ -116,11 +118,12 @@ public class CharacterDao extends Dao {
 		String name = results.getString(COL_CHAR_NAME);
 		String race = results.getString(COL_CHAR_RACE);
 		String characterClass = results.getString(COL_CHAR_CLASS);
+		String alignment = results.getString(COL_CHAR_ALN);
 		String prof1 = results.getString(COL_CHAR_PROF1);
 		String prof2 = results.getString(COL_CHAR_PROF2);
 		String prof3 = results.getString(COL_CHAR_PROF3);
 		String prof4 = results.getString(COL_CHAR_PROF4);
-		return DndCharacterFactory.create(playerId, name, race, characterClass, prof1, prof2, prof3, prof4);
+		return DndCharacterFactory.create(playerId, name, race, characterClass, alignment, prof1, prof2, prof3, prof4);
 	}
 	
 	private Map<String, Integer> selectCountCommon(String query, String keyColumn, String valueColumn) {
