@@ -46,5 +46,12 @@ class CharacterDaoStatements {
 		return stmt;
 	}
 	
+	CallableStatement deleteCharacter(Connection connection, int id, String name) throws SQLException {
+		CallableStatement stmt = connection.prepareCall("CALL DELETE_CHARACTER(?, ?)");
+		stmt.setInt(1, id);
+		stmt.setString(2, name);
+		return stmt;
+	}
+	
 	private CharacterDaoStatements() { }
 }

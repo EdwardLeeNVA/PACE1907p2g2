@@ -13,8 +13,9 @@ import { CreateCharacterComponent } from './components/create-character/create-c
 import { ViewCharactersComponent } from './components/view-characters/view-characters.component';
 import { AppRoutes } from './shared/app.routes';
 import { LandingComponent } from './components/landing/landing.component';
-import {LoginService} from "./services/login-service.service";
+import {AppService} from "./services/app-service.service";
 import { CharacterDataComponent } from './components/character-data/character-data.component';
+
 
 
 @NgModule({
@@ -35,7 +36,7 @@ import { CharacterDataComponent } from './components/character-data/character-da
   ],
   providers: [
     HttpDdService,
-    LoginService
+    AppService
   ],
   bootstrap: [AppComponent]
 })

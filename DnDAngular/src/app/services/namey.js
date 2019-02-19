@@ -1,4 +1,4 @@
-export default{
+export default {
 
   /*
    * Lightweight JSONP fetcher

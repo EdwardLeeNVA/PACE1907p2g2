@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginService} from "../../services/login-service.service";
+import {AppService} from "../../services/app-service.service";
 import {Router} from "@angular/router";
 import {User} from "../../models/user";
 
@@ -10,7 +10,7 @@ import {User} from "../../models/user";
 })
 export class CharacterDataComponent implements OnInit {
 
-  constructor(private login: LoginService, private router: Router) { }
+  constructor(private login: AppService, private router: Router) { }
 
   public activeSession: boolean;
   public currentUser: User;

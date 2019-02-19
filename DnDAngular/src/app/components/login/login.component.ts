@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpDdService} from '../../services/http-dd.service';
 import {User} from '../../models/user';
-import {LoginService} from '../../services/login-service.service';
+import {AppService} from '../../services/app-service.service';
 import {Router, RouterModule} from "@angular/router";
 
 @Component({
@@ -12,7 +12,7 @@ import {Router, RouterModule} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private http: HttpDdService, private login: LoginService, private router: Router) { }
+  constructor(private http: HttpDdService, private login: AppService, private router: Router) { }
 
   // Used for user input
  user: User = {

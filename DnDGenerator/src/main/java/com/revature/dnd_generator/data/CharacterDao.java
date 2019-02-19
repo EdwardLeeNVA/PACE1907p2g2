@@ -13,9 +13,9 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.revature.dnd_generator.exceptions.CharacterCreationFailedException;
+import com.revature.dnd_generator.exceptions.CharacterDeletionFailedException;
 import com.revature.dnd_generator.model.DndCharacter;
 import com.revature.dnd_generator.model.DndCharacterFactory;
-import com.revature.dnd_generator.utilities.EnumMaps;
 
 public class CharacterDao extends Dao {
 
@@ -120,6 +120,16 @@ public class CharacterDao extends Dao {
 	
 	public Map<String, Integer> selectRaceCount() {
 		return selectCountCommon(CharacterDaoStatements.SELECT_RACE_COUNT, COL_CHAR_RACE, COL_RACE_COUNT);
+	}
+	
+	public void deleteCharacter(DndCharacter character) throws CharacterDeletionFailedException {
+		try (Connection con = getConnection()) {
+			int id = character.getId();
+			String name = character.getName();
+			statementMethods().deleteCharacter(con, id, name);
+		} catch (SQLException e) {
+			throw new CharacterDeletionFailedException(e);
+		}
 	}
 
 	private DndCharacter selectCharacterCommon(ResultSet results) throws SQLException {

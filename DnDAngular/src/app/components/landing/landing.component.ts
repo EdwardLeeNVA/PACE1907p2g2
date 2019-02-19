@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from "../../models/user";
-import {LoginService} from "../../services/login-service.service";
+import {AppService} from "../../services/app-service.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 })
 export class LandingComponent implements OnInit {
 
-  constructor(private login: LoginService, private router: Router) { }
+  constructor(private login: AppService, private router: Router) { }
 
   public activeSession: boolean;
   public currentUser: User;
