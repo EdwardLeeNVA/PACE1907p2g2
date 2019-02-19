@@ -12,6 +12,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.revature.dnd_generator.exceptions.CharacterCreationFailedException;
 import com.revature.dnd_generator.model.DndCharacter;
 import com.revature.dnd_generator.model.DndCharacterFactory;
 import com.revature.dnd_generator.utilities.EnumMaps;
@@ -35,7 +36,7 @@ public class CharacterDao extends Dao {
 	private static final String COL_CLASS_COUNT = "CLASS_COUNT";
 	private static final String COL_RACE_COUNT = "RACE_COUNT";
 
-	public void insertCharacter(DndCharacter character) {
+	public void insertCharacter(DndCharacter character) throws CharacterCreationFailedException {
 		try (Connection con = getConnection()) {
 			int playerId = character.getPlayerId();
 			String name = character.getName();
@@ -78,7 +79,7 @@ public class CharacterDao extends Dao {
 					prof2, prof3, prof4, alignment);
 			statement.execute();
 		} catch (SQLException e) {
-			LOGGER.error(e.getMessage(), e);
+			throw new CharacterCreationFailedException(e);
 		}
 	}
 
