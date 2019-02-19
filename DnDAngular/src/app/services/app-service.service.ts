@@ -11,7 +11,7 @@ import {User} from '../models/user';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class AppService {
 
   private loginStatus = new BehaviorSubject(false);
   public currentLoginStatus = this.loginStatus.asObservable();
