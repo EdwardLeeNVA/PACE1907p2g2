@@ -31,9 +31,9 @@ class CharacterDaoStatements {
 		return stmt;
 	}
 	
-	CallableStatement selectOwnedCharacter(Connection connection, int id) throws SQLException {
+	CallableStatement selectOwnedCharacters(Connection connection, int playerId) throws SQLException {
 		CallableStatement stmt = connection.prepareCall("CALL GETOWNEDCHARACTER(?, ?)");
-		stmt.setInt(1, id);
+		stmt.setInt(1, playerId);
 		stmt.registerOutParameter(2, OracleTypes.CURSOR);
 		return stmt;
 	}

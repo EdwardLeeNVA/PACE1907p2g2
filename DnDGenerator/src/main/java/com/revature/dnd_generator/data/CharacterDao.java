@@ -5,7 +5,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -70,22 +72,31 @@ public class CharacterDao extends Dao {
 		}
 	}
 
-	public DndCharacter selectOwnedCharacter(int id) {
-		try (Connection c = getConnection()) {
-			CallableStatement statement = statementMethods().selectOwnedCharacter(c, id);
+	public List<DndCharacter> selectOwnedCharacters(int playerId) {
+		ArrayList<DndCharacter> characterList = new ArrayList<>();
+		try (Connection con = getConnection()) {
+			CallableStatement statement = statementMethods().selectOwnedCharacters(con, playerId);
 			statement.execute();
-			return selectCharacterCommon(statement);
+			ResultSet results = (ResultSet) statement.getObject(2);
+			while (results.next()) {
+				DndCharacter nextCharacter = selectCharacterCommon(results);
+				characterList.add(nextCharacter);
+			}
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
-		return null;
+		return characterList;
 	}
 
 	public DndCharacter selectCharacter(int id) {
 		try (Connection c = getConnection()) {
 			CallableStatement statement = statementMethods().selectCharacter(c, id);
 			statement.execute();
-			return selectCharacterCommon(statement);
+			ResultSet results = (ResultSet) statement.getObject(2);
+			if (!results.next()) {
+				return null;
+			}
+			return selectCharacterCommon(results);
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
@@ -100,11 +111,7 @@ public class CharacterDao extends Dao {
 		return selectCountCommon(CharacterDaoStatements.SELECT_RACE_COUNT, COL_CHAR_RACE, COL_RACE_COUNT);
 	}
 
-	private DndCharacter selectCharacterCommon(CallableStatement statement) throws SQLException {
-		ResultSet results = (ResultSet) statement.getObject(2);
-		if (!results.next()) {
-			return null;
-		}
+	private DndCharacter selectCharacterCommon(ResultSet results) throws SQLException {
 		int playerId = results.getInt(COL_PLR_ID);
 		String name = results.getString(COL_CHAR_NAME);
 		String race = results.getString(COL_CHAR_RACE);
