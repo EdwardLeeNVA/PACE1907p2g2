@@ -5,12 +5,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Random;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dnd_generator.data.PlayerDao;
+import com.revature.dnd_generator.model.DndCharacter;
 import com.revature.dnd_generator.model.Player;
+import com.revature.dnd_generator.services.CharacterServices;
+import com.revature.dnd_generator.services.CharacterServicesImpl;
 import com.revature.dnd_generator.services.PlayerServices;
 import com.revature.dnd_generator.services.PlayerServicesImpl;
 
@@ -23,6 +27,7 @@ public class MasterDispatcher {
 	private MasterDispatcher() {}
 	private static final Logger LOGGER = Logger.getLogger(MasterDispatcher.class);
 	private static final PlayerServices pService = new PlayerServicesImpl();
+	private static final CharacterServices cService = new CharacterServicesImpl();
 	static ObjectMapper mapper = new ObjectMapper();
 	public static Object process(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		LOGGER.info("In Dispatcher, PATH: " + request.getRequestURI());
@@ -67,7 +72,9 @@ public class MasterDispatcher {
 		}else if(request.getRequestURI().contains("Register")) {
 			LOGGER.info("Registering a new user");
 			Player input = mapper.readValue(request.getReader(), Player.class);
-			pService.createPlayer(input.getUsername(), input.getPassword());
+			Boolean b = pService.createPlayer(input.getUsername(), input.getPassword());
+			response.setContentType("application/json");
+			response.getWriter().write(mapper.writeValueAsString(b));
 		}else if(request.getRequestURI().contains("Classes")) {
 			ClassDelegate.processClass(request, response);
 		}else if(request.getRequestURI().contains("Races")) {
@@ -106,11 +113,29 @@ public class MasterDispatcher {
 				while((inputLine = in.readLine()) != null) {
 					sb.append(inputLine);
 				}
-				response.getWriter().write(sb.toString());
 				in.close();
 				LOGGER.info("After reading" + sb.toString());
+				response.getWriter().write(sb.toString());
 			}catch(Exception e) {
 				LOGGER.error(e.getMessage());
+			}
+		}else if(request.getRequestURI().contains("Save")) {
+			if(request.getHeader("Content-Type").equals("application/json")){
+                DndCharacter input;
+				try{
+                    input = mapper.readValue(request.getReader(), DndCharacter.class);
+                    LOGGER.info("Save service inputted object: "+input);
+                    cService.saveDndCharacter(input);
+				} catch (JsonParseException e){
+                    LOGGER.error("Master Dispatcher Login Error: JsonParse error in login", e);
+                    return "Error in parse";
+                } catch (JsonMappingException e){
+                    LOGGER.error("Master Dispatcher Login Error: JsonMapping error in login", e);
+                    return "Error in mapping";
+                } catch (IOException e){
+                    LOGGER.error("Master Dispatcher Login Error: IOException in login", e);
+                    return "IO error";
+                }
 			}
 		}
 		return null;

@@ -53,52 +53,49 @@ export class LoginComponent implements OnInit {
     this.feedback = true;
   }
 
-  /*submitLogin(){
+  submitLogin(){
     this.currentUser = null;
-    console.log("User sent to back-end "+this.user);
     this.http.verifyLogin(this.user).subscribe(
-      user => this.currentUser,
-      error => console.error("Verify login http call failed."),
+      user => this.verifyLogin(user),
+      error => this.failedLogin(),
       () => console.log("Verify login completed.")
     );
-    if(this.currentUser != null) {
-      if(this.user.username != ''){
-        console.log("User received from back-end " + this.user);
-        this.feedback = false;
-        this.login.updateLoginStatus(true);
-        this.login.updateCurrentUser(this.user);
-      } else {
-        this.failedLogin();
-      }
+  }
+
+  verifyLogin(user: User){
+    if(user.id > 0){
+      this.user = user;
+      this.login.updateCurrentUser(user);
+      this.login.updateLoginStatus(true);
+      this.feedback = false;
+      this.router.navigate(['/create-character']);
     } else {
-      console.log("Register failed.");
-      this.failedRegister();
       this.login.updateLoginStatus(false);
       this.login.updateCurrentUser(null);
-  }*/
+      this.failedLogin();
+    }
+  }
 
-  /*registerUser(){
+  verifyRegister(bool: boolean){
+    if(bool){
+      this.successfulRegister();
+    } else {
+      this.failedRegister();
+    }
+  }
+
+
+  registerUser(){
     this.currentUser = null;
-    console.log("User sent to register " + this.user);
     this.http.registerUser(this.user).subscribe(
-      user => this.currentUser,
-      error => console.error("Verify login http call failed."),
+      bool => this.verifyRegister(bool),
+      error => this.failedRegister(),
       () => console.log("Register User call completed.")
     );
-    if(this.currentUser != null) {
-      if(this.user.username != ''){
-        console.log("User received from back-end " + this.user);
-        this.feedback = false;
-        this.login.updateLoginStatus(true);
-        this.login.updateCurrentUser(this.user);
-      } else {
-        this.failedRegister();
-      }
-    }
-  }*/
+  }
 
 
-  submitLogin(): void{
+  /*submitLogin(): void{
     this.currentUser = null;
     const msg = JSON.stringify(this.user);
     const httpTest = new XMLHttpRequest();
@@ -137,9 +134,9 @@ export class LoginComponent implements OnInit {
     httpTest.open("post", "/DnDGenerator/Generator/Login");
     httpTest.setRequestHeader("Content-Type", "application/json");
     httpTest.send(msg);
-  }
+  }*/
 
-  registerUser(){
+  /*registerUser(){
     this.currentUser = null;
     const msg = JSON.stringify(this.user);
     const httpTest = new XMLHttpRequest();
@@ -176,6 +173,6 @@ export class LoginComponent implements OnInit {
     httpTest.open("post", "/DnDGenerator/Generator/Register");
     httpTest.setRequestHeader("Content-Type", "application/json");
     httpTest.send(msg);
-  }
+  }*/
 }
 
