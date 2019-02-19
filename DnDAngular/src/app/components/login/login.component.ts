@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
   registerUser(){
     this.currentUser = null;
     this.http.registerUser(this.user).subscribe(
-      bool => this.verifyRegister,
+      bool => this.verifyRegister(bool),
       error => this.failedRegister(),
       () => console.log("Register User call completed.")
     );
