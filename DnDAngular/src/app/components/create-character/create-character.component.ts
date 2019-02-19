@@ -201,6 +201,7 @@ export class CreateCharacterComponent implements OnInit {
     let count: number = 0;
     while(count < this.character.proficiencies.length){
       this.character.proficiencies[count] = this.character.proficiencies[count].substring(7);
+      count++;
     }
   }
 }
