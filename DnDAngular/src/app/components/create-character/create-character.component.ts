@@ -127,11 +127,8 @@ export class CreateCharacterComponent implements OnInit {
   getRandomName(){
     const getRandomName = new XMLHttpRequest();
     getRandomName.onreadystatechange = () => {
-      console.log("Ready State for name " + getRandomName.readyState);
       if((getRandomName.readyState == 4) && (getRandomName.status == 200)){
-        console.log("Name response: " + getRandomName.responseText);
         const resp = JSON.parse(getRandomName.responseText);
-        console.log("Name received: " + resp.results[0].name.first);
         this.character.name = resp.results[0].name.first;
       }
     };
@@ -207,6 +204,7 @@ export class CreateCharacterComponent implements OnInit {
 
   testName: string = 'pre-init';
   getTestName(){
-    this.testName = this.http.fetchRandomName()[0];
+    let resp = this.http.fetchRandomName();
+    this.testName = resp[0];
   }
 }
