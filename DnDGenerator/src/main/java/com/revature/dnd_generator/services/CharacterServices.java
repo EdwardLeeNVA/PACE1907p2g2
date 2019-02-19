@@ -8,4 +8,5 @@ public interface CharacterServices {
 	public boolean saveDndCharacter(DndCharacter d);
 	public DndCharacter getDndCharacter(int characterId);
 	public List<DndCharacter> getAllPlayerCharacters(int playerId);
+	public boolean deleteCharacter(DndCharacter d);
 }

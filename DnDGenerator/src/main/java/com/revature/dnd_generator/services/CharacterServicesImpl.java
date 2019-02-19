@@ -33,4 +33,15 @@ public class CharacterServicesImpl implements CharacterServices {
 		return CharacterDao.getInstance().selectOwnedCharacters(playerId);
 	}
 
+	@Override
+	public boolean deleteCharacter(DndCharacter d) {
+		try {
+			CharacterDao.getInstance().deleteCharacter(d);
+			return true;
+		}catch(Exception e) {
+			LOGGER.error("Character saving failed", e);
+			return false;			
+		}
+	}
+
 }
