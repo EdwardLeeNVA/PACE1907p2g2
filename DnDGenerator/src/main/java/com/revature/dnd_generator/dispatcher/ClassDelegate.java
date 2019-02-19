@@ -1,6 +1,7 @@
 package com.revature.dnd_generator.dispatcher;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -10,18 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-public class ClassDelegate {
-	private static final Logger LOGGER = Logger.getLogger(CharacterDelegate.class);
-	private ClassDelegate() {}
+import com.fasterxml.jackson.core.JsonProcessingException;
 
-	public static Object processClass( HttpServletRequest req, HttpServletResponse resp) {
+public class ClassDelegate implements BaseDelegate{
+	private static final Logger LOGGER = Logger.getLogger(ClassDelegate.class);
+	ClassDelegate() {}
+	@Override
+	public void process(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException, IOException {
 		String[] path = req.getRequestURI().split("/");
 		//get all from current user
 		LOGGER.info("Path: " + req.getRequestURI());
 		LOGGER.info("Class Delegate Class length: " + path.length);
 		if(path.length == 4) {
 			LOGGER.info("new class");
-			resp.setContentType("application/json");
+			res.setContentType("application/json");
 			try {
 				String u = "http://dnd5eapi.co/api/classes/";
 				URL url = new URL(u);
@@ -36,7 +39,7 @@ public class ClassDelegate {
 				}
 				in.close();
 				LOGGER.info("After reading" + sb.toString());
-				resp.getWriter().write(sb.toString());
+				res.getWriter().write(sb.toString());
 			}catch (Exception e) {
 				LOGGER.error(e.getMessage());
 			}
@@ -57,13 +60,12 @@ public class ClassDelegate {
 				}
 				in.close();
 				LOGGER.info("AfterClose:\n" + sb.toString());
-				resp.getWriter().write(sb.toString());
+				res.getWriter().write(sb.toString());
 			}catch(Exception e) {
 				LOGGER.error(e.getMessage());
 			}
 		}else {
 			LOGGER.info("Unexpected Path Length" +req.getRequestURI() +" length of "+ path.length );
-		}
-		return "String";
+		}		
 	}
 }
