@@ -8,6 +8,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../models/user';
 import {Character} from "../models/character";
+import namey from "../services/namey.js";
 
 @Injectable({
   providedIn: 'root'
@@ -43,4 +44,13 @@ export class HttpDdService {
     const saveCharacterPath: string = this.ddURL + 'Save';
     return this.http.post<boolean>(saveCharacterPath, character, this.httpJSON);
   }
+
+  fetchClass(): string{
+    return 'test';
+  }
+
+  fetchRandomName(): string[]{
+    return namey.get({ frequency: 'all', callback: function(n) { console.log(n); }}); ;
+  }
+
 }

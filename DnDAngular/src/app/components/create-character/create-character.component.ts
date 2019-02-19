@@ -204,4 +204,9 @@ export class CreateCharacterComponent implements OnInit {
       count++;
     }
   }
+
+  testName: string = 'pre-init';
+  getTestName(){
+    this.testName = this.http.fetchRandomName()[0];
+  }
 }
