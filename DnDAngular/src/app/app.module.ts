@@ -17,6 +17,7 @@ import {LoginService} from "./services/login-service.service";
 import { CharacterDataComponent } from './components/character-data/character-data.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -8,7 +8,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../models/user';
 import {Character} from "../models/character";
-import namey from "../../../DnDGui/assets/namey.js";
 
 @Injectable({
   providedIn: 'root'
@@ -48,9 +47,4 @@ export class HttpDdService {
   fetchClass(): string{
     return 'test';
   }
-
-  fetchRandomName(): string[]{
-    return namey.get({ frequency: 'all', callback: function(n) { console.log(n); }}); ;
-  }
-
 }
