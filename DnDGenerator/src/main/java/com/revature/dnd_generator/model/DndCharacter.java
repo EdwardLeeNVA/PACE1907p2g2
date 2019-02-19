@@ -2,7 +2,7 @@ package com.revature.dnd_generator.model;
 
 public class DndCharacter {
 	
-	public static final int MAX_NUM_PROFS = 5;
+	public static final int MAX_NUM_PROFS = 4;
 	private int id = 0;
 	private int playerId = 0;
 	private String name = null;

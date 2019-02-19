@@ -68,14 +68,14 @@ public class CharacterDao extends Dao {
 			} else {
 				prof4 = null;
 			}
-			String raceProf;
+			/*String raceProf;
 			if (numProfs >= 5) {
 				raceProf = profList[4];
 			} else {
 				raceProf = null;
-			}
+			}*/
 			CallableStatement statement = statementMethods().insertCharacter(con, playerId, name, race, dndClass, prof1,
-					prof2, prof3, prof4, raceProf, alignment);
+					prof2, prof3, prof4, alignment);
 			statement.execute();
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
@@ -131,8 +131,8 @@ public class CharacterDao extends Dao {
 		String prof2 = results.getString(COL_CHAR_PROF2);
 		String prof3 = results.getString(COL_CHAR_PROF3);
 		String prof4 = results.getString(COL_CHAR_PROF4);
-		String raceProf = results.getString(COL_CHAR_PROF_R);
-		return DndCharacterFactory.create(playerId, name, race, characterClass, alignment, prof1, prof2, prof3, prof4, raceProf);
+		//String raceProf = results.getString(COL_CHAR_PROF_R);
+		return DndCharacterFactory.create(playerId, name, race, characterClass, alignment, prof1, prof2, prof3, prof4);
 	}
 	
 	private Map<String, Integer> selectCountCommon(String query, String keyColumn, String valueColumn) {
