@@ -3,14 +3,24 @@ package com.revature.dnd_generator.model;
 public class DndCharacter {
 	
 	public static final int MAX_NUM_PROFS = 4;
+	private int id = 0;
 	private int playerId = 0;
 	private String name = null;
 	private String race = null;
 	private String dndClass = null;
-	private String[] proficiencies = null;	
+	private String[] proficiencies = null;
+	private Alignment alignment = Alignment.TRUE_NEUTRAL;
 	
 	public DndCharacter() {
 	}	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getPlayerId() {
 		return playerId;
@@ -45,5 +55,13 @@ public class DndCharacter {
 	
 	public void setProficiencies(String[] proficiencies) {
 		this.proficiencies = proficiencies;
+	}
+
+	public Alignment getAlignment() {
+		return alignment;
+	}
+
+	public void setAlignment(Alignment alignment) {
+		this.alignment = alignment;
 	}
 }

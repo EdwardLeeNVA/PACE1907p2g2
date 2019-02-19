@@ -19,7 +19,7 @@ public class CharacterServicesImpl implements CharacterServices {
 
 	@Override
 	public List<DndCharacter> getAllPlayerCharacters(int playerId) {
-		return CharacterDao.getInstance().selectOwnedCharacter(playerId);
+		return CharacterDao.getInstance().selectOwnedCharacters(playerId);
 	}
 
 }
