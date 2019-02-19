@@ -8,7 +8,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../models/user';
 import {Character} from "../models/character";
-import namey from "../DnDGui/services/namey.js";
+import namey from "../../../DnDGui/assets/namey.js";
 
 @Injectable({
   providedIn: 'root'
