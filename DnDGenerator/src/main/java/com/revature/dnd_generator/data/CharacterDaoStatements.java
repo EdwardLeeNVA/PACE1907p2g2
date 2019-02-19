@@ -17,8 +17,8 @@ class CharacterDaoStatements {
 		return instance;
 	}
 	
-	CallableStatement insertCharacter(Connection connection, int playerId, String name, String race, String dndClass, String proficiency1, String proficiency2, String proficiency3, String proficiency4) throws SQLException {
-		CallableStatement stmt = connection.prepareCall("CALL CREATECHARACTER(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	CallableStatement insertCharacter(Connection connection, int playerId, String name, String race, String dndClass, String proficiency1, String proficiency2, String proficiency3, String proficiency4, String raceProficiency, String alignment) throws SQLException {
+		CallableStatement stmt = connection.prepareCall("CALL CREATECHARACTER(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		stmt.setInt(1, playerId);
 		stmt.setString(2, name);
 		stmt.setString(3, race);
@@ -27,7 +27,9 @@ class CharacterDaoStatements {
 		stmt.setString(6, proficiency2);
 		stmt.setString(7, proficiency3);
 		stmt.setString(8, proficiency4);
-		stmt.registerOutParameter(9, OracleTypes.CURSOR);
+		stmt.setString(9, raceProficiency);
+		stmt.setString(10, alignment);
+		stmt.registerOutParameter(11, OracleTypes.CURSOR);
 		return stmt;
 	}
 	

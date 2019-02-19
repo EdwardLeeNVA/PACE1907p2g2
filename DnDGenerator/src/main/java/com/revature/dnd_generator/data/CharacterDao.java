@@ -30,6 +30,7 @@ public class CharacterDao extends Dao {
 	private static final String COL_CHAR_PROF2 = "PROF_2";
 	private static final String COL_CHAR_PROF3 = "PROF_3";
 	private static final String COL_CHAR_PROF4 = "PROF_4";
+	private static final String COL_CHAR_PROF_R = "RPROF";
 	private static final String COL_CHAR_BIO = "BIO";
 	private static final String COL_CLASS_COUNT = "CLASS_COUNT";
 	private static final String COL_RACE_COUNT = "RACE_COUNT";
@@ -40,6 +41,7 @@ public class CharacterDao extends Dao {
 			String name = character.getName();
 			String race = character.getRace();
 			String dndClass = character.getDndClass();
+			String alignment = character.getAlignment();
 			String[] profList = character.getProficiencies();
 			int numProfs = profList.length;
 			String prof1;
@@ -52,22 +54,28 @@ public class CharacterDao extends Dao {
 			if (numProfs >= 2) {
 				prof2 = profList[1];
 			} else {
-				prof2 = profList[1];
+				prof2 = null;
 			}
 			String prof3;
 			if (numProfs >= 3) {
 				prof3 = profList[2];
 			} else {
-				prof3 = profList[2];
+				prof3 = null;
 			}
 			String prof4;
 			if (numProfs >= 4) {
 				prof4 = profList[3];
 			} else {
-				prof4 = profList[3];
+				prof4 = null;
+			}
+			String raceProf;
+			if (numProfs >= 5) {
+				raceProf = profList[4];
+			} else {
+				raceProf = null;
 			}
 			CallableStatement statement = statementMethods().insertCharacter(con, playerId, name, race, dndClass, prof1,
-					prof2, prof3, prof4);
+					prof2, prof3, prof4, raceProf, alignment);
 			statement.execute();
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
@@ -123,7 +131,8 @@ public class CharacterDao extends Dao {
 		String prof2 = results.getString(COL_CHAR_PROF2);
 		String prof3 = results.getString(COL_CHAR_PROF3);
 		String prof4 = results.getString(COL_CHAR_PROF4);
-		return DndCharacterFactory.create(playerId, name, race, characterClass, alignment, prof1, prof2, prof3, prof4);
+		String raceProf = results.getString(COL_CHAR_PROF_R);
+		return DndCharacterFactory.create(playerId, name, race, characterClass, alignment, prof1, prof2, prof3, prof4, raceProf);
 	}
 	
 	private Map<String, Integer> selectCountCommon(String query, String keyColumn, String valueColumn) {
