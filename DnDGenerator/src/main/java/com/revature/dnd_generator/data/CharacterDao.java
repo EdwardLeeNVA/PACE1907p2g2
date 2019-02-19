@@ -136,6 +136,11 @@ public class CharacterDao extends Dao {
 		return CharacterDaoStatements.getInstance();
 	}
 
+	private static CharacterDao instance = new CharacterDao();
+	
+	public static CharacterDao getInstance() {
+		return instance;
+	}
 	private CharacterDao() {
 	}
 }
