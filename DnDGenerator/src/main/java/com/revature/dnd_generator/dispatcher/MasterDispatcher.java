@@ -125,6 +125,7 @@ public class MasterDispatcher {
 				try{
                     input = mapper.readValue(request.getReader(), DndCharacter.class);
                     LOGGER.info("Save service inputted object: "+input);
+		input.setPlayerId((int)request.getSession().getAttribute("playerID"));
                     cService.saveDndCharacter(input);
 				} catch (JsonParseException e){
                     LOGGER.error("Master Dispatcher Login Error: JsonParse error in login", e);
