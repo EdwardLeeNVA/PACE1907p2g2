@@ -30,6 +30,7 @@ public class CharacterServicesImpl implements CharacterServices {
 
 	@Override
 	public List<DndCharacter> getAllPlayerCharacters(int playerId) {
+		LOGGER.info("CharacterServices: FETCHING ALL OWNED CHATACTERS");
 		return CharacterDao.getInstance().selectOwnedCharacters(playerId);
 	}
 
