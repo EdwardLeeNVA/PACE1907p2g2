@@ -53,5 +53,19 @@ class CharacterDaoStatements {
 		return stmt;
 	}
 	
+	CallableStatement getOwnedClassCount(Connection connection, int playerId) throws SQLException {
+		CallableStatement stmt = connection.prepareCall("CALL GETOWNEDCLASSCOUNT(?, ?)");
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setInt(2, playerId);
+		return stmt;
+	}
+	
+	CallableStatement getOwnedRaceCount(Connection connection, int playerId) throws SQLException {
+		CallableStatement stmt = connection.prepareCall("CALL GETOWNEDRACECOUNT(?, ?)");
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setInt(2, playerId);
+		return stmt;
+	}
+	
 	private CharacterDaoStatements() { }
 }
