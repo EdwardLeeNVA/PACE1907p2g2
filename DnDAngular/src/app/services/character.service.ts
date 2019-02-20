@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
-
+import * as randomName from "node-random-name";
 //import random from "random-name";
 
 @Injectable({
@@ -100,7 +100,7 @@ export class CharacterService {
 
   getRandomName(): string{
     //return random.first();
-    return 'Zoro';
+    return randomName({ first: true });
   }
 
   getRace(){
