@@ -27,8 +27,9 @@ public class CharacterDelegate implements BaseDelegate{
 		String[] path = req.getRequestURI().split("/");
 		//get all from current user
 		if(path.length == 4) {
-			LOGGER.info("Fetching all with userid: " +req.getSession().getAttribute("playerID").getClass());
+			LOGGER.info("Fetching all with userid: " +req.getSession().getAttribute("playerID"));
 			res.setContentType("application/json");
+			cService.getAllPlayerCharacters(req.getSession().getAttribute("playerId"))
 			String jsonInString = mapper.writeValueAsString(cService.getAllPlayerCharacters((int)req.getSession().getAttribute("playerId")));
 			LOGGER.info("LOGIN OBJECT RETURNED: as JSON STRING:  "+jsonInString);
 			res.getWriter().write(jsonInString);
