@@ -51,9 +51,9 @@ export class HttpDdService {
     return this.http.get<any>(fetchClassInfoPath);
   }
 
-  getAllCharacters(): Observable<Character[]>{
+  getAllCharacters(user: User): Observable<Character[]>{
     const fetchAllCharactersPath: string = this.dbURL + 'Character';
     console.log("Sent GET request to URI: " + fetchAllCharactersPath);
-    return this.http.get<Character[]>(fetchAllCharactersPath);
+    return this.http.post<Character[]>(fetchAllCharactersPath, user, this.httpJSON);
   }
 }
