@@ -17,6 +17,8 @@ import com.revature.dnd_generator.exceptions.CharacterDeletionFailedException;
 import com.revature.dnd_generator.model.DndCharacter;
 import com.revature.dnd_generator.model.DndCharacterFactory;
 
+import oracle.jdbc.OracleTypes;
+
 public class CharacterDao extends Dao {
 
 	private static final Logger LOGGER = Logger.getLogger(CharacterDao.class);
@@ -125,8 +127,33 @@ public class CharacterDao extends Dao {
 			throw new CharacterDeletionFailedException(e);
 		}
 	}
+	
+	public int getOwnedClassCount(Connection connection, int playerId) {
+		try (Connection con = getConnection()) {
+			CallableStatement stmt = statementMethods().getOwnedClassCount(con, playerId);
+			stmt.execute();
+			ResultSet results = (ResultSet) stmt.getObject(1);
+			
+		} catch (SQLException e) {
+			LOGGER.error("Could not get view.", e);
+		}
+		return 0;
+	}
+	
+	public int getOwnedRaceCount(Connection connection, int playerId) throws SQLException {
+		try (Connection con = getConnection()) {
+			CallableStatement stmt = statementMethods().getOwnedRaceCount(con, playerId);
+			stmt.execute();
+			ResultSet results = (ResultSet) stmt.getObject(1);
+			
+		} catch (SQLException e) {
+			LOGGER.error("Could not get view.", e);
+		}
+		return 0;
+	}
 
 	private DndCharacter selectCharacterCommon(ResultSet results) throws SQLException {
+		int id = results.getInt(COL_CHAR_ID);
 		int playerId = results.getInt(COL_PLR_ID);
 		String name = results.getString(COL_CHAR_NAME);
 		String race = results.getString(COL_CHAR_RACE);
@@ -136,7 +163,7 @@ public class CharacterDao extends Dao {
 		String prof2 = results.getString(COL_CHAR_PROF2);
 		String prof3 = results.getString(COL_CHAR_PROF3);
 		String prof4 = results.getString(COL_CHAR_PROF4);
-		return DndCharacterFactory.create(playerId, name, race, characterClass, alignment, prof1, prof2, prof3, prof4);
+		return DndCharacterFactory.create(id, playerId, name, race, characterClass, alignment, prof1, prof2, prof3, prof4);
 	}
 	
 	private Map<String, Integer> selectCountCommon(String query, String keyColumn, String valueColumn) {
