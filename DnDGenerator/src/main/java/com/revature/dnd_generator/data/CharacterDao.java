@@ -17,6 +17,8 @@ import com.revature.dnd_generator.exceptions.CharacterDeletionFailedException;
 import com.revature.dnd_generator.model.DndCharacter;
 import com.revature.dnd_generator.model.DndCharacterFactory;
 
+import oracle.jdbc.OracleTypes;
+
 public class CharacterDao extends Dao {
 
 	private static final Logger LOGGER = Logger.getLogger(CharacterDao.class);
@@ -69,12 +71,6 @@ public class CharacterDao extends Dao {
 			} else {
 				prof4 = null;
 			}
-			/*String raceProf;
-			if (numProfs >= 5) {
-				raceProf = profList[4];
-			} else {
-				raceProf = null;
-			}*/
 			CallableStatement statement = statementMethods().insertCharacter(con, playerId, name, race, dndClass, prof1,
 					prof2, prof3, prof4, alignment);
 			statement.execute();
@@ -131,8 +127,29 @@ public class CharacterDao extends Dao {
 			throw new CharacterDeletionFailedException(e);
 		}
 	}
+	
+	public Map<String, Integer> getOwnedClassCount(int playerId) {
+		try (Connection con = getConnection()) {
+			CallableStatement stmt = statementMethods().getOwnedClassCount(con, playerId);
+			return getOwnedCountCommon(stmt, COL_CHAR_CLASS, COL_CLASS_COUNT);
+		} catch (SQLException e) {
+			LOGGER.error("Could not get view.", e);
+		}
+		return new HashMap<String, Integer>(0);
+	}
+	
+	public Map<String, Integer> getOwnedRaceCount(int playerId) throws SQLException {
+		try (Connection con = getConnection()) {
+			CallableStatement stmt = statementMethods().getOwnedRaceCount(con, playerId);
+			return getOwnedCountCommon(stmt, COL_CHAR_RACE, COL_RACE_COUNT);
+		} catch (SQLException e) {
+			LOGGER.error("Could not get view.", e);
+		}
+		return new HashMap<String, Integer>(0);
+	}
 
 	private DndCharacter selectCharacterCommon(ResultSet results) throws SQLException {
+		int id = results.getInt(COL_CHAR_ID);
 		int playerId = results.getInt(COL_PLR_ID);
 		String name = results.getString(COL_CHAR_NAME);
 		String race = results.getString(COL_CHAR_RACE);
@@ -142,24 +159,36 @@ public class CharacterDao extends Dao {
 		String prof2 = results.getString(COL_CHAR_PROF2);
 		String prof3 = results.getString(COL_CHAR_PROF3);
 		String prof4 = results.getString(COL_CHAR_PROF4);
-		//String raceProf = results.getString(COL_CHAR_PROF_R);
-		return DndCharacterFactory.create(playerId, name, race, characterClass, alignment, prof1, prof2, prof3, prof4);
+		return DndCharacterFactory.create(id, playerId, name, race, characterClass, alignment, prof1, prof2, prof3, prof4);
+	}
+	
+	private Map<String, Integer> resultSetToCountMap(String keyColumn, String valueColumn, ResultSet results) throws SQLException {
+		HashMap<String, Integer> countMap = new HashMap<>();
+		while (results.next()) {
+			String key = results.getString(keyColumn);
+			Integer value = results.getInt(valueColumn);
+			countMap.put(key, value);
+		}
+		return countMap;
 	}
 	
 	private Map<String, Integer> selectCountCommon(String query, String keyColumn, String valueColumn) {
-		HashMap<String, Integer> countMap = new HashMap<>();
+		Map<String, Integer> countMap = null;
 		try (Connection c = getConnection()) {
 			Statement statement = c.createStatement();
 			ResultSet results = statement.executeQuery(query);
-			while (results.next()) {
-				String key = results.getString(keyColumn);
-				Integer value = results.getInt(valueColumn);
-				countMap.put(key, value);
-			}
+			countMap = resultSetToCountMap(keyColumn, valueColumn, results);
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
+			countMap = new HashMap<String, Integer>(0);
 		}
 		return countMap;
+	}
+	
+	public Map<String, Integer> getOwnedCountCommon(CallableStatement statement, String keyColumn, String valueColumn) throws SQLException {
+		statement.execute();
+		ResultSet results = (ResultSet) statement.getObject(1);
+		return resultSetToCountMap(COL_CHAR_CLASS, COL_CLASS_COUNT, results);
 	}
 
 	private CharacterDaoStatements statementMethods() {
