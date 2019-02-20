@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
+
+import random from "random-name";
+
 @Injectable({
   providedIn: 'root'
 })
@@ -95,17 +98,8 @@ export class CharacterService {
   }
 
 
-  getRandomName(){
-    const getRandomName = new XMLHttpRequest();
-    getRandomName.onreadystatechange = () => {
-      console.log("Ready State " + getRandomName.readyState);
-      if((getRandomName.readyState == 4) && (getRandomName.status == 200)){
-        const resp = JSON.parse(getRandomName.responseText);
-        return resp.results.name.first;
-      }
-    };
-    getRandomName.open("get", this.servName);
-    getRandomName.send();
+  getRandomName(): string{
+    return random.first();
   }
 
   getRace(){

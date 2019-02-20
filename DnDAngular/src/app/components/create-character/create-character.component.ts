@@ -51,7 +51,7 @@ export class CreateCharacterComponent implements OnInit {
     this.characterSaved = false;
     this.failedCharacterSave = false;
     this.getClass();
-    this.getRandomName();
+    this.character.name = this.cc.getRandomName();
     this.getRace();
     this.character.alignment = this.alignments[Math.floor(Math.random() * this.alignments.length)];
   }

@@ -73,4 +73,8 @@ export class ViewCharactersComponent implements OnInit {
       parent.style.display = "block";
     }
   }
+
+  deleteCharacter(id: any){
+
+  }
 }
