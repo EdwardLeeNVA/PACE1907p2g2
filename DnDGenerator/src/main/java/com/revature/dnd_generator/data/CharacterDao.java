@@ -128,28 +128,28 @@ public class CharacterDao extends Dao {
 		}
 	}
 	
-	public int getOwnedClassCount(Connection connection, int playerId) {
+	public Map<String, Integer> getOwnedClassCount(int playerId) {
 		try (Connection con = getConnection()) {
 			CallableStatement stmt = statementMethods().getOwnedClassCount(con, playerId);
 			stmt.execute();
 			ResultSet results = (ResultSet) stmt.getObject(1);
-			
+			return resultSetToCountMap(COL_CHAR_CLASS, COL_CLASS_COUNT, results);
 		} catch (SQLException e) {
 			LOGGER.error("Could not get view.", e);
 		}
-		return 0;
+		return new HashMap<String, Integer>(0);
 	}
 	
-	public int getOwnedRaceCount(Connection connection, int playerId) throws SQLException {
+	public Map<String, Integer> getOwnedRaceCount(int playerId) throws SQLException {
 		try (Connection con = getConnection()) {
 			CallableStatement stmt = statementMethods().getOwnedRaceCount(con, playerId);
 			stmt.execute();
 			ResultSet results = (ResultSet) stmt.getObject(1);
-			
+			return resultSetToCountMap(COL_CHAR_RACE, COL_RACE_COUNT, results);
 		} catch (SQLException e) {
 			LOGGER.error("Could not get view.", e);
 		}
-		return 0;
+		return new HashMap<String, Integer>(0);
 	}
 
 	private DndCharacter selectCharacterCommon(ResultSet results) throws SQLException {
@@ -166,18 +166,25 @@ public class CharacterDao extends Dao {
 		return DndCharacterFactory.create(id, playerId, name, race, characterClass, alignment, prof1, prof2, prof3, prof4);
 	}
 	
-	private Map<String, Integer> selectCountCommon(String query, String keyColumn, String valueColumn) {
+	private Map<String, Integer> resultSetToCountMap(String keyColumn, String valueColumn, ResultSet results) throws SQLException {
 		HashMap<String, Integer> countMap = new HashMap<>();
+		while (results.next()) {
+			String key = results.getString(keyColumn);
+			Integer value = results.getInt(valueColumn);
+			countMap.put(key, value);
+		}
+		return countMap;
+	}
+	
+	private Map<String, Integer> selectCountCommon(String query, String keyColumn, String valueColumn) {
+		Map<String, Integer> countMap = null;
 		try (Connection c = getConnection()) {
 			Statement statement = c.createStatement();
 			ResultSet results = statement.executeQuery(query);
-			while (results.next()) {
-				String key = results.getString(keyColumn);
-				Integer value = results.getInt(valueColumn);
-				countMap.put(key, value);
-			}
+			countMap = resultSetToCountMap(keyColumn, valueColumn, results);
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
+			countMap = new HashMap<String, Integer>(0);
 		}
 		return countMap;
 	}
