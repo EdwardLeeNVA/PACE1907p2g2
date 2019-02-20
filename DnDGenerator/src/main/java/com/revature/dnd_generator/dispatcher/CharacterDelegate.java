@@ -29,7 +29,7 @@ public class CharacterDelegate implements BaseDelegate{
 		if(path.length == 4) {
 			LOGGER.info("Fetching all with userid: " +req.getSession().getAttribute("playerID"));
 			res.setContentType("application/json");
-			cService.getAllPlayerCharacters(req.getSession().getAttribute("playerId"));
+			cService.getAllPlayerCharacters((int)req.getSession().getAttribute("playerId"));
 			String jsonInString = mapper.writeValueAsString(cService.getAllPlayerCharacters((int)req.getSession().getAttribute("playerId")));
 			LOGGER.info("LOGIN OBJECT RETURNED: as JSON STRING:  "+jsonInString);
 			res.getWriter().write(jsonInString);
