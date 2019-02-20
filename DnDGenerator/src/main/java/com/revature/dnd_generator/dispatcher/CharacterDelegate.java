@@ -33,11 +33,11 @@ public class CharacterDelegate implements BaseDelegate{
 			String jsonInString = mapper.writeValueAsString(cService.getAllPlayerCharacters((int)req.getSession().getAttribute("playerId")));
 			LOGGER.info("LOGIN OBJECT RETURNED: as JSON STRING:  "+jsonInString);
 			res.getWriter().write(jsonInString);
-			}else if(path.length == 5) {//get the requested object
-				LOGGER.info("Getting Specific Character: " + path[5]);
-				String jsonInString = mapper.writeValueAsString(cService.getDndCharacter(Integer.parseInt(path[5])));
-				LOGGER.info("Acquired Character: " + jsonInString);
-				res.getWriter().write(jsonInString);
+		}else if(path.length == 5) {//get the requested object
+			LOGGER.info("Getting Specific Character: " + path[4]);
+			String jsonInString = mapper.writeValueAsString(cService.getDndCharacter(Integer.parseInt(path[5])));
+			LOGGER.info("Acquired Character: " + jsonInString);
+			res.getWriter().write(jsonInString);
 		}else {
 			LOGGER.info("Unexpected Path Length" +req.getRequestURI() +" length of "+ path.length );
 		}
