@@ -17,7 +17,7 @@ export class HttpDdService {
   constructor(private http: HttpClient) { }
 
   //Placeholder for Front Controller URI
-  private dbURL: string = "/DnDGenerator/";
+  private dbURL: string = "/DnDGenerator/Generator/";
 
   //Header to specify JSON content for POST/PUT
   private httpJSON = {
@@ -25,26 +25,34 @@ export class HttpDdService {
       'Content-Type':  'application/json'
     })};
 
-  //Root URL for D&D API
-  private ddURL: string = "/DnDGenerator/Generator/";
-
   //Returns Observable for Login component to process
   verifyLogin(login: User): Observable<User>{
-    const loginPath: string = this.dbURL + 'Generator/Login';
+    const loginPath: string = this.dbURL + 'Login';
     return this.http.post<User>(loginPath, login, this.httpJSON);
   }
 
   registerUser(register: User): Observable<boolean>{
-    const registerPath: string = this.dbURL + 'Generator/Register';
+    const registerPath: string = this.dbURL + 'Register';
     return this.http.post<boolean>(registerPath, register, this.httpJSON);
   }
 
   saveCharacter(character: Character): Observable<boolean>{
-    const saveCharacterPath: string = this.ddURL + 'Save';
+    const saveCharacterPath: string = this.dbURL + 'Save';
     return this.http.post<boolean>(saveCharacterPath, character, this.httpJSON);
   }
 
-  fetchClass(): string{
-    return 'test';
+  fetchClass(): Observable<string>{
+    const fetchClassPath: string = this.dbURL + 'Classes';
+    return this.http.get<string>(fetchClassPath);
+  }
+
+  getClassInfo(dndClass: string): Observable<any>{
+    const fetchClassInfoPath: string = this.dbURL + 'Classes/' + dndClass;
+    return this.http.get<any>(fetchClassInfoPath);
+  }
+
+  getAllCharacters(): Observable<Character[]>{
+    const fetchAllCharactersPath: string = this.dbURL + 'Character';
+    return this.http.get<Character[]>(fetchAllCharactersPath);
   }
 }
