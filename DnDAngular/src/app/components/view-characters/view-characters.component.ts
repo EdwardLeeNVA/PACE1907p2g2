@@ -42,6 +42,9 @@ export class ViewCharactersComponent implements OnInit {
 
   formatAllCharacters(characters: Character[]){
     this.characters = characters;
+    for(let x = 0; x < characters.length; x++){
+      console.log("Character: " + characters[x].name + ": ID: " + characters[x].id);
+    }
     this.removeEmptyProciencies();
   }
 
