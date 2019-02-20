@@ -10,9 +10,12 @@ import javax.sql.DataSource;
 
 public class ConnectionHandler {
 	
-	private static ConnectionHandler instance = new ConnectionHandler();
+	private static ConnectionHandler instance = null;
 
 	public static ConnectionHandler getInstance() {
+		if (instance == null) {
+			instance = new ConnectionHandler();
+		}
 		return instance;
 	}
 	
