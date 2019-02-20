@@ -4,35 +4,45 @@
   </div>
   <div class="col-md-8 offset-md-2" [id]="character.id">
     <div class="row">
-      <div class="input-group-prepend">
-        <span class="input-group-text">Name</span>
+      <div class="input-group input-group-lg">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Name</span>
+        </div>
+        <input type="text" class="form-control" [value]="character.name" disabled>
       </div>
-      <input type="text" class="form-control" [value]="character.name" disabled>
     </div>
     <div class="row">
-      <div class="input-group-prepend">
-        <span class="input-group-text">Class</span>
+      <div class="input-group input-group-lg">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Class</span>
+        </div>
+        <input type="text" class="form-control" [value]="character.dndClass" disabled>
       </div>
-      <input type="text" class="form-control" [value]="character.dndClass" disabled>
     </div>
     <div class="row">
-      <div class="input-group-prepend">
-        <span class="input-group-text">Race</span>
+      <div class="input-group input-group-lg">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Race</span>
+        </div>
+        <input type="text" class="form-control" [value]="character.race" disabled>
       </div>
-      <input type="text" class="form-control" [value]="character.race" disabled>
     </div>
     <div class="row">
-      <div class="input-group-prepend">
-        <span class="input-group-text">Alignment</span>
+      <div class="input-group input-group-lg">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Alignment</span>
+        </div>
+        <input type="text" class="form-control" [value]="character.alignment" disabled>
       </div>
-      <input type="text" class="form-control" [value]="character.alignment" disabled>
     </div>
     <div class="row" *ngFor="let proficiency of character.proficiencies">
       <div class="row">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Proficiency</span>
+        <div class="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Proficiency</span>
+          </div>
+          <input type="text" class="form-control" [value]="proficiency" disabled>
         </div>
-        <input type="text" class="form-control" [value]="proficiency" disabled>
       </div>
     </div>
   </div>

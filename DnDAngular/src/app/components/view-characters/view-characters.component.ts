@@ -31,7 +31,7 @@ export class ViewCharactersComponent implements OnInit {
 
   getAllCharacters(){
     console.log("Get all Characters Called.");
-    this.http.getAllCharacters().subscribe(
+    this.http.getAllCharacters(this.currentUser).subscribe(
       characters => this.characters = characters,
       error => console.log("Failed to receive all characters."),
       () => console.log("Register User call completed.")
