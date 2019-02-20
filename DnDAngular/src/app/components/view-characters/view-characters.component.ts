@@ -30,6 +30,7 @@ export class ViewCharactersComponent implements OnInit {
   characters: Character[] = null;
 
   getAllCharacters(){
+    console.log("Get all Characters Called.");
     this.http.getAllCharacters().subscribe(
       characters => this.characters = characters,
       error => console.log("Failed to receive all characters."),

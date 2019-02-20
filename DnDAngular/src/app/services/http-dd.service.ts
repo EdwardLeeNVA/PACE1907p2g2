@@ -53,6 +53,7 @@ export class HttpDdService {
 
   getAllCharacters(): Observable<Character[]>{
     const fetchAllCharactersPath: string = this.dbURL + 'Character';
+    console.log("Sent GET request to URI: " + fetchAllCharactersPath);
     return this.http.get<Character[]>(fetchAllCharactersPath);
   }
 }
