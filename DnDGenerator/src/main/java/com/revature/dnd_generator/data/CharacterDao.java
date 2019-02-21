@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -194,6 +195,12 @@ public class CharacterDao extends Dao {
 	public Map<String, Integer> getOwnedCountCommon(CallableStatement statement, String keyColumn, String valueColumn) throws SQLException {
 		statement.execute();
 		ResultSet results = (ResultSet) statement.getObject(1);
+		ResultSetMetaData rsmd = results.getMetaData();
+		
+		String outputString = "";
+		int i = 1;
+		while(i <= rsmd.getColumnCount()) { outputString += rsmd.getColumnLabel(i);}
+		LOGGER.info("Result set meta data for the commons" + outputString);
 		return resultSetToCountMap(COL_CHAR_CLASS, COL_CLASS_COUNT, results);
 	}
 
