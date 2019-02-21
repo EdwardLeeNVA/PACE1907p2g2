@@ -38,7 +38,11 @@ public class CharacterDao extends Dao {
 	private static final String COL_CHAR_BIO = "BIO";
 	private static final String COL_CLASS_COUNT = "CLASS_COUNT";
 	private static final String COL_RACE_COUNT = "RACE_COUNT";
-
+	private static final String COL_PLAYER_CLASS_COUNT = "COUNT(CLASS)";
+	private static final String COL_PLAYER_CLASS = "CLASS";	
+	private static final String COL_PLAYER_RACE_COUNT = "COUNT(RACE)";
+	private static final String COL_PLAYER_RACE = "RACE";
+	
 	public void insertCharacter(DndCharacter character) throws CharacterCreationFailedException {
 		try (Connection con = getConnection()) {
 			int playerId = character.getPlayerId();
@@ -133,7 +137,7 @@ public class CharacterDao extends Dao {
 	public Map<String, Integer> getOwnedClassCount(int playerId) {
 		try (Connection con = getConnection()) {
 			CallableStatement stmt = statementMethods().getOwnedClassCount(con, playerId);
-			return getOwnedCountCommon(stmt, COL_CHAR_CLASS, COL_CLASS_COUNT);
+			return getOwnedCountCommon(stmt, COL_PLAYER_CLASS, COL_PLAYER_CLASS_COUNT);
 		} catch (SQLException e) {
 			LOGGER.error("Could not get view.", e);
 		}
@@ -143,7 +147,7 @@ public class CharacterDao extends Dao {
 	public Map<String, Integer> getOwnedRaceCount(int playerId) throws SQLException {
 		try (Connection con = getConnection()) {
 			CallableStatement stmt = statementMethods().getOwnedRaceCount(con, playerId);
-			return getOwnedCountCommon(stmt, COL_CHAR_RACE, COL_RACE_COUNT);
+			return getOwnedCountCommon(stmt, COL_PLAYER_RACE, COL_PLAYER_RACE_COUNT);
 		} catch (SQLException e) {
 			LOGGER.error("Could not get view.", e);
 		}
@@ -167,8 +171,8 @@ public class CharacterDao extends Dao {
 	private Map<String, Integer> resultSetToCountMap(String keyColumn, String valueColumn, ResultSet results) throws SQLException {
 		HashMap<String, Integer> countMap = new HashMap<>();
 		while (results.next()) {
-			String key = results.getString(1);
-			Integer value = results.getInt(2);
+			String key = results.getString(keyColumn);
+			Integer value = results.getInt(valueColumn);
 			countMap.put(key, value);
 		}
 		return countMap;
