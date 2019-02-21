@@ -2,6 +2,7 @@ package com.revature.dnd_generator.data;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -122,7 +123,8 @@ public class CharacterDao extends Dao {
 		try (Connection con = getConnection()) {
 			int id = character.getId();
 			String name = character.getName();
-			statementMethods().deleteCharacter(con, id, name);
+			PreparedStatement stmt = statementMethods().deleteCharacter(con, id, name);
+			stmt.execute();
 		} catch (SQLException e) {
 			throw new CharacterDeletionFailedException(e);
 		}
