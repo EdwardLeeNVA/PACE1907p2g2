@@ -42,7 +42,17 @@
               <input type="text" class="form-control" [value]="proficiency" disabled>
             </div>
         </div>
+        <div class="row">
+          <div class="input-group input-group-lg text-center">
+            <button (click)="deleteCharacter(character.id)">Delete {{character.name}}</button>
+          </div>
+        </div>
       </div>
-
     </div>
+</div>
+<div class="row">
+  <div class="col-md-8 offset-md-2 text-center">
+    <p class="created-character" *ngIf="deleteCharacterSuccess">Character Deleted Successfully.</p>
+    <p class="failed-character" *ngIf="deleteCharacterFailed">Failed to delete Character.</p>
+  </div>
 </div>

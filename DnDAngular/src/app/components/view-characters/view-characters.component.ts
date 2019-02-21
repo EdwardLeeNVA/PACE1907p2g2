@@ -29,6 +29,8 @@ export class ViewCharactersComponent implements OnInit {
 
   characters: Character[] = null;
   collapsibles: Element[] = null;
+  deleteCharacterSuccess: boolean = false;
+  deleteCharacterFailed: boolean = false;
 
 
   getAllCharacters(){
@@ -74,7 +76,31 @@ export class ViewCharactersComponent implements OnInit {
     }
   }
 
-  deleteCharacter(id: any){
+  findCharacter(id: number): Character{
+    for(let x = 0; x < this.characters.length; x++){
+      if(this.characters[x].id == id){
+        return this.characters[x];
+      }
+    }
+    return null;
+  }
 
+  deleteCharacter(id: any){
+    this.deleteCharacterSuccess = false;
+    this.deleteCharacterFailed = false;
+    let character: Character = this.findCharacter(id);
+    this.http.deleteCharacter(character).subscribe(
+      bool => this.verifiyDelete(bool),
+      error => console.log("Failed to receive response to delete character."),
+      () => console.log("Delete character completed.")
+    );
+  }
+
+  verifiyDelete(bool: boolean){
+    if(bool){
+      this.deleteCharacterSuccess = true;
+    } else {
+      this.deleteCharacterFailed = true;
+    }
   }
 }
