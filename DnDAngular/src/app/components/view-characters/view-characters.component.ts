@@ -89,6 +89,7 @@ export class ViewCharactersComponent implements OnInit {
     this.deleteCharacterSuccess = false;
     this.deleteCharacterFailed = false;
     let character: Character = this.findCharacter(id);
+    console.log(character);
     this.http.deleteCharacter(character).subscribe(
       bool => this.verifiyDelete(bool),
       error => console.log("Failed to receive response to delete character."),
