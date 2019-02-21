@@ -53,6 +53,9 @@ public class MasterDispatcher {
 		}else if(request.getRequestURI().contains("Chart")) {
 			LOGGER.info("Getting a chart");
 			new ChartsDelegate().process(request, response);
+		}else if(request.getRequestURI().contains("Delete")) {
+			LOGGER.info("Deleting a character");
+			new DeleteDelegate().process(request, response);
 		}
 		return null;
 	}
