@@ -60,4 +60,24 @@ export class HttpDdService {
     const deleteCharacter: string = this.dbURL + 'Delete';
     return this.http.post<boolean>(deleteCharacter, character, this.httpJSON);
   }
+
+  getOwnedClasses(user: User){
+    const getOwnedCharacters: string = this.dbURL + 'Chart/PlayerClass';
+    return this.http.post<any>(getOwnedCharacters, user, this.httpJSON);
+  }
+
+  getOwnedRaces(user: User){
+    const getOwnedRaces: string = this.dbURL + 'Chart/PlayerRace';
+    return this.http.post<any>(getOwnedRaces, user, this.httpJSON);
+  }
+
+  getGlobalClasses(){
+    const getCharacters: string = this.dbURL + 'Chart/GlobalClass';
+    return this.http.get<any>(getCharacters);
+  }
+
+  getGlobalRaces(){
+    const getRaces: string = this.dbURL + 'Chart/GlobalRace';
+    return this.http.get<any>(getRaces);
+  }
 }
