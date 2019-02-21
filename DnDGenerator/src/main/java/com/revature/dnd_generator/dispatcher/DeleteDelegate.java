@@ -27,6 +27,7 @@ public class DeleteDelegate implements BaseDelegate {
 			try {
 				LOGGER.info("Top of delete");
 				input = mapper.readValue(req.getReader(),DndCharacter.class);
+				LOGGER.info("Deleting ...: " + input.getId() + " " + input.getName());
 				res.setContentType("application.json");
 				boolean b = cServices.deleteCharacter(input);
 				LOGGER.info("deleted: " + b);
