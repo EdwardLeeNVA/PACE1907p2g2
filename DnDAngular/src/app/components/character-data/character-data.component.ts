@@ -16,6 +16,12 @@ export class CharacterDataComponent implements OnInit {
   public activeSession: boolean;
   public currentUser: User;
 
+  public ownedCharacter: any = {};
+  public ownedRace: any = {};
+
+  public globalCharacter: any = {};
+  public globalRace: any = {};
+
   ngOnInit() {
     this.login.currentLoginStatus.subscribe(status => this.activeSession = status);
     this.login.currentLoginUser.subscribe(user => this.currentUser = user);
@@ -50,4 +56,7 @@ export class CharacterDataComponent implements OnInit {
       () => console.log("Get all Races completed.")
     );
   }
+
+
+
 }
