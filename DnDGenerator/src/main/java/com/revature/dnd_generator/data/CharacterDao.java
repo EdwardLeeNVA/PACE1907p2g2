@@ -167,8 +167,8 @@ public class CharacterDao extends Dao {
 	private Map<String, Integer> resultSetToCountMap(String keyColumn, String valueColumn, ResultSet results) throws SQLException {
 		HashMap<String, Integer> countMap = new HashMap<>();
 		while (results.next()) {
-			String key = results.getString(keyColumn);
-			Integer value = results.getInt(valueColumn);
+			String key = results.getString(1);
+			Integer value = results.getInt(2);
 			countMap.put(key, value);
 		}
 		return countMap;
