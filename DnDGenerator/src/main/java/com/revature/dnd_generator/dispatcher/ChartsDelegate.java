@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.dnd_generator.model.Player;
 import com.revature.dnd_generator.services.CharacterServices;
 import com.revature.dnd_generator.services.CharacterServicesImpl;
 import com.revature.dnd_generator.services.ChartsService;
@@ -38,9 +39,15 @@ public class ChartsDelegate implements BaseDelegate{
 			LOGGER.info("GlobalRaceData: "+jsonString);
 			res.getWriter().write(jsonString);
 		}else if(path[4].equalsIgnoreCase("PlayerRace")) {
-			//cServices.getPlayerRaceBreakdown(1);
+            Player input = mapper.readValue(req.getReader(), Player.class);
+			String jsonString = mapper.writeValueAsString(cServices.getPlayerRaceBreakdown(input.getId()));
+			LOGGER.info("PlayerRaceData: " + jsonString);
+			res.getWriter().write(jsonString);
 		}else if(path[4].equalsIgnoreCase("PlayerClass")) {
-			//cServices.getPlayerClassBreakdown(1);
+			Player input = mapper.readValue(req.getReader(), Player.class);
+			String jsonString = mapper.writeValueAsString(cServices.getPlayerClassBreakdown(input.getId()));
+			LOGGER.info("PlayerClassData: " + jsonString);
+			res.getWriter().write(jsonString);
 		}
 	}
 
