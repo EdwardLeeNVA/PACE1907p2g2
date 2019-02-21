@@ -18,7 +18,7 @@ import com.revature.dnd_generator.services.ChartsServiceImpl;
 public class ChartsDelegate implements BaseDelegate{
 	ObjectMapper mapper = new ObjectMapper();
 	ChartsService cServices = new ChartsServiceImpl();
-	private static final Logger LOGGER = Logger.getLogger(LoginDelegate.class);
+	private static final Logger LOGGER = Logger.getLogger(ChartsDelegate.class);
 	ChartsDelegate(){}
 	@Override
 	public void process(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException, IOException {

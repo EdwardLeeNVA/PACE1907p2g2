@@ -136,6 +136,7 @@ public class CharacterDao extends Dao {
 	}
 	
 	public Map<String, Integer> getOwnedClassCount(int playerId) {
+		LOGGER.info("Top of getOwnedClassCount");
 		try (Connection con = getConnection()) {
 			CallableStatement stmt = statementMethods().getOwnedClassCount(con, playerId);
 			return getOwnedCountCommon(stmt, COL_PLAYER_CLASS, COL_PLAYER_CLASS_COUNT);
@@ -147,6 +148,7 @@ public class CharacterDao extends Dao {
 	
 	public Map<String, Integer> getOwnedRaceCount(int playerId) throws SQLException {
 		try (Connection con = getConnection()) {
+			LOGGER.info("Top of getOwnedRaceCount");
 			CallableStatement stmt = statementMethods().getOwnedRaceCount(con, playerId);
 			return getOwnedCountCommon(stmt, COL_PLAYER_RACE, COL_PLAYER_RACE_COUNT);
 		} catch (SQLException e) {
@@ -193,6 +195,7 @@ public class CharacterDao extends Dao {
 	}
 	
 	public Map<String, Integer> getOwnedCountCommon(CallableStatement statement, String keyColumn, String valueColumn) throws SQLException {
+		LOGGER.info("TOP of getOwnedCountCommon");
 		statement.execute();
 		ResultSet results = (ResultSet) statement.getObject(1);
 		ResultSetMetaData rsmd = results.getMetaData();

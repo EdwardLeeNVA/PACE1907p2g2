@@ -14,6 +14,8 @@ public class ChartsServiceImpl implements ChartsService {
 	@Override
 	public Map<String, Integer> getPlayerRaceBreakdown(int playerId) {
 		try {
+			LOGGER.info("in service Method");
+
 			return CharacterDao.getInstance().getOwnedRaceCount(playerId);
 		}catch (Exception e) {
 			LOGGER.error("getPlayerRaceBreakdown failed");
@@ -24,6 +26,7 @@ public class ChartsServiceImpl implements ChartsService {
 	@Override
 	public Map<String, Integer> getPlayerClassBreakdown(int playerId) {
 		try{
+			LOGGER.info("in service Method");
 			return CharacterDao.getInstance().getOwnedClassCount(playerId);
 		}catch(Exception e) {
 			LOGGER.error("getPlayerClassBreakdown failed");
