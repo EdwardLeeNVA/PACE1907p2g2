@@ -36,7 +36,8 @@ public class DeleteDelegate implements BaseDelegate {
                 LOGGER.error("Master Dispatcher Login Error: JsonMapping error in login", e);
             } catch (IOException e){
                 LOGGER.error("Master Dispatcher Login Error: IOException in login", e);
-            }		}
+            }		
+		}
 	}
 
 }

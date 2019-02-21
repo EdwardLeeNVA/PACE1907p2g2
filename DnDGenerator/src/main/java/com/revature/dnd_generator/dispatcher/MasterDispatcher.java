@@ -47,9 +47,6 @@ public class MasterDispatcher {
 		}else if(request.getRequestURI().contains("Races")) {
 			LOGGER.info("New Race");
 			new RaceDelegate().process(request, response);
-		}else if( request.getRequestURI().contains("Name")) {
-			LOGGER.info("Getting a name");
-			new NameDelegate().process(request, response);
 		}else if(request.getRequestURI().contains("Save")) {
 			LOGGER.info("Saving a character");
 			new SaveDelegate().process(request, response);
