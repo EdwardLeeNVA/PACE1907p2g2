@@ -25,9 +25,12 @@ public class DeleteDelegate implements BaseDelegate {
 		if(req.getHeader("Content-Type").equals("application/json")){
 			DndCharacter input;
 			try {
+				LOGGER.info("Top of delete");
 				input = mapper.readValue(req.getReader(),DndCharacter.class);
+				LOGGER.info("Deleting ...: " + input.getId() + " " + input.getName());
 				res.setContentType("application.json");
 				boolean b = cServices.deleteCharacter(input);
+				LOGGER.info("deleted: " + b);
 				res.getWriter().write(mapper.writeValueAsString(b));
 				
             } catch (JsonParseException e){
@@ -36,7 +39,8 @@ public class DeleteDelegate implements BaseDelegate {
                 LOGGER.error("Master Dispatcher Login Error: JsonMapping error in login", e);
             } catch (IOException e){
                 LOGGER.error("Master Dispatcher Login Error: IOException in login", e);
-            }		}
+            }		
+		}
 	}
 
 }

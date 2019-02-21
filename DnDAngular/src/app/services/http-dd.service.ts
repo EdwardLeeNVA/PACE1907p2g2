@@ -53,7 +53,11 @@ export class HttpDdService {
 
   getAllCharacters(user: User): Observable<Character[]>{
     const fetchAllCharactersPath: string = this.dbURL + 'Character';
-    console.log("Sent GET request to URI: " + fetchAllCharactersPath);
     return this.http.post<Character[]>(fetchAllCharactersPath, user, this.httpJSON);
+  }
+
+  deleteCharacter(character: Character): Observable<boolean>{
+    const deleteCharacter: string = this.dbURL + 'Delete';
+    return this.http.post<boolean>(deleteCharacter, character, this.httpJSON);
   }
 }

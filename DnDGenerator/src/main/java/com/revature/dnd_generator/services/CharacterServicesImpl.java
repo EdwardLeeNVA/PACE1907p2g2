@@ -40,7 +40,7 @@ public class CharacterServicesImpl implements CharacterServices {
 			CharacterDao.getInstance().deleteCharacter(d);
 			return true;
 		}catch(Exception e) {
-			LOGGER.error("Character saving failed", e);
+			LOGGER.error("Character deleting failed", e);
 			return false;			
 		}
 	}

@@ -47,15 +47,15 @@ public class MasterDispatcher {
 		}else if(request.getRequestURI().contains("Races")) {
 			LOGGER.info("New Race");
 			new RaceDelegate().process(request, response);
-		}else if( request.getRequestURI().contains("Name")) {
-			LOGGER.info("Getting a name");
-			new NameDelegate().process(request, response);
 		}else if(request.getRequestURI().contains("Save")) {
 			LOGGER.info("Saving a character");
 			new SaveDelegate().process(request, response);
 		}else if(request.getRequestURI().contains("Chart")) {
 			LOGGER.info("Getting a chart");
 			new ChartsDelegate().process(request, response);
+		}else if(request.getRequestURI().contains("Delete")) {
+			LOGGER.info("Deleting a character");
+			new DeleteDelegate().process(request, response);
 		}
 		return null;
 	}
