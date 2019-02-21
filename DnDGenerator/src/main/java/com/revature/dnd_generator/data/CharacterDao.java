@@ -199,14 +199,9 @@ public class CharacterDao extends Dao {
 		statement.execute();
 		ResultSet results = (ResultSet) statement.getObject(1);
 		ResultSetMetaData rsmd = results.getMetaData();
-		
-		String outputString = "";
-		int i = 1;
-		while(i <= rsmd.getColumnCount()) { 
-			outputString += "Column name: " + rsmd.getColumnName(i);
-			outputString += " Column Label: " + rsmd.getColumnLabel(i) + "\n"; i++;}
-		LOGGER.info("Result set meta data for the commons: " + outputString);
-		return resultSetToCountMap(COL_CHAR_CLASS, COL_CLASS_COUNT, results);
+		keyColumn = rsmd.getColumnLabel(1);
+		valueColumn = rsmd.getColumnLabel(2);
+		return resultSetToCountMap(keyColumn, valueColumn, results);
 	}
 
 	private CharacterDaoStatements statementMethods() {
