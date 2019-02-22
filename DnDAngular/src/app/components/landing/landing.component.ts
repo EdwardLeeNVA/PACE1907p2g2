@@ -20,6 +20,8 @@ export class LandingComponent implements OnInit {
     this.login.currentLoginUser.subscribe(user => this.currentUser = user);
     if(this.activeSession){
       this.router.navigate(['/create-character']);
+    } else {
+      this.login.initCreateCharacters();
     }
   }
 
