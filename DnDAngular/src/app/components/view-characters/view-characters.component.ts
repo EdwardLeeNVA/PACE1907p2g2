@@ -68,12 +68,18 @@ export class ViewCharactersComponent implements OnInit {
   }
 
   collapsibleCall(id: any){
-    let parent: HTMLElement = document.getElementById(id);
-    if(parent.style.display === "block"){
-      parent.style.display = "none";
-    } else {
-      parent.style.display = "block";
+    for(let x = 0; x < this.characters.length; x++){
+      let element: HTMLElement = document.getElementById(this.characters[x].id.toString());
+      if(this.characters[x].id != id){
+        element.style.display = "none";
+      } else if(element.style.display === "block"){
+        element.style.display = "none";
+      } else {
+        element.style.display = "block";
+      }
     }
+    let focus: HTMLElement = document.getElementById(id);
+    focus.focus();
   }
 
   findCharacter(id: number): Character{
