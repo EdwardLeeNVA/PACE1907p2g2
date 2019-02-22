@@ -61,12 +61,13 @@ export class CreateCharacterComponent implements OnInit {
     this.failedCharacterSave = false;
     this.http.saveCharacter(this.character).subscribe(
       data => this.verifySaveCharacter(data),
-      error => console.error("Failed to send Save Request"),
-      () => console.log("Register User call completed.")
+      error => console.error("Failed to send Save Character"),
+      () => console.log("Save Character call completed.")
     );
   }
 
   verifySaveCharacter(data: number){
+    console.log("Character ID Received: " + data);
     if(data > 0){
       this.characterSaved = true;
       this.character.id = data;
