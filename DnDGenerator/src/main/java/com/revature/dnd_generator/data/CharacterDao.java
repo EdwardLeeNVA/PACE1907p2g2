@@ -149,7 +149,6 @@ public class CharacterDao extends Dao {
 		LOGGER.info("Top of getOwnedClassCount");
 		try (Connection con = getConnection()) {
 			CallableStatement stmt = statementMethods().getOwnedClassCount(con, playerId);
-			con.close();
 			return getOwnedCountCommon(stmt, COL_PLAYER_CLASS, COL_PLAYER_CLASS_COUNT);
 		} catch (SQLException e) {
 			LOGGER.error("Could not get view.", e);
@@ -161,7 +160,6 @@ public class CharacterDao extends Dao {
 		try (Connection con = getConnection()) {
 			LOGGER.info("Top of getOwnedRaceCount");
 			CallableStatement stmt = statementMethods().getOwnedRaceCount(con, playerId);
-			con.close();
 			return getOwnedCountCommon(stmt, COL_PLAYER_RACE, COL_PLAYER_RACE_COUNT);
 		} catch (SQLException e) {
 			LOGGER.error("Could not get view.", e);
