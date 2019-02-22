@@ -79,6 +79,7 @@ public class CharacterDao extends Dao {
 					prof2, prof3, prof4, alignment);
 			statement.execute();
 			ResultSet results = (ResultSet) statement.getObject(10);
+			results.next();
 			return results.getInt(COL_CHAR_ID);
 		} catch (SQLException e) {
 			throw new CharacterCreationFailedException(e);
