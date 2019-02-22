@@ -20,3 +20,11 @@ button{
 .input-group{
   width: 75%;
 }
+
+.created-character{
+  color: blue;
+}
+
+.failed-character{
+  color: red;
+}
