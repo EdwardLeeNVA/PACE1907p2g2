@@ -55,8 +55,8 @@
 </div>
 <div class="row">
   <div class="col-md-6 offset-md-3 text-center">
-    <button class="btn btn-warning" (click)="saveCharacter()" [(ngModel)]="formClickable" name="formClickable">Save Character</button>
-    <button class="btn btn-primary" (click)="generateCharacter()" [(ngModel)]="formClickable" name="formClickable">Generate Random Character</button>
+    <button class="btn btn-warning" (click)="saveCharacter()" [disabled]="formClickable">Save Character</button>
+    <button class="btn btn-primary" (click)="generateCharacter()" [disabled]="formClickable">Generate Random Character</button>
   </div>
 </div>
 <div class="row">

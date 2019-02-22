@@ -25,8 +25,6 @@ export class ViewCharactersComponent implements OnInit {
     this.login.currentCharactersObv.subscribe(characters => this.characters = characters);
     if(!this.activeSession){
       this.router.navigate(['/']);
-    } else {
-      this.collapsibleCall(0);
     }
   }
 

@@ -31,7 +31,7 @@ export class CreateCharacterComponent implements OnInit {
     }
   }
 
-  formClickable: boolean = true;
+  formClickable: boolean = false;
 
   characterSaved: boolean = false;
   failedCharacterSave: boolean = false;
@@ -43,7 +43,7 @@ export class CreateCharacterComponent implements OnInit {
   }
 
   saveCharacter(){
-    this.formClickable = false;
+    this.formClickable = true;
     this.characterSaved = false;
     this.failedCharacterSave = false;
     this.http.saveCharacter(this.currentCharacter).subscribe(
@@ -65,6 +65,6 @@ export class CreateCharacterComponent implements OnInit {
     } else {
       this.failedCharacterSave = true;
     }
-    this.formClickable = true;
+    this.formClickable = false;
   }
 }
