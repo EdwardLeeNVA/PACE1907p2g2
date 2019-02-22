@@ -1,54 +1,54 @@
-<div class="row" *ngFor="let character of characters">
-    <div class="col-md-8 offset-md-2">
-      <button class="collapsible" (click)="collapsibleCall(character.id)">{{character.name}} a {{character.alignment}} {{character.race}} {{character.dndClass}}</button>
-      <div class="content" [id]="character.id" style="display: none;">
-        <div class="row">
-          <div class="input-group input-group-lg">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Name</span>
-            </div>
-            <input type="text" class="form-control" [value]="character.name" disabled>
+<div class="row scrollable">
+  <div class="col-md-6 offset-md-3" *ngFor="let character of characters">
+    <button class="btn-dark btn-block text-left" (click)="collapsibleCall(character.id)">{{character.name}} a {{character.alignment}} {{character.race}} {{character.dndClass}}</button>
+    <div class="content" [id]="character.id" style="display: none;">
+      <div class="row text-center justify-content-center">
+        <div class="input-group input-group-lg text-center justify-content-center">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Name</span>
           </div>
+          <input type="text" class="form-control" [value]="character.name" disabled>
         </div>
-        <div class="row">
-          <div class="input-group input-group-lg">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Class</span>
-            </div>
-            <input type="text" class="form-control" [value]="character.dndClass" disabled>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="input-group input-group-lg text-center justify-content-center">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Class</span>
           </div>
+          <input type="text" class="form-control" [value]="character.dndClass" disabled>
         </div>
-        <div class="row">
-          <div class="input-group input-group-lg">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Race</span>
-            </div>
-            <input type="text" class="form-control" [value]="character.race" disabled>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="input-group input-group-lg text-center justify-content-center">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Race</span>
           </div>
+          <input type="text" class="form-control" [value]="character.race" disabled>
         </div>
-        <div class="row">
-          <div class="input-group input-group-lg">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Alignment</span>
-            </div>
-            <input type="text" class="form-control" [value]="character.alignment" disabled>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="input-group input-group-lg text-center justify-content-center">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Alignment</span>
           </div>
+          <input type="text" class="form-control" [value]="character.alignment" disabled>
         </div>
-        <div class="row" *ngFor="let proficiency of character.proficiencies">
-            <div class="input-group input-group-lg">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Proficiency</span>
-              </div>
-              <input type="text" class="form-control" [value]="proficiency" disabled>
-            </div>
-        </div>
-        <div class="row">
-          <div class="input-group input-group-lg text-center">
-            <button class="btn btn-primary" (click)="deleteCharacter(character.id)">Delete {{character.name}}</button>
+      </div>
+      <div class="row text-center justify-content-center" *ngFor="let proficiency of character.proficiencies">
+        <div class="input-group input-group-lg text-center justify-content-center">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Proficiency</span>
           </div>
+          <input type="text" class="form-control" [value]="proficiency" disabled>
+        </div>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="input-group input-group-lg text-center justify-content-center">
+          <button class="btn btn-danger btn-block reduceSize" (click)="deleteCharacter(character.id)">Delete {{character.name}}</button>
         </div>
       </div>
     </div>
+  </div>
 </div>
 <div class="row">
   <div class="col-md-8 offset-md-2 text-center">

@@ -6,3 +6,25 @@ span{
 input[type="text"]{
   background-color: transparent;
 }
+
+button{
+  font-size: 24px;
+  font-family: Arial;
+}
+
+.scrollable{
+  height: 550px;
+  overflow-y: scroll;
+}
+
+.input-group{
+  width: 75%;
+}
+
+.created-character{
+  color: blue;
+}
+
+.failed-character{
+  color: red;
+}

@@ -61,14 +61,16 @@ export class CreateCharacterComponent implements OnInit {
     this.failedCharacterSave = false;
     this.http.saveCharacter(this.character).subscribe(
       data => this.verifySaveCharacter(data),
-      error => console.error("Failed to send Save Request"),
-      () => console.log("Register User call completed.")
+      error => console.error("Failed to send Save Character"),
+      () => console.log("Save Character call completed.")
     );
   }
 
-  verifySaveCharacter(data: Character){
-    if(data.id >= 0){
+  verifySaveCharacter(data: number){
+    console.log("Character ID Received: " + data);
+    if(data > 0){
       this.characterSaved = true;
+      this.character.id = data;
     } else {
       this.failedCharacterSave = true;
     }
@@ -121,21 +123,6 @@ export class CreateCharacterComponent implements OnInit {
       if(addToArray) returnArray.push(potentialValue);
     }
     return returnArray;
-  }
-
-
-  getRandomName(){
-    const getRandomName = new XMLHttpRequest();
-    getRandomName.onreadystatechange = () => {
-      if((getRandomName.readyState == 4) && (getRandomName.status == 200)){
-        const resp = JSON.parse(getRandomName.responseText);
-        let name: string = resp.results[0].name.first;
-        name = name.substring(0,1).toUpperCase() + name.substring(1);
-        this.character.name = name;
-      }
-    };
-    getRandomName.open("get", this.servName);
-    getRandomName.send();
   }
 
   getRace(){

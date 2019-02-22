@@ -26,6 +26,11 @@ export class CharacterDataComponent implements OnInit {
   public showGlobalClass: boolean = false;
   public showGlobalRace: boolean = false;
 
+  public chartStyleOptions: any = {
+    height: 300,
+    width: 525
+  };
+
   ngOnInit() {
     this.login.currentLoginStatus.subscribe(status => this.activeSession = status);
     this.login.currentLoginUser.subscribe(user => this.currentUser = user);
