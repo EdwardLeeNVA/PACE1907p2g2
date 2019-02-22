@@ -86,19 +86,15 @@ public class CharacterDao extends Dao {
 	}
 
 	public List<DndCharacter> selectOwnedCharacters(int playerId) {
-		ArrayList<DndCharacter> characterList = new ArrayList<>();
 		try (Connection con = getConnection()) {
 			CallableStatement statement = statementMethods().selectOwnedCharacters(con, playerId);
 			statement.execute();
 			ResultSet results = (ResultSet) statement.getObject(2);
-			while (results.next()) {
-				DndCharacter nextCharacter = selectCharacterCommon(results);
-				characterList.add(nextCharacter);
-			}
+			return createCharactersFromResultSet(results);
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
-		return characterList;
+		return new ArrayList<>();
 	}
 
 	public DndCharacter selectCharacter(int id) {
@@ -109,7 +105,7 @@ public class CharacterDao extends Dao {
 			if (!results.next()) {
 				return null;
 			}
-			return selectCharacterCommon(results);
+			return createCharacterFromResult(results);
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
@@ -156,18 +152,27 @@ public class CharacterDao extends Dao {
 		}
 		return new HashMap<String, Integer>(0);
 	}
+	
+	private List<DndCharacter> createCharactersFromResultSet(ResultSet results) throws SQLException {
+		ArrayList<DndCharacter> characters = new ArrayList<>();
+		while (results.next()) {
+			DndCharacter newCharacter = createCharacterFromResult(results);
+			characters.add(newCharacter);
+		}
+		return characters;
+	}
 
-	private DndCharacter selectCharacterCommon(ResultSet results) throws SQLException {
-		int id = results.getInt(COL_CHAR_ID);
-		int playerId = results.getInt(COL_PLR_ID);
-		String name = results.getString(COL_CHAR_NAME);
-		String race = results.getString(COL_CHAR_RACE);
-		String characterClass = results.getString(COL_CHAR_CLASS);
-		String alignment = results.getString(COL_CHAR_ALN);
-		String prof1 = results.getString(COL_CHAR_PROF1);
-		String prof2 = results.getString(COL_CHAR_PROF2);
-		String prof3 = results.getString(COL_CHAR_PROF3);
-		String prof4 = results.getString(COL_CHAR_PROF4);
+	private DndCharacter createCharacterFromResult(ResultSet result) throws SQLException {
+		int id = result.getInt(COL_CHAR_ID);
+		int playerId = result.getInt(COL_PLR_ID);
+		String name = result.getString(COL_CHAR_NAME);
+		String race = result.getString(COL_CHAR_RACE);
+		String characterClass = result.getString(COL_CHAR_CLASS);
+		String alignment = result.getString(COL_CHAR_ALN);
+		String prof1 = result.getString(COL_CHAR_PROF1);
+		String prof2 = result.getString(COL_CHAR_PROF2);
+		String prof3 = result.getString(COL_CHAR_PROF3);
+		String prof4 = result.getString(COL_CHAR_PROF4);
 		return DndCharacterFactory.create(id, playerId, name, race, characterClass, alignment, prof1, prof2, prof3, prof4);
 	}
 	
