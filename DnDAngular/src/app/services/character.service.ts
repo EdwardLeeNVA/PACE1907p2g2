@@ -60,9 +60,6 @@ export class CharacterService {
   }
 
   loadCharacterQueue(){
-    while(this.characterRaceQueue.length < 1 || this.characterNameQueue.length < 1){
-      console.log("Waiting on Race or Name queue.");
-    }
     this.http.getClass().subscribe(
       resp => this.loadClassDetails(resp),
       error => console.log("Failed to retrieve Class."),

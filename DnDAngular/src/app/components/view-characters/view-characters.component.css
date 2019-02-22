@@ -13,7 +13,7 @@ button{
 }
 
 .scrollable{
-  height: 550px;
+  height: 70%;
   overflow-y: scroll;
 }
 
