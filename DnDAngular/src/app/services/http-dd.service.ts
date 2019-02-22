@@ -41,9 +41,9 @@ export class HttpDdService {
     return this.http.post<number>(saveCharacterPath, character, this.httpJSON);
   }
 
-  fetchClass(): Observable<string>{
+  fetchClass(): Observable<any>{
     const fetchClassPath: string = this.dbURL + 'Classes';
-    return this.http.get<string>(fetchClassPath);
+    return this.http.get<any>(fetchClassPath);
   }
 
   getClassInfo(dndClass: string): Observable<any>{
