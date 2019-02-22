@@ -20,8 +20,8 @@ export class CharacterService {
   public characterNameQueue: string[] = [];
   public characterClassQueue: string[] = [];
 
-  readonly QUEUE_SIZE: number = 8;
-  readonly MINIMUM_SIZE: number = 2;
+  readonly QUEUE_SIZE: number = 4;
+  readonly MINIMUM_SIZE: number = 1;
 
   alignments: string[] = ['Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'True Neutral', 'Chaotic Neutral', 'Lawful Evil', 'Neutral Evil', 'Chaotic Evil'];
 
@@ -212,6 +212,7 @@ export class CharacterService {
   }
 
   formatCharacters(characters: Character[]){
+    console.log("Response of get all characters: " + characters);
     for(let x = 0; x < characters.length; x++){
       characters[x].proficiencies = this.removeEmptyProciencies(characters[x].proficiencies);
     }

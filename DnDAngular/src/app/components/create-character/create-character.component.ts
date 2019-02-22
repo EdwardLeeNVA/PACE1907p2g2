@@ -23,7 +23,7 @@ export class CreateCharacterComponent implements OnInit {
   ngOnInit() {
     this.login.currentLoginStatus.subscribe(status => this.activeSession = status);
     this.login.currentLoginUser.subscribe(user => this.currentUser = user);
-    this.login.currentCharacterObv.subscribe(character => this.currentCharacter);
+    this.login.currentCharacterObv.subscribe(character => this.currentCharacter = character);
     if(!this.activeSession){
       this.router.navigate(['/']);
     } else {
@@ -36,12 +36,6 @@ export class CreateCharacterComponent implements OnInit {
   characterSaved: boolean = false;
   failedCharacterSave: boolean = false;
   attemptingCharacterSave: boolean = false;
-
-  alignments: string[] = ['Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'True Neutral', 'Chaotic Neutral', 'Lawful Evil', 'Neutral Evil', 'Chaotic Evil'];
-
-  public raceURL: string = "/DnDGenerator/Generator/Races";
-  public classURL: string = "/DnDGenerator/Generator/Classes";
-  public servName: string = "/DnDGenerator/Generator/Name";
 
   generateCharacter(){
     this.login.getNextCharacter();
