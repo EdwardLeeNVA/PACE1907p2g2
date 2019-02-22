@@ -31,7 +31,10 @@ export class CharacterService {
 
   loadNameQueue(){
     while(this.characterNameQueue.length < this.QUEUE_SIZE){
-      this.characterNameQueue.push(this.generateRandomName());
+      let potentialName: string = this.generateRandomName();
+      if(this.characterNameQueue.indexOf(potentialName) < 0){
+        this.characterNameQueue.push(this.generateRandomName());
+      }
     }
     this.loadRaceQueue();
   }

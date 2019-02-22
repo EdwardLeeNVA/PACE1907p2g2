@@ -26,6 +26,9 @@ export class ViewCharactersComponent implements OnInit {
     if(!this.activeSession){
       this.router.navigate(['/']);
     }
+    for(let x = 0; x < this.characters.length; x++){
+      console.log("Character " + this.characters[x].name + ", a " + this.characters[x].alignment + " " + this.characters[x].dndClass + " " + this.characters[x].race);
+    }
   }
 
   characterDelete: Character = null;
