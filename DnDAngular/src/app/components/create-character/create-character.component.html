@@ -1,3 +1,67 @@
-<p>
-  create-character works!
-</p>
+<div class="row">
+  <div class="col-md-4 offset-md-4 text-center">
+    <p class="h4">{{character.name}}, {{character.dndClass}} {{character.race}}</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <div class="input-group input-group-lg">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Name</span>
+      </div>
+      <input type="text" class="form-control" required [(ngModel)]="character.name" name="name">
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <div class="input-group input-group-lg">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Class</span>
+      </div>
+      <input type="text" class="form-control" [value]="character.dndClass" disabled>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <div class="input-group input-group-lg">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Race</span>
+      </div>
+      <input type="text" class="form-control" [value]="character.race" disabled>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <div class="input-group input-group-lg">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Alignment</span>
+      </div>
+      <input type="text" class="form-control" [value]="character.alignment" disabled>
+    </div>
+  </div>
+</div>
+<div class="row" *ngFor="let proficiency of character.proficiencies">
+  <div class="col-md-8 offset-md-2">
+    <div class="input-group input-group-lg">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Proficiency</span>
+      </div>
+      <input type="text" class="form-control" [value]="proficiency" disabled>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 offset-md-2 text-center">
+    <button class="btn btn-warning" (click)="saveCharacter()">Save Character</button>
+    <button class="btn btn-primary" (click)="generateCharacter()">Generate Random Character</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 offset-md-2 text-center">
+    <p class="created-character" *ngIf="characterSaved">Character Saved Successfully.</p>
+    <p class="failed-character" *ngIf="failedCharacterSave">Failed to save Character.</p>
+  </div>
+</div>

@@ -1,17 +1,17 @@
-<div class="row justify-content-md-center" id="navbar">
+<div class="row justify-content-md-center" id="navbar" *ngIf="activeSession">
   <div class="col-lg">
     <ul class="nav nav-fill">
       <li class="nav-item">
-        <a class="nav-link text-dark" [routerLink]="['']" id="createCharacters">Create Character</a>
+        <a class="nav-link" [routerLink]="['/create-character']" id="createCharacters" routerLinkActive="active-link" >Create Character</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-dark" [routerLink]="['']" id="characters">Characters</a>
+        <a class="nav-link" [routerLink]="['/view-characters']" id="characters" routerLinkActive="active-link">My Saved Characters</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-dark" [routerLink]="['']" id="profile">Profile</a>
+        <a class="nav-link" [routerLink]="['/character-data']" id="profile" routerLinkActive="active-link">Character Statistics</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-dark" [routerLink]="['']" id="logout">Logout</a>
+        <a class="nav-link" [routerLink]="['/landing-page']" id="logout" routerLinkActive="active-link" (click)="logout()">Logout</a>
       </li>
     </ul>
   </div>

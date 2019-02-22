@@ -1,0 +1,16 @@
+span{
+  float: left;
+  width: 120px;
+}
+
+input[type="text"]{
+  background-color: transparent;
+}
+
+.created-character{
+  color: blue;
+}
+
+.failed-character{
+  color: red;
+}

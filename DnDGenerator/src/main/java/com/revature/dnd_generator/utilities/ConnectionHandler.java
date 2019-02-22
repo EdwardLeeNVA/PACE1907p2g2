@@ -1,57 +1,42 @@
 package com.revature.dnd_generator.utilities;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-public class ConnectionHandler implements AutoCloseable {
+public class ConnectionHandler {
 	
-	private static final String USERNAME_LOCATION = "ConnectionUsername";
-	private static final String PASSWORD_LOCATION = "ConnectionPassword";
-	private static final String URL_LOCATION = "ConnectionURL";
-	private static ConnectionHandler instance = new ConnectionHandler();
-	final static Logger log = LogManager.getLogger(ConnectionHandler.class);
+	private static ConnectionHandler instance = null;
 
 	public static ConnectionHandler getInstance() {
+		if (instance == null) {
+			instance = new ConnectionHandler();
+		}
 		return instance;
 	}
 	
-	private static Connection connection;
+	private DataSource dataSource = null;
 	
-	@Override
-	public void close() throws Exception {
-		if (connection != null) {
-			connection.close();
-		}
-	}
-	
-	public synchronized Connection getConnection() {
+	public Connection getConnection() {
 		try {
-			if ((connection == null) || connection.isClosed()) {
-				connection = initConnection();
-			}
-			return connection;
-		} catch (SQLException | IOException e) {
+			DataSource ds = getDataSource();
+			return ds.getConnection();
+		} catch(NamingException | SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
-	private static Connection initConnection() throws SQLException, IOException {
-		String connectionUsername;
-        String connectionPassword;
-        String url;
-		connectionUsername = System.getenv(USERNAME_LOCATION);
-	    connectionPassword = System.getenv(PASSWORD_LOCATION);
-	    url = System.getenv(URL_LOCATION);
-        log.info("ConnectionHandler: URL: " + url+", USERNAME: " + connectionUsername + ", PASSWORD: " +connectionPassword);	    
-		DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
-		return DriverManager.getConnection(url, connectionUsername, connectionPassword);
+	private DataSource getDataSource() throws NamingException {
+		if (dataSource == null) {
+			Context initContext = new InitialContext();
+			Context envContext  = (Context)initContext.lookup("java:/comp/env");
+			dataSource = (DataSource) envContext.lookup("jdbc/myoracle");
+		}
+		return dataSource;
 	}
 	
 	private ConnectionHandler() { }

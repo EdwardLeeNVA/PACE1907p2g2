@@ -1,19 +1,37 @@
-<div class="container">
-  <h4>Login</h4>
-  <form>
-    <div class="form-group">
-      <!--<label for="username">Username</label>-->
-      <input type="text" class="form-control" required [(ngModel)]="user.username" name="username">
+<div class="row">
+  <div class="col-md-4 offset-md-4 text-center">
+    <p class="h2">DnD Character Creator</p>
+    <p class="h5">Login or register to access character creator.</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 offset-md-4 text-center">
+    <p class="h6" *ngIf="feedback">{{feedbackText}}</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <div class="input-group input-group-lg">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="username-label">Username</span>
+      </div>
+      <input type="text" class="form-control" required [(ngModel)]="user.username" name="username" placeholder="Enter username...">
     </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <div class="input-group input-group-lg">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Password</span>
+      </div>
+      <input type="password" class="form-control" required [(ngModel)]="user.password" name="password" placeholder="Enter password...">
     </div>
-    <button type="submit" class="btn btn-success" (click)="submitLogin()">Login</button>
-    <p>Login Response Status {{ loginStatus }}</p>
-    <div *ngIf="loginStatus">
-      <p>Logged in.</p>
-    </div>
-  </form>
-    <p>{{ user | json }}</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 offset-md-4 text-center">
+    <button type="submit" class="btn btn-primary" (click)="registerUser()">Register new Account</button>
+    <button type="submit" class="btn btn-success" (click)="submitLogin()">Click here to Login</button>
+  </div>
 </div>

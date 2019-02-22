@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../../models/user';
-import { LoginService } from '../../services/login-service.service';
+import { AppService } from '../../services/app-service.service';
 
 @Component({
   selector: 'navbar',
@@ -11,7 +11,7 @@ import { LoginService } from '../../services/login-service.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private login: LoginService) { }
+  constructor(private login: AppService) { }
 
   public activeSession: boolean;
   public currentUser: User;
@@ -21,4 +21,8 @@ export class NavbarComponent implements OnInit {
     this.login.currentLoginUser.subscribe(user => this.currentUser = user);
   }
 
+  logout(){
+    this.login.updateCurrentUser(null);
+    this.login.updateLoginStatus(false);
+  }
 }

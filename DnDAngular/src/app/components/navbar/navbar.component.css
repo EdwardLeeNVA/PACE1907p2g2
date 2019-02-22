@@ -1,0 +1,11 @@
+a{
+  font-family: Arial;
+  font-size: 20px;
+  background-color: lightgray;
+  color: black;
+}
+
+.active-link{
+  background-color: red;
+  color: white;
+}
