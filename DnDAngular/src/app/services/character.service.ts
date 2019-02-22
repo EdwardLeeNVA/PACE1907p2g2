@@ -110,7 +110,7 @@ export class CharacterService {
     this.characterQueue.push(newCharacter);
     console.log("Added character " + newCharacter.name + ", a " + newCharacter.alignment + " " + newCharacter.dndClass + " " + newCharacter.race);
     if(this.characterClassQueue.length <= this.MINIMUM_SIZE || this.characterRaceQueue.length <= this.MINIMUM_SIZE ||
-    this.characterNameQueue.length <= this.MINIMUM_SIZE || this.characterQueue.length <= this.MINIMUM_SIZE){
+    this.characterNameQueue.length <= this.MINIMUM_SIZE || this.characterQueue.length <= this.QUEUE_SIZE){
       this.loadNameQueue()
     }
   }
