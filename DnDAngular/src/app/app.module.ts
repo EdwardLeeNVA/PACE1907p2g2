@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { GoogleChartsModule } from "angular-google-charts";
 
 
 import { AppComponent } from './app.component';
@@ -32,7 +33,8 @@ import { CharacterDataComponent } from './components/character-data/character-da
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(AppRoutes)
+    RouterModule.forRoot(AppRoutes),
+    GoogleChartsModule.forRoot()
   ],
   providers: [
     HttpDdService,

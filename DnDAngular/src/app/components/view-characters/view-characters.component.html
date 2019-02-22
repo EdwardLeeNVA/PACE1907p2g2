@@ -1,6 +1,6 @@
 <div class="row" *ngFor="let character of characters">
-    <div class="col-md-8 offset-md-2">
-      <button class="collapsible" (click)="collapsibleCall(character.id)">{{character.name}} a {{character.alignment}} {{character.race}} {{character.dndClass}}</button>
+    <div class="col-md-4 offset-md-4">
+      <button class="btn-primary" (click)="collapsibleCall(character.id)">{{character.name}} a {{character.alignment}} {{character.race}} {{character.dndClass}}</button>
       <div class="content" [id]="character.id" style="display: none;">
         <div class="row">
           <div class="input-group input-group-lg">

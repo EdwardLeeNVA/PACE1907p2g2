@@ -16,11 +16,20 @@ export class CharacterDataComponent implements OnInit {
   public activeSession: boolean;
   public currentUser: User;
 
-  public ownedCharacter: any = {};
-  public ownedRace: any = {};
+  public ownedClass: any = [];
+  public ownedRace: any = [];
+  public globalClass: any = [];
+  public globalRace: any = [];
 
-  public globalCharacter: any = {};
-  public globalRace: any = {};
+  public showOwnedClass: boolean = false;
+  public showOwnedRace: boolean = false;
+  public showGlobalClass: boolean = false;
+  public showGlobalRace: boolean = false;
+
+  public chartStyleOptions: any = {
+    height: 400,
+    width: 400
+  };
 
   ngOnInit() {
     this.login.currentLoginStatus.subscribe(status => this.activeSession = status);
@@ -28,35 +37,61 @@ export class CharacterDataComponent implements OnInit {
     if(!this.activeSession){
       this.router.navigate(['/']);
     }
-    this.testCalls();
+    this.getData();
   }
 
-  testCalls(){
+  getData(){
     this.http.getOwnedClasses(this.currentUser).subscribe(
-      value => console.log(value),
+      data => this.ownedClasses(data),
       error => console.log("Failed to get all Owned Classes"),
       () => console.log("Get Owned Classes completed.")
     );
 
     this.http.getOwnedRaces(this.currentUser).subscribe(
-      value => console.log(value),
+      data => this.ownedRaces(data),
       error => console.log("Failed to get all Owned Races"),
       () => console.log("Get Owned Races completed.")
     );
 
     this.http.getGlobalClasses().subscribe(
-      value => console.log(value),
+      data => this.globalClasses(data),
       error => console.log("Failed to get all Classes"),
       () => console.log("Get all Classes completed.")
     );
 
     this.http.getGlobalRaces().subscribe(
-      value => console.log(value),
+      data => this.globalRaces(data),
       error => console.log("Failed to get all Races"),
       () => console.log("Get all Races completed.")
     );
   }
 
+  ownedClasses(data: any){
+    this.ownedClass = this.alterResultsForChart(data);
 
+  }
 
+  ownedRaces(data: any){
+    this.ownedRace = this.alterResultsForChart(data);
+  }
+
+  globalClasses(data: any){
+    this.globalClass = this.alterResultsForChart(data);
+  }
+
+  globalRaces(data: any){
+    this.globalRace = this.alterResultsForChart(data);
+  }
+
+  alterResultsForChart(data: any){
+    let returnData: any = [];
+    let keys: string[] = [];
+    let values: number[] = [];
+    keys = Object.keys(data);
+    values = Object.values(data);
+    for(let x = 0; x < keys.length; x++){
+      returnData.push([keys[x], values[x]]);
+    }
+    return returnData;
+  }
 }

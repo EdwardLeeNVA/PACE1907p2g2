@@ -20,14 +20,13 @@ export class AppService {
   private currentUser = new BehaviorSubject(null);
   public currentLoginUser = this.currentUser.asObservable();
 
-  private characterQueue = new BehaviorSubject(null);
-  public characterQueueList = this.characterQueue.asObservable();
-
-  private namesQueue = new BehaviorSubject(null);
-  public namesQueueList = this.namesQueue.asObservable();
-
   private currentCharacter = new BehaviorSubject(null);
   public currentCharacterObv = this.currentCharacter.asObservable();
+
+  public characterQueue: Character[] = [];
+  public characterClassQueue: string[] = [];
+  public characterNameQueue: string[] = [];
+
 
   constructor() { }
 
@@ -39,12 +38,16 @@ export class AppService {
     this.currentUser.next(updateUser);
   }
 
+  initializeCache(){
+
+  }
+
   loadCharacterQueue(){
 
   }
 
-  getCharacter(): Character{
-    return null;
+  getNextCharacter(){
+
   }
 
   loadNameQueue(){
@@ -56,7 +59,6 @@ export class AppService {
   }
 
   updateCurrentCharacter(character: Character){
-    this.currentCharacter.next(character);
   }
 }
 
