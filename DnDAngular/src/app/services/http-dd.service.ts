@@ -36,9 +36,9 @@ export class HttpDdService {
     return this.http.post<boolean>(registerPath, register, this.httpJSON);
   }
 
-  saveCharacter(character: Character): Observable<Character>{
+  saveCharacter(character: Character): Observable<number>{
     const saveCharacterPath: string = this.dbURL + 'Save';
-    return this.http.post<Character>(saveCharacterPath, character, this.httpJSON);
+    return this.http.post<number>(saveCharacterPath, character, this.httpJSON);
   }
 
   fetchClass(): Observable<string>{
