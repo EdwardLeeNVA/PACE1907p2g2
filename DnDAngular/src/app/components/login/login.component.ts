@@ -87,6 +87,9 @@ export class LoginComponent implements OnInit {
 
   registerUser(){
     this.currentUser = null;
+    if(this.user.username == '' || this.user.password == ''){
+      this.failedRegister();
+    }
     this.http.registerUser(this.user).subscribe(
       bool => this.verifyRegister(bool),
       error => this.failedRegister(),
