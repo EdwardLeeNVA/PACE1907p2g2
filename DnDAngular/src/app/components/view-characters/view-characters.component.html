@@ -44,7 +44,7 @@
       </div>
       <div class="row text-center justify-content-center">
         <div class="input-group input-group-lg text-center justify-content-center">
-          <button class="btn btn-danger btn-block reduceSize">Delete {{character.name}}</button>
+          <button class="btn btn-danger btn-block reduceSize" (click)="deleteCharacter(character.id)">Delete {{character.name}}</button>
         </div>
       </div>
     </div>
