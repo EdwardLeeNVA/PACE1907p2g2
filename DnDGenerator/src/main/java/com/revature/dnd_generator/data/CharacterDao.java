@@ -78,8 +78,11 @@ public class CharacterDao extends Dao {
 			CallableStatement statement = statementMethods().insertCharacter(con, playerId, name, race, dndClass, prof1,
 					prof2, prof3, prof4, alignment);
 			statement.execute();
-			ResultSet results = (ResultSet) statement.getObject(10);
-			return results.getInt(COL_CHAR_ID);
+			int id;
+			try (ResultSet results = (ResultSet) statement.getObject(10)) {
+				id = results.getInt(COL_CHAR_ID);
+			}
+			return id;
 		} catch (SQLException e) {
 			throw new CharacterCreationFailedException(e);
 		}
@@ -89,8 +92,11 @@ public class CharacterDao extends Dao {
 		try (Connection con = getConnection()) {
 			CallableStatement statement = statementMethods().selectOwnedCharacters(con, playerId);
 			statement.execute();
-			ResultSet results = (ResultSet) statement.getObject(2);
-			return createCharactersFromResultSet(results);
+			List<DndCharacter> characters;
+			try (ResultSet results = (ResultSet) statement.getObject(2)) {
+				characters = createCharactersFromResultSet(results);
+			}
+			return characters;
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
@@ -101,11 +107,14 @@ public class CharacterDao extends Dao {
 		try (Connection c = getConnection()) {
 			CallableStatement statement = statementMethods().selectCharacter(c, id);
 			statement.execute();
-			ResultSet results = (ResultSet) statement.getObject(2);
-			if (!results.next()) {
-				return null;
+			DndCharacter character;
+			try (ResultSet results = (ResultSet) statement.getObject(2)) {
+				if (!results.next()) {
+					return null;
+				}
+				character = createCharacterFromResult(results);
 			}
-			return createCharacterFromResult(results);
+			return character;
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
@@ -190,8 +199,9 @@ public class CharacterDao extends Dao {
 		Map<String, Integer> countMap = null;
 		try (Connection c = getConnection()) {
 			Statement statement = c.createStatement();
-			ResultSet results = statement.executeQuery(query);
-			countMap = resultSetToCountMap(keyColumn, valueColumn, results);
+			try (ResultSet results = statement.executeQuery(query)) {
+				countMap = resultSetToCountMap(keyColumn, valueColumn, results);
+			}
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
 			countMap = new HashMap<String, Integer>(0);
@@ -202,12 +212,13 @@ public class CharacterDao extends Dao {
 	public Map<String, Integer> getOwnedCountCommon(CallableStatement statement, String keyColumn, String valueColumn) throws SQLException {
 		LOGGER.info("TOP of getOwnedCountCommon");
 		statement.execute();
-		ResultSet results = (ResultSet) statement.getObject(1);
-		ResultSetMetaData rsmd = results.getMetaData();
-		keyColumn = rsmd.getColumnLabel(1);
-		valueColumn = rsmd.getColumnLabel(2);
-		LOGGER.info("keyColumn: " + keyColumn + "\nvalueColumn: " + valueColumn);
-		return resultSetToCountMap(keyColumn, valueColumn, results);
+		try (ResultSet results = (ResultSet) statement.getObject(1)) {
+			ResultSetMetaData rsmd = results.getMetaData();
+			keyColumn = rsmd.getColumnLabel(1);
+			valueColumn = rsmd.getColumnLabel(2);
+			LOGGER.info("keyColumn: " + keyColumn + "\nvalueColumn: " + valueColumn);
+			return resultSetToCountMap(keyColumn, valueColumn, results);
+		}
 	}
 
 	private CharacterDaoStatements statementMethods() {
