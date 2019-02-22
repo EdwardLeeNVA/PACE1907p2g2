@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -17,8 +18,6 @@ import com.revature.dnd_generator.exceptions.CharacterCreationFailedException;
 import com.revature.dnd_generator.exceptions.CharacterDeletionFailedException;
 import com.revature.dnd_generator.model.DndCharacter;
 import com.revature.dnd_generator.model.DndCharacterFactory;
-
-import oracle.jdbc.OracleTypes;
 
 public class CharacterDao extends Dao {
 
@@ -38,10 +37,12 @@ public class CharacterDao extends Dao {
 	private static final String COL_CHAR_BIO = "BIO";
 	private static final String COL_CLASS_COUNT = "CLASS_COUNT";
 	private static final String COL_RACE_COUNT = "RACE_COUNT";
-	private static final String COL_CLASS_COUNT_OWNED = "COUNT(CLASS)";
-	private static final String COL_RACE_COUNT_OWNED = "COUNT(RACE)";
-
-	public void insertCharacter(DndCharacter character) throws CharacterCreationFailedException {
+	private static final String COL_PLAYER_CLASS_COUNT = "COUNT(CLASS)";
+	private static final String COL_PLAYER_CLASS = "CLASS";	
+	private static final String COL_PLAYER_RACE_COUNT = "COUNT(RACE)";
+	private static final String COL_PLAYER_RACE = "RACE";
+	
+	public int insertCharacter(DndCharacter character) throws CharacterCreationFailedException {
 		try (Connection con = getConnection()) {
 			int playerId = character.getPlayerId();
 			String name = character.getName();
@@ -77,6 +78,8 @@ public class CharacterDao extends Dao {
 			CallableStatement statement = statementMethods().insertCharacter(con, playerId, name, race, dndClass, prof1,
 					prof2, prof3, prof4, alignment);
 			statement.execute();
+			ResultSet results = (ResultSet) statement.getObject(10);
+			return results.getInt(COL_CHAR_ID);
 		} catch (SQLException e) {
 			throw new CharacterCreationFailedException(e);
 		}
@@ -133,9 +136,10 @@ public class CharacterDao extends Dao {
 	}
 	
 	public Map<String, Integer> getOwnedClassCount(int playerId) {
+		LOGGER.info("Top of getOwnedClassCount");
 		try (Connection con = getConnection()) {
 			CallableStatement stmt = statementMethods().getOwnedClassCount(con, playerId);
-			return getOwnedCountCommon(stmt, COL_CHAR_CLASS, COL_CLASS_COUNT_OWNED);
+			return getOwnedCountCommon(stmt, COL_PLAYER_CLASS, COL_PLAYER_CLASS_COUNT);
 		} catch (SQLException e) {
 			LOGGER.error("Could not get view.", e);
 		}
@@ -144,8 +148,9 @@ public class CharacterDao extends Dao {
 	
 	public Map<String, Integer> getOwnedRaceCount(int playerId) throws SQLException {
 		try (Connection con = getConnection()) {
+			LOGGER.info("Top of getOwnedRaceCount");
 			CallableStatement stmt = statementMethods().getOwnedRaceCount(con, playerId);
-			return getOwnedCountCommon(stmt, COL_CHAR_RACE, COL_RACE_COUNT_OWNED);
+			return getOwnedCountCommon(stmt, COL_PLAYER_RACE, COL_PLAYER_RACE_COUNT);
 		} catch (SQLException e) {
 			LOGGER.error("Could not get view.", e);
 		}
@@ -190,9 +195,14 @@ public class CharacterDao extends Dao {
 	}
 	
 	public Map<String, Integer> getOwnedCountCommon(CallableStatement statement, String keyColumn, String valueColumn) throws SQLException {
+		LOGGER.info("TOP of getOwnedCountCommon");
 		statement.execute();
 		ResultSet results = (ResultSet) statement.getObject(1);
-		return resultSetToCountMap(COL_CHAR_CLASS, COL_CLASS_COUNT, results);
+		ResultSetMetaData rsmd = results.getMetaData();
+		keyColumn = rsmd.getColumnLabel(1);
+		valueColumn = rsmd.getColumnLabel(2);
+		LOGGER.info("keyColumn: " + keyColumn + "\nvalueColumn: " + valueColumn);
+		return resultSetToCountMap(keyColumn, valueColumn, results);
 	}
 
 	private CharacterDaoStatements statementMethods() {
