@@ -28,7 +28,7 @@ public class SaveDelegate implements BaseDelegate{
                 input = mapper.readValue(req.getReader(), DndCharacter.class);
                 LOGGER.info("Save service inputted object: "+input);
                 input.setPlayerId((int)req.getSession().getAttribute("playerID"));
-                boolean success = cService.saveDndCharacter(input);
+                int success = cService.saveDndCharacter(input);
                 res.setContentType("application/json");
                 res.getWriter().write(mapper.writeValueAsString(success));
 			} catch (JsonParseException e){

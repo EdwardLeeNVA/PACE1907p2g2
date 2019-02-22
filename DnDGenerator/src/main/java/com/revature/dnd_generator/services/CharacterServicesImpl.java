@@ -13,14 +13,13 @@ public class CharacterServicesImpl implements CharacterServices {
 	private static final Logger LOGGER = Logger.getLogger(CharacterServicesImpl.class);
 	
 	@Override
-	public boolean saveDndCharacter(DndCharacter d) {
+	public int saveDndCharacter(DndCharacter d) {
 		try {
-			CharacterDao.getInstance().insertCharacter(d);
-			return true;
+			return CharacterDao.getInstance().insertCharacter(d);
 		} catch (CharacterCreationFailedException e) {
 			LOGGER.error("Character creation failed.", e);
+			return 0;
 		}
-		return false;
 	}
 
 	@Override
