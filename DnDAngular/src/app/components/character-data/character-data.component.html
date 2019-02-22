@@ -1,40 +1,36 @@
 <div class="row">
   <div class="col-md-8 offset-md-2 text-center">
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="View My Classes" [(ngModel)]="showOwnedClass" name="showOwnedClass">
+      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="View My Classes Chart" [(ngModel)]="showOwnedClass" name="showOwnedClass">
       <label class="form-check-label" for="inlineCheckbox1">View My Classes</label>
     </div>
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="View My Races" [(ngModel)]="showOwnedRace" name="showOwnedRace">
+      <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="View My Races Chart" [(ngModel)]="showOwnedRace" name="showOwnedRace">
       <label class="form-check-label" for="inlineCheckbox2">View My Races</label>
     </div>
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="View All Classes" [(ngModel)]="showGlobalClass" name="showGlobalClass">
+      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="View All Users' Classes" [(ngModel)]="showGlobalClass" name="showGlobalClass">
       <label class="form-check-label" for="inlineCheckbox3">View All Classes</label>
     </div>
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="View All Races" [(ngModel)]="showGlobalRace" name="showGlobalRace">
+      <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="View All Users' Races" [(ngModel)]="showGlobalRace" name="showGlobalRace">
       <label class="form-check-label" for="inlineCheckbox4">View All Races</label>
     </div>
   </div>
 </div>
 <div class="row">
-  <div class="col-md-8 offset-md-2 text-center">
-    <google-chart type="PieChart" [data]="ownedClass" *ngIf="showOwnedClass" title="My Character Classes"></google-chart>
+  <div class="col-md-4 offset-md-1 text-center">
+    <google-chart type="PieChart" [data]="ownedClass" *ngIf="showOwnedClass" title="My Character Classes" [options]="chartStyleOptions"></google-chart>
+  </div>
+  <div class="col-md-4 offset-md-1 text-center">
+    <google-chart type="PieChart" [data]="ownedRace" *ngIf="showOwnedRace" title="My Character Races" [options]="chartStyleOptions"></google-chart>
   </div>
 </div>
 <div class="row">
-  <div class="col-md-8 offset-md-2 text-center">
-    <google-chart type="PieChart" [data]="ownedRace" *ngIf="showOwnedRace" title="My Character Races"></google-chart>
+  <div class="col-md-4 offset-md-1 text-center">
+    <google-chart type="PieChart" [data]="globalClass" *ngIf="showGlobalClass" title="All Character Classes" [options]="chartStyleOptions"></google-chart>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-8 offset-md-2 text-center">
-    <google-chart type="PieChart" [data]="globalClass" *ngIf="showGlobalClass" title="All Character Classes"></google-chart>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-8 offset-md-2 text-center">
-    <google-chart type="PieChart" [data]="globalRace" *ngIf="showGlobalRace" title="All Character Races"></google-chart>
+  <div class="col-md-4 offset-md-1 text-center">
+    <google-chart type="PieChart" [data]="globalRace" *ngIf="showGlobalRace" title="All Character Races" [options]="chartStyleOptions"></google-chart>
   </div>
 </div>
