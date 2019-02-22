@@ -48,7 +48,7 @@ export class HttpDdService {
   }
 
   getRace(): Observable<any>{
-    const fetchRacePath: string = this.dbURL + 'Race';
+    const fetchRacePath: string = this.dbURL + 'Races';
     return this.http.get<any>(fetchRacePath);
   }
   getClassInfo(dndClass: string): Observable<any>{
