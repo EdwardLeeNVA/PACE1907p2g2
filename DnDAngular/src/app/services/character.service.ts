@@ -52,6 +52,7 @@ export class CharacterService {
   }
 
   addRaceToQueue(resp: any){
+    console.log("Race Resp: "+ resp);
     this.characterRaceQueue.push(resp.results[Math.floor(Math.random() * resp.results.length)].name);
     if(this.characterRaceQueue.length < this.QUEUE_SIZE){
       this.loadRaceQueue();
@@ -67,6 +68,7 @@ export class CharacterService {
   }
 
   loadClassDetails(resp: any){
+    console.log("Class Resp: "+ resp);
     this.http.getClassInfo(resp.results[Math.floor(Math.random() * resp.results.length)].name).subscribe(
       resp => this.formCharacterForQueue(resp),
       error => console.log("Request for specific class details failed."),
@@ -75,6 +77,7 @@ export class CharacterService {
   }
 
   formCharacterForQueue(resp: any){
+    console.log("Class details Resp: "+ resp);
     let newCharacter: Character = new Character();
     newCharacter.name = this.getName();
     newCharacter.alignment = this.alignments[Math.floor(Math.random() * this.alignments.length)];
