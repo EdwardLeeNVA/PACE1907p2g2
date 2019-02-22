@@ -21,6 +21,7 @@ export class AppService {
   private currentUser = new BehaviorSubject(null);
   public currentLoginUser = this.currentUser.asObservable();
 
+  //Current character active in Create Character Screen
   private currentCharacter = new BehaviorSubject(null);
   public currentCharacterObv = this.currentCharacter.asObservable();
 

@@ -20,23 +20,20 @@ export class CharacterService {
   public characterNameQueue: string[] = [];
   public characterClassQueue: string[] = [];
 
-  readonly QUEUE_SIZE: number = 4;
-  readonly MINIMUM_SIZE: number = 1;
+  readonly QUEUE_SIZE: number = 10;
+  readonly MINIMUM_SIZE: number = 2;
 
   alignments: string[] = ['Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'True Neutral', 'Chaotic Neutral', 'Lawful Evil', 'Neutral Evil', 'Chaotic Evil'];
 
   initCharacterQueue(){
-    if(this.characterQueue.length < this.QUEUE_SIZE){
-      this.loadNameQueue();
-      this.loadRaceQueue();
-      this.loadClassQueue();
-    }
+    this.loadNameQueue()
   }
 
   loadNameQueue(){
     while(this.characterNameQueue.length < this.QUEUE_SIZE){
       this.characterNameQueue.push(this.generateRandomName());
     }
+    this.loadRaceQueue();
   }
 
   generateRandomName(): string{
@@ -45,42 +42,51 @@ export class CharacterService {
   }
 
   loadRaceQueue(){
-    this.http.getRace().subscribe(
-      resp => this.addRaceToQueue(resp),
-      error => console.log("Failed to retrieve race."),
-      () => console.log("Race retrieved successfully.")
-    );
+    if(this.characterRaceQueue.length <= this.MINIMUM_SIZE){
+      this.http.getRace().subscribe(
+        resp => this.addRaceToQueue(resp),
+        error => console.log("Failed to retrieve race."),
+        () => console.log("Race retrieved successfully.")
+      );
+    } else {
+      this.loadClassQueue();
+    }
   }
 
   addRaceToQueue(resp: any){
     while(this.characterRaceQueue.length < this.QUEUE_SIZE){
       this.characterRaceQueue.push(resp.results[Math.floor(Math.random() * resp.results.length)].name);
     }
+    this.loadClassQueue();
   }
 
   loadClassQueue(){
-    this.http.getClass().subscribe(
-      resp => this.addClassToQueue(resp),
-      error => console.log("Failed to get classes."),
-      () => console.log("Fetched Class list successfully.")
-    );
+    if(this.characterClassQueue.length <= this.MINIMUM_SIZE){
+      this.http.getClass().subscribe(
+        resp => this.addClassToQueue(resp),
+        error => console.log("Failed to get classes."),
+        () => console.log("Fetched Class list successfully.")
+      );
+    } else {
+      this.loadClassDetails(this.characterClassQueue.shift());
+    }
   }
 
   addClassToQueue(resp: any){
     while(this.characterClassQueue.length < this.QUEUE_SIZE){
       this.characterClassQueue.push(resp.results[Math.floor(Math.random() * resp.results.length)].name)
     }
-    if(this.characterQueue.length < this.QUEUE_SIZE){
-      this.loadClassDetails(this.characterClassQueue.shift());
-    }
+    this.loadClassDetails(this.characterClassQueue.shift());
   }
 
   loadClassDetails(dndClass: string){
-    this.http.getClassInfo(dndClass).subscribe(
-      resp => this.formCharacterForQueue(resp),
-      error => console.log("Request for specific class details failed."),
-      () => console.log("Class details received successfully.")
-    );
+    if(this.characterQueue.length <= this.MINIMUM_SIZE){
+      this.http.getClassInfo(dndClass).subscribe(
+        resp => this.formCharacterForQueue(resp),
+        error => console.log("Request for specific class details failed."),
+        () => console.log("Class details received successfully.")
+      );
+    }
   }
 
   formCharacterForQueue(resp: any){
@@ -103,13 +109,12 @@ export class CharacterService {
     newCharacter.proficiencies = this.getDisplayProficiencies(newCharacter.proficiencies);
     this.characterQueue.push(newCharacter);
     console.log("Added character " + newCharacter.name + ", a " + newCharacter.alignment + " " + newCharacter.dndClass + " " + newCharacter.race);
-    if(this.characterClassQueue.length <= this.MINIMUM_SIZE){
-      this.loadClassQueue();
-    }
-    if(this.characterQueue.length < this.QUEUE_SIZE){
-      this.loadClassDetails(this.characterClassQueue.shift());
+    if(this.characterClassQueue.length <= this.MINIMUM_SIZE || this.characterRaceQueue.length <= this.MINIMUM_SIZE ||
+    this.characterNameQueue.length <= this.MINIMUM_SIZE || this.characterQueue.length <= this.MINIMUM_SIZE){
+      this.loadNameQueue()
     }
   }
+
   getName(){
     if(this.characterNameQueue.length <= this.MINIMUM_SIZE){
       this.loadNameQueue();
@@ -198,7 +203,7 @@ export class CharacterService {
 
   getNewCharacter(): Character{
     if(this.characterQueue.length <= this.MINIMUM_SIZE){
-      this.loadClassDetails(this.characterClassQueue.shift());
+      this.loadNameQueue();
     }
     return this.characterQueue.shift();
   }
@@ -215,6 +220,7 @@ export class CharacterService {
     console.log("Response of get all characters: " + characters);
     for(let x = 0; x < characters.length; x++){
       characters[x].proficiencies = this.removeEmptyProciencies(characters[x].proficiencies);
+      console.log("Character " + characters[x].name + ", a " + characters[x].alignment + " " + characters[x].dndClass + " " + characters[x].race);
     }
     this.app.updateCurrentCharacters(characters);
   }
