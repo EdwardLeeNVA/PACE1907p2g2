@@ -18,17 +18,17 @@
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-4 offset-md-1 justify-content-center">
+<div class="d-flex justify-content-center flex-wrap">
+  <div class="p-6 align-items-center">
     <google-chart type="PieChart" [data]="ownedClass" *ngIf="showOwnedClass" title="My Character Classes" [options]="chartStyleOptions"></google-chart>
   </div>
-  <div class="col-md-4 offset-md-1 justify-content-center">
+  <div class="p-6 align-items-center">
     <google-chart type="PieChart" [data]="ownedRace" *ngIf="showOwnedRace" title="My Character Races" [options]="chartStyleOptions"></google-chart>
   </div>
-  <div class="col-md-4 offset-md-1 justify-content-center">
+  <div class="p-6 align-items-center">
     <google-chart type="PieChart" [data]="globalClass" *ngIf="showGlobalClass" title="All Character Classes" [options]="chartStyleOptions"></google-chart>
   </div>
-  <div class="col-md-4 offset-md-1 justify-content-center">
+  <div class="p-6 align-items-center">
     <google-chart type="PieChart" [data]="globalRace" *ngIf="showGlobalRace" title="All Character Races" [options]="chartStyleOptions"></google-chart>
   </div>
 </div>

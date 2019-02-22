@@ -27,8 +27,8 @@ export class CharacterDataComponent implements OnInit {
   public showGlobalRace: boolean = false;
 
   public chartStyleOptions: any = {
-    height: 400,
-    width: 400
+    height: 300,
+    width: 525
   };
 
   ngOnInit() {
