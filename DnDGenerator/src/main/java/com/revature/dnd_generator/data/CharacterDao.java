@@ -201,10 +201,7 @@ public class CharacterDao extends Dao {
 		ResultSetMetaData rsmd = results.getMetaData();
 		keyColumn = rsmd.getColumnLabel(1);
 		valueColumn = rsmd.getColumnLabel(2);
-<<<<<<< HEAD
 		LOGGER.info("keyColumn: " + keyColumn + "\nvalueColumn: " + valueColumn);
-=======
->>>>>>> Staging
 		return resultSetToCountMap(keyColumn, valueColumn, results);
 	}
 
