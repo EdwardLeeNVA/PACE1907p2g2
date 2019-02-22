@@ -80,6 +80,7 @@ public class CharacterDao extends Dao {
 			statement.execute();
 			int id;
 			try (ResultSet results = (ResultSet) statement.getObject(10)) {
+				results.next();
 				id = results.getInt(COL_CHAR_ID);
 			}
 			return id;
