@@ -83,6 +83,7 @@ public class CharacterDao extends Dao {
 				results.next();
 				id = results.getInt(COL_CHAR_ID);
 			}
+			con.close();
 			return id;
 		} catch (SQLException e) {
 			throw new CharacterCreationFailedException(e);
@@ -97,6 +98,7 @@ public class CharacterDao extends Dao {
 			try (ResultSet results = (ResultSet) statement.getObject(2)) {
 				characters = createCharactersFromResultSet(results);
 			}
+			con.close();
 			return characters;
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
@@ -115,6 +117,7 @@ public class CharacterDao extends Dao {
 				}
 				character = createCharacterFromResult(results);
 			}
+			c.close();
 			return character;
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
@@ -136,6 +139,7 @@ public class CharacterDao extends Dao {
 			String name = character.getName();
 			PreparedStatement stmt = statementMethods().deleteCharacter(con, id, name);
 			stmt.execute();
+			con.close();
 		} catch (SQLException e) {
 			throw new CharacterDeletionFailedException(e);
 		}
@@ -145,6 +149,7 @@ public class CharacterDao extends Dao {
 		LOGGER.info("Top of getOwnedClassCount");
 		try (Connection con = getConnection()) {
 			CallableStatement stmt = statementMethods().getOwnedClassCount(con, playerId);
+			con.close();
 			return getOwnedCountCommon(stmt, COL_PLAYER_CLASS, COL_PLAYER_CLASS_COUNT);
 		} catch (SQLException e) {
 			LOGGER.error("Could not get view.", e);
@@ -156,6 +161,7 @@ public class CharacterDao extends Dao {
 		try (Connection con = getConnection()) {
 			LOGGER.info("Top of getOwnedRaceCount");
 			CallableStatement stmt = statementMethods().getOwnedRaceCount(con, playerId);
+			con.close();
 			return getOwnedCountCommon(stmt, COL_PLAYER_RACE, COL_PLAYER_RACE_COUNT);
 		} catch (SQLException e) {
 			LOGGER.error("Could not get view.", e);
