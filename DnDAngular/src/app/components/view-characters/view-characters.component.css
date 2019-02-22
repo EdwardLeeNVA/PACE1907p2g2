@@ -6,3 +6,12 @@ span{
 input[type="text"]{
   background-color: transparent;
 }
+
+.scrollable{
+  height: 550px;
+  overflow-y: scroll;
+}
+
+.input-group{
+  width: 75%;
+}
