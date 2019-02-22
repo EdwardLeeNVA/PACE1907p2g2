@@ -19,8 +19,8 @@ export class CharacterService {
   public characterRaceQueue: string[] = [];
   public characterNameQueue: string[] = [];
 
-  readonly QUEUE_SIZE: number = 10;
-  readonly MINIMUM_SIZE: number = 3;
+  readonly QUEUE_SIZE: number = 5;
+  readonly MINIMUM_SIZE: number = 2;
 
   alignments: string[] = ['Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'True Neutral', 'Chaotic Neutral', 'Lawful Evil', 'Neutral Evil', 'Chaotic Evil'];
 
@@ -52,7 +52,6 @@ export class CharacterService {
   }
 
   addRaceToQueue(resp: any){
-    console.log("Race Resp: "+ resp);
     this.characterRaceQueue.push(resp.results[Math.floor(Math.random() * resp.results.length)].name);
     if(this.characterRaceQueue.length < this.QUEUE_SIZE){
       this.loadRaceQueue();
@@ -68,7 +67,6 @@ export class CharacterService {
   }
 
   loadClassDetails(resp: any){
-    console.log("Class Resp: "+ resp);
     this.http.getClassInfo(resp.results[Math.floor(Math.random() * resp.results.length)].name).subscribe(
       resp => this.formCharacterForQueue(resp),
       error => console.log("Request for specific class details failed."),
@@ -77,7 +75,6 @@ export class CharacterService {
   }
 
   formCharacterForQueue(resp: any){
-    console.log("Class details Resp: "+ resp);
     let newCharacter: Character = new Character();
     newCharacter.name = this.getName();
     newCharacter.alignment = this.alignments[Math.floor(Math.random() * this.alignments.length)];
@@ -96,6 +93,7 @@ export class CharacterService {
     }
     newCharacter.proficiencies = this.getDisplayProficiencies(newCharacter.proficiencies);
     this.characterQueue.push(newCharacter);
+    console.log("Added character " + newCharacter.name + ", a " + newCharacter.alignment + " " + newCharacter.dndClass + " " + newCharacter.race);
     if(this.characterQueue.length < this.QUEUE_SIZE){
       this.loadCharacterQueue();
     }
