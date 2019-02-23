@@ -108,9 +108,19 @@ export class ViewCharactersComponent implements OnInit {
   verifyDelete(bool: boolean){
     if(bool){
       this.deleteCharacterSuccess = true;
-      this.characters = this.characters.slice(this.characters.indexOf(this.findCharacter(this.deleteCharacterID)),1);
+      this.removeDeletedCharacter();
     } else {
       this.deleteCharacterFailed = true;
     }
+  }
+
+  removeDeletedCharacter(){
+    let newList: Character[] = [];
+    for(let x = 0; x < this.characters.length; x++){
+      if(this.characters[x].id != this.deleteCharacterID){
+        newList.push(this.characters[x]);
+      }
+    }
+    this.characters = newList;
   }
 }
