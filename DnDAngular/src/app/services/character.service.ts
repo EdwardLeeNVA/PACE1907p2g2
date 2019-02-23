@@ -224,8 +224,9 @@ export class CharacterService {
     for(let x = 0; x < characters.length; x++){
       characters[x].proficiencies = this.removeEmptyProciencies(characters[x].proficiencies);
       console.log("Character " + characters[x].name + ", a " + characters[x].alignment + " " + characters[x].dndClass + " " + characters[x].race);
+      this.addCharacter(characters[x]);
     }
-    this.app.updateCurrentCharacters(characters);
+    //this.app.updateCurrentCharacters(characters);
   }
 
   removeEmptyProciencies(prof: string[]){

@@ -15,6 +15,8 @@ import {CharacterService} from "./character.service";
 })
 export class AppService {
 
+  private initArray: Character[] = [];
+
   private loginStatus = new BehaviorSubject(false);
   public currentLoginStatus = this.loginStatus.asObservable();
 
@@ -25,7 +27,7 @@ export class AppService {
   private currentCharacter = new BehaviorSubject(null);
   public currentCharacterObv = this.currentCharacter.asObservable();
 
-  private currentCharacters = new BehaviorSubject(null);
+  private currentCharacters = new BehaviorSubject(this.initArray);
   public currentCharactersObv = this.currentCharacters.asObservable();
 
 
