@@ -13,14 +13,17 @@ import {HttpDdService} from "../../services/http-dd.service";
 })
 export class CreateCharacterComponent implements OnInit {
 
-  constructor(private login: AppService, private router: Router, private cc: CharacterService, private http: HttpDdService) { }
+  constructor(private login: AppService, private router: Router, private http: HttpDdService, private cc: CharacterService) { }
 
   public activeSession: boolean;
   public currentUser: User;
+  public currentCharacter: Character;
+  public displayCharacter: Character;
 
   ngOnInit() {
     this.login.currentLoginStatus.subscribe(status => this.activeSession = status);
     this.login.currentLoginUser.subscribe(user => this.currentUser = user);
+    this.login.currentCharacterObv.subscribe(character => this.currentCharacter = character);
     if(!this.activeSession){
       this.router.navigate(['/']);
     } else {
@@ -28,40 +31,26 @@ export class CreateCharacterComponent implements OnInit {
     }
   }
 
-  character: Character = {
-    id: 0,
-    playerId: 0,
-    name: 'Default',
-    race: 'Dwarf',
-    dndClass: 'Lumberjack',
-    proficiencies: [],
-    alignment: ''
-  };
+  formClickable: boolean = false;
 
   characterSaved: boolean = false;
   failedCharacterSave: boolean = false;
-
-  alignments: string[] = ['Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'True Neutral', 'Chaotic Neutral', 'Lawful Evil', 'Neutral Evil', 'Chaotic Evil'];
-
-  public raceURL: string = "/DnDGenerator/Generator/Races";
-  public classURL: string = "/DnDGenerator/Generator/Classes";
-  public servName: string = "/DnDGenerator/Generator/Name";
+  attemptingCharacterSave: boolean = false;
 
   generateCharacter(){
-    this.characterSaved = false;
-    this.failedCharacterSave = false;
-    this.getClass();
-    this.character.name = this.cc.getRandomName();
-    this.getRace();
-    this.character.alignment = this.alignments[Math.floor(Math.random() * this.alignments.length)];
+    this.login.getNextCharacter();
+    this.displayCharacter = this.currentCharacter;
   }
 
   saveCharacter(){
+    this.formClickable = true;
     this.characterSaved = false;
     this.failedCharacterSave = false;
-    this.http.saveCharacter(this.character).subscribe(
+    this.http.saveCharacter(this.currentCharacter).subscribe(
       data => this.verifySaveCharacter(data),
-      error => console.error("Failed to send Save Character"),
+      error => {console.error("Failed to send Save Character");
+        this.formClickable = true;
+        this.failedCharacterSave = true;},
       () => console.log("Save Character call completed.")
     );
   }
@@ -70,124 +59,11 @@ export class CreateCharacterComponent implements OnInit {
     console.log("Character ID Received: " + data);
     if(data > 0){
       this.characterSaved = true;
-      this.character.id = data;
+      this.displayCharacter.id = data;
+      this.generateCharacter();
     } else {
       this.failedCharacterSave = true;
     }
-  }
-
-  getClass(){
-    const getClass = new XMLHttpRequest();
-    getClass.onreadystatechange = () => {
-      if((getClass.readyState == 4) && (getClass.status == 200)){
-        const resp = JSON.parse(getClass.responseText);
-        const index = Math.floor(Math.random() * resp.results.length);
-        this.character.dndClass = resp.results[index].name;
-        this.getClassInfo(this.character.dndClass);
-      }
-    };
-    getClass.open("get", this.classURL);
-    getClass.send();
-  }
-
-  getClassInfo(c: string){
-    const newURL = this.classURL + '/' + c;
-    const getClassInfo = new XMLHttpRequest();
-    getClassInfo.onreadystatechange = () => {
-        if((getClassInfo.readyState == 4) && (getClassInfo.status == 200)){
-        const resp = JSON.parse(getClassInfo.responseText);
-        if(c == 'Bard') this.character.proficiencies = this.getProficiencyBard(resp);
-        else if(c == 'Monk') this.character.proficiencies = this.getProficiencyMonk(resp);
-        else{
-          this.character.proficiencies = this.getProficiencyGeneral(resp);
-        }
-        this.getDisplayProficiencies();
-      }
-    };
-    getClassInfo.open("get", newURL);
-    getClassInfo.send();
-  }
-
-  getRandomSelections(size: number, range: number): number[]{
-    let returnArray: number[] = [];
-    returnArray.push(Math.floor(Math.random() * range));
-    while(returnArray.length < size){
-      let potentialValue: number = Math.floor(Math.random() * range);
-      let addToArray: boolean = true;
-      for(let x = 0; x < returnArray.length; x++){
-        if(returnArray[x] == potentialValue){
-          addToArray = false;
-          break;
-        }
-      }
-      if(addToArray) returnArray.push(potentialValue);
-    }
-    return returnArray;
-  }
-
-  getRace(){
-    const getRace = new XMLHttpRequest();
-    getRace.onreadystatechange = () => {
-      if((getRace.readyState == 4) && (getRace.status == 200)){
-        const resp = JSON.parse(getRace.responseText);
-        const index = Math.floor(Math.random() * resp.results.length);
-        this.character.race = resp.results[index].name;
-      }
-    };
-    getRace.open("get", this.raceURL);
-    getRace.send();
-  }
-
-  getProficiencyGeneral(resp){
-    let returnArray: string[] = [];
-    switch(resp.proficiency_choices[0].choose){
-      case 1:
-        returnArray.push(resp.proficiency_choices[0].from[Math.floor(Math.random() * resp.proficiency_choices[0].choose)].name);
-        break;
-      case 2:
-        const case2Selections = this.getRandomSelections(resp.proficiency_choices[0].choose, resp.proficiency_choices[0].from.length);
-        returnArray.push(resp.proficiency_choices[0].from[case2Selections[0]].name);
-        returnArray.push(resp.proficiency_choices[0].from[case2Selections[1]].name);
-        break;
-      case 3:
-        const case3Selections = this.getRandomSelections(resp.proficiency_choices[0].choose, resp.proficiency_choices[0].from.length);
-        returnArray.push(resp.proficiency_choices[0].from[case3Selections[0]].name);
-        returnArray.push(resp.proficiency_choices[0].from[case3Selections[1]].name);
-        returnArray.push(resp.proficiency_choices[0].from[case3Selections[2]].name);
-        break;
-      default:
-        const case4Selections = this.getRandomSelections(resp.proficiency_choices[0].choose, resp.proficiency_choices[0].from.length);
-        returnArray.push(resp.proficiency_choices[0].from[case4Selections[0]].name);
-        returnArray.push(resp.proficiency_choices[0].from[case4Selections[1]].name);
-        returnArray.push(resp.proficiency_choices[0].from[case4Selections[2]].name);
-        returnArray.push(resp.proficiency_choices[0].from[case4Selections[3]].name);
-        break;
-    }
-    return returnArray;
-  }
-
-  getProficiencyMonk(resp){
-    let returnArray: string[] = [];
-    const case2Selections = this.getRandomSelections(resp.proficiency_choices[2].choose, resp.proficiency_choices[2].from.length);
-    returnArray.push(resp.proficiency_choices[2].from[case2Selections[0]].name);
-    returnArray.push(resp.proficiency_choices[2].from[case2Selections[1]].name);
-    return returnArray;
-  }
-
-  getProficiencyBard(resp){
-    let returnArray: string[] = [];
-    const case2Selections = this.getRandomSelections(resp.proficiency_choices[0].choose, resp.proficiency_choices[0].from.length);
-    returnArray.push(resp.proficiency_choices[0].from[case2Selections[0]].name);
-    returnArray.push(resp.proficiency_choices[0].from[case2Selections[1]].name);
-    returnArray.push(resp.proficiency_choices[0].from[case2Selections[2]].name);
-    return returnArray;
-  }
-
-  getDisplayProficiencies(){
-    let count: number = 0;
-    while(count < this.character.proficiencies.length){
-      this.character.proficiencies[count] = this.character.proficiencies[count].substring(7);
-      count++;
-    }
+    this.formClickable = false;
   }
 }

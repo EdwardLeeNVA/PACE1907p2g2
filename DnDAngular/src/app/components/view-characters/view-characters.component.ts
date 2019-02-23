@@ -4,6 +4,7 @@ import {AppService} from "../../services/app-service.service";
 import {Router} from "@angular/router";
 import {User} from "../../models/user";
 import {HttpDdService} from "../../services/http-dd.service";
+import {CharacterService} from "../../services/character.service";
 
 @Component({
   selector: 'app-view-characters',
@@ -28,9 +29,9 @@ export class ViewCharactersComponent implements OnInit {
   }
 
   characters: Character[] = null;
-  collapsibles: Element[] = null;
   deleteCharacterSuccess: boolean = false;
   deleteCharacterFailed: boolean = false;
+  deleteCharacterID: number = -1;
 
 
   getAllCharacters(){
@@ -51,20 +52,20 @@ export class ViewCharactersComponent implements OnInit {
   }
 
   removeEmptyProciencies(){
-   let count = 0;
-   let newList: string[] = [];
-   while(count < this.characters.length){
-     let profCount = 0;
-     while(profCount < this.characters[count].proficiencies.length) {
-       if((this.characters[count].proficiencies[profCount] != null) && (this.characters[count].proficiencies[profCount] != '')){
-         newList.push(this.characters[count].proficiencies[profCount]);
-       }
-       profCount++;
-     }
-     this.characters[count].proficiencies = newList;
-     newList = [];
-     count++;
-   }
+    let count = 0;
+    let newList: string[] = [];
+    while(count < this.characters.length){
+      let profCount = 0;
+      while(profCount < this.characters[count].proficiencies.length) {
+        if((this.characters[count].proficiencies[profCount] != null) && (this.characters[count].proficiencies[profCount] != '')){
+          newList.push(this.characters[count].proficiencies[profCount]);
+        }
+        profCount++;
+      }
+      this.characters[count].proficiencies = newList;
+      newList = [];
+      count++;
+    }
   }
 
   collapsibleCall(id: any){
@@ -94,20 +95,32 @@ export class ViewCharactersComponent implements OnInit {
   deleteCharacter(id: any){
     this.deleteCharacterSuccess = false;
     this.deleteCharacterFailed = false;
+    this.deleteCharacterID = id;
     let character: Character = this.findCharacter(id);
     console.log(character);
     this.http.deleteCharacter(character).subscribe(
-      bool => this.verifiyDelete(bool),
+      bool => this.verifyDelete(bool),
       error => console.log("Failed to receive response to delete character."),
       () => console.log("Delete character completed.")
     );
   }
 
-  verifiyDelete(bool: boolean){
+  verifyDelete(bool: boolean){
     if(bool){
       this.deleteCharacterSuccess = true;
+      this.removeDeletedCharacter();
     } else {
       this.deleteCharacterFailed = true;
     }
+  }
+
+  removeDeletedCharacter(){
+    let newList: Character[] = [];
+    for(let x = 0; x < this.characters.length; x++){
+      if(this.characters[x].id != this.deleteCharacterID){
+        newList.push(this.characters[x]);
+      }
+    }
+    this.characters = newList;
   }
 }

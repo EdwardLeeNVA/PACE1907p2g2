@@ -21,8 +21,8 @@ export class CharacterDataComponent implements OnInit {
   public globalClass: any = [];
   public globalRace: any = [];
 
-  public showOwnedClass: boolean = false;
-  public showOwnedRace: boolean = false;
+  public showOwnedClass: boolean = true;
+  public showOwnedRace: boolean = true;
   public showGlobalClass: boolean = false;
   public showGlobalRace: boolean = false;
 

@@ -8,6 +8,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../models/user';
 import {Character} from "../models/character";
+import {keyframes} from "@angular/animations";
 
 @Injectable({
   providedIn: 'root'
@@ -41,11 +42,15 @@ export class HttpDdService {
     return this.http.post<number>(saveCharacterPath, character, this.httpJSON);
   }
 
-  fetchClass(): Observable<any>{
+  getClass(): Observable<any>{
     const fetchClassPath: string = this.dbURL + 'Classes';
     return this.http.get<any>(fetchClassPath);
   }
 
+  getRace(): Observable<any>{
+    const fetchRacePath: string = this.dbURL + 'Races';
+    return this.http.get<any>(fetchRacePath);
+  }
   getClassInfo(dndClass: string): Observable<any>{
     const fetchClassInfoPath: string = this.dbURL + 'Classes/' + dndClass;
     return this.http.get<any>(fetchClassInfoPath);

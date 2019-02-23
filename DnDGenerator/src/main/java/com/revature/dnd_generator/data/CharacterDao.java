@@ -83,6 +83,7 @@ public class CharacterDao extends Dao {
 				results.next();
 				id = results.getInt(COL_CHAR_ID);
 			}
+			con.close();
 			return id;
 		} catch (SQLException e) {
 			throw new CharacterCreationFailedException(e);
@@ -97,6 +98,7 @@ public class CharacterDao extends Dao {
 			try (ResultSet results = (ResultSet) statement.getObject(2)) {
 				characters = createCharactersFromResultSet(results);
 			}
+			con.close();
 			return characters;
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
@@ -115,6 +117,7 @@ public class CharacterDao extends Dao {
 				}
 				character = createCharacterFromResult(results);
 			}
+			c.close();
 			return character;
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage(), e);
@@ -136,6 +139,7 @@ public class CharacterDao extends Dao {
 			String name = character.getName();
 			PreparedStatement stmt = statementMethods().deleteCharacter(con, id, name);
 			stmt.execute();
+			con.close();
 		} catch (SQLException e) {
 			throw new CharacterDeletionFailedException(e);
 		}

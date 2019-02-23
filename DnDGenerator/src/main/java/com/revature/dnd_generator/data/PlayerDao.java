@@ -28,6 +28,7 @@ public class PlayerDao extends Dao {
 		try (Connection c = getConnection()) {
 			CallableStatement statement = statementMethods().insertUser(c, username, password);
 			statement.execute();
+			c.close();
 		} catch (SQLIntegrityConstraintViolationException e) {
 			throw new ExistingUsernameException(e);
 		} catch (SQLException e) {
@@ -43,6 +44,7 @@ public class PlayerDao extends Dao {
 			if (userId <= 0) {
 				throw new IncorrectLoginException();
 			}
+			c.close();
 			return userId;
 		} catch (SQLException e) {
 			throw new IncorrectLoginException(e);
