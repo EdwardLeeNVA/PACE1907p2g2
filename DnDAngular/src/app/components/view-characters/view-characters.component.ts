@@ -19,19 +19,13 @@ export class ViewCharactersComponent implements OnInit {
   public currentUser: User;
   public characters: Character[];
 
-  public testCharacters: Character[];
-
   ngOnInit() {
     this.login.currentLoginStatus.subscribe(status => this.activeSession = status);
     this.login.currentLoginUser.subscribe(user => this.currentUser = user);
-    this.login.currentCharactersObv.subscribe(characters => this.characters = characters);
     if(!this.activeSession){
       this.router.navigate(['/']);
     }
-    this.testCharacters = this.login.getAllCharacters();
-    for(let x = 0; x < this.testCharacters.length; x++){
-      console.log("Character " + this.testCharacters[x].name + ", a " + this.testCharacters[x].alignment + " " + this.testCharacters[x].dndClass + " " + this.testCharacters[x].race);
-    }
+    this.characters = this.login.getAllCharacters();
     for(let x = 0; x < this.characters.length; x++){
       console.log("Character " + this.characters[x].name + ", a " + this.characters[x].alignment + " " + this.characters[x].dndClass + " " + this.characters[x].race);
     }
@@ -80,6 +74,7 @@ export class ViewCharactersComponent implements OnInit {
     if(bool){
       this.deleteCharacterSuccess = true;
       this.cc.removeCharacter(this.characterDelete);
+      this.characters = this.login.getAllCharacters();
     } else {
       this.deleteCharacterFailed = true;
     }

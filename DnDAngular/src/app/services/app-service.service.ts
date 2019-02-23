@@ -27,9 +27,7 @@ export class AppService {
   private currentCharacter = new BehaviorSubject(null);
   public currentCharacterObv = this.currentCharacter.asObservable();
 
-  private currentCharacters = new BehaviorSubject(this.initArray);
-  public currentCharactersObv = this.currentCharacters.asObservable();
-
+  private allCharacters: Character[] = [];
 
   constructor(private cc: CharacterService) { }
 
@@ -42,7 +40,7 @@ export class AppService {
   }
 
   updateCurrentCharacters(characters: Character[]){
-    this.currentCharacters.next(characters);
+    this.allCharacters = characters;
   }
 
   getNextCharacter(){
@@ -50,7 +48,7 @@ export class AppService {
   }
 
   getAllCharacters(){
-    return this.currentCharacters.getValue();
+    return this.allCharacters;
   }
 
   initCreateCharacters(){
