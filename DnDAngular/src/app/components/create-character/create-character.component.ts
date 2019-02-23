@@ -60,7 +60,6 @@ export class CreateCharacterComponent implements OnInit {
     if(data > 0){
       this.characterSaved = true;
       this.displayCharacter.id = data;
-      this.cc.addCharacter(this.displayCharacter);
       this.generateCharacter();
     } else {
       this.failedCharacterSave = true;
