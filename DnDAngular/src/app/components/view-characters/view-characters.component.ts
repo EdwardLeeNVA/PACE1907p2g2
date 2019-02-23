@@ -22,10 +22,10 @@ export class ViewCharactersComponent implements OnInit {
   ngOnInit() {
     this.login.currentLoginStatus.subscribe(status => this.activeSession = status);
     this.login.currentLoginUser.subscribe(user => this.currentUser = user);
-    this.login.charactersListObservable.subscribe(data => this.characters = data);
     if(!this.activeSession){
       this.router.navigate(['/']);
     }
+    this.characters = this.cc.getMyCharacters(this.currentUser);
   }
 
   characterDelete: Character = null;
@@ -70,8 +70,7 @@ export class ViewCharactersComponent implements OnInit {
   verifyDelete(bool: boolean){
     if(bool){
       this.deleteCharacterSuccess = true;
-      this.cc.removeCharacter(this.characterDelete);
-      this.characters = this.login.getAllCharacters();
+      this.characters = this.characters.slice(this.characters.indexOf(this.characterDelete),1);
     } else {
       this.deleteCharacterFailed = true;
     }
