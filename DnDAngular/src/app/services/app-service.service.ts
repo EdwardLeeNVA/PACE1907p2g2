@@ -15,7 +15,32 @@ import {CharacterService} from "./character.service";
 })
 export class AppService {
 
-  private initArray: Character[] = [];
+  private initArray: Character[] = [
+    {
+      id: 0,
+      playerId: 0,
+      name: 'Dummy',
+      race: 'Elf',
+      dndClass: 'Fighter',
+      proficiencies: [
+        'Lumberjack',
+        'Flare'
+      ],
+      alignment: 'Chaotic Good'
+    },
+    {
+      id: 1,
+      playerId: 0,
+      name: 'Data',
+      race: 'Human',
+      dndClass: 'Fighter',
+      proficiencies: [
+        'Lumberjack',
+        'Flare'
+      ],
+      alignment: 'Chaotic Good'
+    }
+  ];
 
   private loginStatus = new BehaviorSubject(false);
   public currentLoginStatus = this.loginStatus.asObservable();
@@ -26,6 +51,9 @@ export class AppService {
   //Current character active in Create Character Screen
   private currentCharacter = new BehaviorSubject(null);
   public currentCharacterObv = this.currentCharacter.asObservable();
+
+  private charactersList = new BehaviorSubject(null);
+  public charactersListObservable = this.charactersList.asObservable();
 
   private allCharacters: Character[] = [];
 
@@ -39,8 +67,8 @@ export class AppService {
     this.currentUser.next(updateUser);
   }
 
-  updateCurrentCharacters(characters: Character[]){
-    this.allCharacters = characters;
+  updateCharactersList(resp: any){
+    this.charactersList.next(resp);
   }
 
   getNextCharacter(){
@@ -48,7 +76,7 @@ export class AppService {
   }
 
   getAllCharacters(){
-    return this.allCharacters;
+    return this.charactersList.value;
   }
 
   initCreateCharacters(){
@@ -56,7 +84,7 @@ export class AppService {
   }
 
   initCurrentUserCharacters(){
-    this.cc.getMyCharacters(this.currentUser.getValue());
+    this.cc.getMyCharacters(this.currentUser.value);
   }
 }
 

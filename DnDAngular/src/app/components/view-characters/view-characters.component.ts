@@ -22,12 +22,9 @@ export class ViewCharactersComponent implements OnInit {
   ngOnInit() {
     this.login.currentLoginStatus.subscribe(status => this.activeSession = status);
     this.login.currentLoginUser.subscribe(user => this.currentUser = user);
+    this.login.charactersListObservable.subscribe(data => this.characters = data);
     if(!this.activeSession){
       this.router.navigate(['/']);
-    }
-    this.characters = this.login.getAllCharacters();
-    for(let x = 0; x < this.characters.length; x++){
-      console.log("Character " + this.characters[x].name + ", a " + this.characters[x].alignment + " " + this.characters[x].dndClass + " " + this.characters[x].race);
     }
   }
 
