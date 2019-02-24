@@ -28,3 +28,26 @@ button{
 .failed-character{
   color: red;
 }
+
+.reduceSize{
+  width: 75%;
+  align-content: center;
+}
+
+.label{
+  width: 120px;
+  background-color: lightgray;
+  font-size: 20px;
+}
+
+.value{
+  font-size: 20px;
+}
+
+mat-panel-title{
+  font-size: 24px;
+}
+
+.delete{
+  align-content: center;
+}

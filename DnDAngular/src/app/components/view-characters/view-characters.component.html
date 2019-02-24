@@ -1,3 +1,9 @@
+<div class="row">
+  <div class="col-md-8 offset-md-2 text-center">
+    <p class="created-character" *ngIf="deleteCharacterSuccess">Character Deleted Successfully.</p>
+    <p class="failed-character" *ngIf="deleteCharacterFailed">Failed to delete Character.</p>
+  </div>
+</div>
 <div class="col-md-6 offset-md-3">
   <mat-accordion>
     <mat-expansion-panel *ngFor="let character of characters">
@@ -39,61 +45,3 @@
   </mat-accordion>
 </div>
 
-<div class="row scrollable">
-  <div class="col-md-6 offset-md-3" *ngFor="let character of characters">
-    <button class="btn-dark btn-block text-left" (click)="collapsibleCall(character.id)">{{character.name}} a {{character.alignment}} {{character.race}} {{character.dndClass}}</button>
-    <div class="content" [id]="character.id" style="display: none;">
-      <div class="row text-center justify-content-center">
-        <div class="input-group input-group-lg text-center justify-content-center">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Name</span>
-          </div>
-          <input type="text" class="form-control" [value]="character.name" disabled>
-        </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="input-group input-group-lg text-center justify-content-center">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Class</span>
-          </div>
-          <input type="text" class="form-control" [value]="character.dndClass" disabled>
-        </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="input-group input-group-lg text-center justify-content-center">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Race</span>
-          </div>
-          <input type="text" class="form-control" [value]="character.race" disabled>
-        </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="input-group input-group-lg text-center justify-content-center">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Alignment</span>
-          </div>
-          <input type="text" class="form-control" [value]="character.alignment" disabled>
-        </div>
-      </div>
-      <div class="row text-center justify-content-center" *ngFor="let proficiency of character.proficiencies">
-        <div class="input-group input-group-lg text-center justify-content-center">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Proficiency</span>
-          </div>
-          <input type="text" class="form-control" [value]="proficiency" disabled>
-        </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="input-group input-group-lg text-center justify-content-center">
-          <button class="btn btn-danger btn-block reduceSize" (click)="deleteCharacter(character.id)">Delete {{character.name}}</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-8 offset-md-2 text-center">
-    <p class="created-character" *ngIf="deleteCharacterSuccess">Character Deleted Successfully.</p>
-    <p class="failed-character" *ngIf="deleteCharacterFailed">Failed to delete Character.</p>
-  </div>
-</div>
