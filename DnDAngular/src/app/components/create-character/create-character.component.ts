@@ -36,8 +36,15 @@ export class CreateCharacterComponent implements OnInit {
   characterSaved: boolean = false;
   failedCharacterSave: boolean = false;
   attemptingCharacterSave: boolean = false;
+  justSavedCharacter: boolean = false;
 
   generateCharacter(){
+    if(this.justSavedCharacter){
+      this.justSavedCharacter = false;
+    } else{
+      this.characterSaved = false;
+      this.failedCharacterSave = false;
+    }
     this.login.getNextCharacter();
     this.displayCharacter = this.currentCharacter;
   }
@@ -60,6 +67,7 @@ export class CreateCharacterComponent implements OnInit {
     if(data > 0){
       this.characterSaved = true;
       this.displayCharacter.id = data;
+      this.justSavedCharacter = true;
       this.generateCharacter();
     } else {
       this.failedCharacterSave = true;

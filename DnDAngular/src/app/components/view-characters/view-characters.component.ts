@@ -32,6 +32,7 @@ export class ViewCharactersComponent implements OnInit {
   deleteCharacterSuccess: boolean = false;
   deleteCharacterFailed: boolean = false;
   deleteCharacterID: number = -1;
+  deletedCharacter: Character;
 
 
   getAllCharacters(){
@@ -65,20 +66,11 @@ export class ViewCharactersComponent implements OnInit {
     }
   }
 
-  findCharacter(id: number): Character{
-    for(let x = 0; x < this.characters.length; x++){
-      if(this.characters[x].id == id){
-        return this.characters[x];
-      }
-    }
-    return null;
-  }
-
-  deleteCharacter(id: any){
+  deleteCharacter(character: Character){
+    this.deletedCharacter = character;
     this.deleteCharacterSuccess = false;
     this.deleteCharacterFailed = false;
-    this.deleteCharacterID = id;
-    let character: Character = this.findCharacter(id);
+    this.deleteCharacterID = character.id;
     console.log(character);
     this.http.deleteCharacter(character).subscribe(
       bool => this.verifyDelete(bool),
