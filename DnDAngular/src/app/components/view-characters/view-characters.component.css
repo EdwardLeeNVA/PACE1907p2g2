@@ -52,4 +52,5 @@ mat-panel-title {
 }
 div {
   opacity: 1;
+  background-color: darkgray;
 }
