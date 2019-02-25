@@ -1,53 +1,52 @@
-span{
+span {
   float: left;
   width: 120px;
 }
 
-input[type="text"]{
-  background-color: transparent;
+input[type="text"] {
 }
 
-button{
+button {
   font-size: 24px;
   font-family: Arial;
 }
 
-.scrollable{
+.scrollable {
   height: 70%;
   overflow-y: scroll;
 }
 
-.input-group{
+.input-group {
   width: 75%;
 }
 
-.created-character{
+.created-character {
   color: blue;
 }
 
-.failed-character{
+.failed-character {
   color: red;
 }
 
-.reduceSize{
+.reduceSize {
   width: 75%;
   align-content: center;
 }
 
-.label{
+.label {
   width: 120px;
   background-color: lightgray;
   font-size: 20px;
 }
 
-.value{
+.value {
   font-size: 20px;
 }
 
-mat-panel-title{
+mat-panel-title {
   font-size: 24px;
 }
 
-.delete{
+.delete {
   align-content: center;
 }
