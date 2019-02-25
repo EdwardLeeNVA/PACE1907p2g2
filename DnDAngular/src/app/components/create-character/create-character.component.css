@@ -1,16 +1,15 @@
-span{
+span {
   float: left;
   width: 120px;
 }
 
-input[type="text"]{
-  background-color: transparent;
+input[type="text"] {
 }
 
-.created-character{
+.created-character {
   color: blue;
 }
 
-.failed-character{
+.failed-character {
   color: red;
 }
