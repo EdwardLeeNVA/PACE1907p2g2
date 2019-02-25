@@ -80,7 +80,7 @@ export class ViewCharactersComponent implements OnInit {
   }
 
   verifyDelete(bool: boolean){
-    document.getElementById("deleteFeedback").focus();
+    scroll(0,0);
     if(bool){
       this.deleteCharacterSuccess = true;
       this.removeDeletedCharacter();
