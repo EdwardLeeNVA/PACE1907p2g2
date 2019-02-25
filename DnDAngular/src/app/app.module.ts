@@ -16,8 +16,9 @@ import { AppRoutes } from './shared/app.routes';
 import { LandingComponent } from './components/landing/landing.component';
 import {AppService} from "./services/app-service.service";
 import { CharacterDataComponent } from './components/character-data/character-data.component';
-
-
+import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { MatExpansionModule} from "@angular/material";
+import {MatFormFieldModule, MatInputModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,11 @@ import { CharacterDataComponent } from './components/character-data/character-da
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(AppRoutes),
-    GoogleChartsModule.forRoot()
+    GoogleChartsModule.forRoot(),
+    MatExpansionModule,
+    MatFormFieldModule,
+    BrowserAnimationsModule,
+    MatInputModule
   ],
   providers: [
     HttpDdService,

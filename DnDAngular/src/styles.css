@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap";
 
-*{
-
+* {
+}
+body {
+  background-image: url("https://i0.wp.com/www.eberron5e.com/wp-content/uploads/2016/12/background-deserter.jpg?w=750");
+  color: white;
 }

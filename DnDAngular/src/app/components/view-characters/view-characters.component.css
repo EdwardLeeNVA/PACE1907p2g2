@@ -1,30 +1,59 @@
-span{
+span {
   float: left;
   width: 120px;
 }
 
-input[type="text"]{
-  background-color: transparent;
+input[type="text"] {
 }
 
-button{
+button {
   font-size: 24px;
   font-family: Arial;
 }
 
-.scrollable{
+.scrollable {
   height: 70%;
   overflow-y: scroll;
 }
 
-.input-group{
+.input-group {
   width: 75%;
 }
 
-.created-character{
+.created-character {
   color: blue;
 }
 
-.failed-character{
+.failed-character {
   color: red;
+}
+
+.reduceSize {
+  width: 75%;
+  align-content: center;
+}
+
+.label {
+  width: 120px;
+  background-color: gray;
+  opacity: 0.8;
+  font-size: 20px;
+}
+
+.value {
+  font-size: 20px;
+  background-color: black;
+  opacity: 0.8;
+}
+
+mat-panel-title {
+  font-size: 24px;
+}
+
+.delete {
+  align-content: center;
+}
+div {
+  opacity: 1;
+  background-image: url("https://cdn3.dualshockers.com/wp-content/uploads/2012/12/Baldurs_Gate_EE_Featured-ds1-1340x1340.jpg");
 }
