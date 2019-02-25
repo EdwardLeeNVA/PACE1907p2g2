@@ -36,14 +36,14 @@ button {
 .label {
   width: 120px;
   background-color: gray;
-  opacity: 0.5;
+  opacity: 0.8;
   font-size: 20px;
 }
 
 .value {
   font-size: 20px;
   background-color: black;
-  opacity: 0.3;
+  opacity: 0.8;
 }
 
 mat-panel-title {
