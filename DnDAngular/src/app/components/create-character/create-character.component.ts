@@ -20,6 +20,8 @@ export class CreateCharacterComponent implements OnInit {
   public currentCharacter: Character;
   public displayCharacter: Character;
 
+  public recentlySavedCharacter: Character;
+
   ngOnInit() {
     this.login.currentLoginStatus.subscribe(status => this.activeSession = status);
     this.login.currentLoginUser.subscribe(user => this.currentUser = user);
@@ -53,6 +55,7 @@ export class CreateCharacterComponent implements OnInit {
     this.formClickable = true;
     this.characterSaved = false;
     this.failedCharacterSave = false;
+    this.recentlySavedCharacter = this.currentCharacter;
     this.http.saveCharacter(this.currentCharacter).subscribe(
       data => this.verifySaveCharacter(data),
       error => {console.error("Failed to send Save Character");
