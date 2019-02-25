@@ -50,3 +50,6 @@ mat-panel-title {
 .delete {
   align-content: center;
 }
+div {
+  opacity: 1;
+}
