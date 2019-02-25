@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" id="deleteFeedback">
   <div class="col-md-8 offset-md-2 text-center">
     <p class="created-character" *ngIf="deleteCharacterSuccess">Deleted {{deletedCharacter.name}} a {{deletedCharacter.alignment}} {{deletedCharacter.race}} {{deletedCharacter.dndClass}}, Successfully.</p>
     <p class="failed-character" *ngIf="deleteCharacterFailed">Failed to delete {{deletedCharacter.name}} a {{deletedCharacter.alignment}} {{deletedCharacter.race}} {{deletedCharacter.dndClass}}.</p>

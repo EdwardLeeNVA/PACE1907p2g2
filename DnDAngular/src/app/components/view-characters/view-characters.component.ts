@@ -80,6 +80,7 @@ export class ViewCharactersComponent implements OnInit {
   }
 
   verifyDelete(bool: boolean){
+    scroll(0,0);
     if(bool){
       this.deleteCharacterSuccess = true;
       this.removeDeletedCharacter();
